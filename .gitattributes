@@ -13,3 +13,4 @@
 *.docx binary
 *.pptx binary
 *.parquet binary
+*.db binary

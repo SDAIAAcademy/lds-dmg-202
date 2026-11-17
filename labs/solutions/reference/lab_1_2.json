@@ -1,0 +1,282 @@
+[
+ {
+  "id": "D01",
+  "asset": "licensing.practitioners",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D02",
+  "asset": "licensing.licences",
+  "decision": "تعديل",
+  "error_type": "يكرر الاسم",
+  "reference_text": "الرخص المهنية الصادرة: صف لكل رخصة برقمها وصاحبها ومهنتها وفئتها وحالتها وتواريخ إصدارها وانتهائها وآخر تجديد."
+ },
+ {
+  "id": "D03",
+  "asset": "licensing.applications",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D04",
+  "asset": "licensing.renewals",
+  "decision": "رفض",
+  "error_type": "قاعدة مختلقة",
+  "reference_text": "طلبات تجديد الرخص: رقم الرخصة، وتاريخ الطلب، وساعات التطوير المهني المصرّح بها، والقرار وتاريخه. الحد الأدنى للساعات يختلف بالمهنة (جدول professions)، ولا رفض آليًا."
+ },
+ {
+  "id": "D05",
+  "asset": "licensing.fee_payments",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D06",
+  "asset": "licensing.fee_schedule",
+  "decision": "تعديل",
+  "error_type": "يكرر الاسم",
+  "reference_text": "الرسوم المعتمدة لكل مهنة ونوع طلب (جديد، تجديد، ترقية) بالريال، وتاريخ سريان كل رسم."
+ },
+ {
+  "id": "D07",
+  "asset": "licensing.professions",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D08",
+  "asset": "licensing.regions",
+  "decision": "رفض",
+  "error_type": "معنى خاطئ",
+  "reference_text": "قائمة مرجعية برموز المناطق الإدارية وأسمائها، تُستعمل لمنطقة ممارسة الممارس. لا فروع فيها ولا موظفين."
+ },
+ {
+  "id": "D09",
+  "asset": "licensing.v_active_licences",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D10",
+  "asset": "filestore.renewal_reminders",
+  "decision": "رفض",
+  "error_type": "قيمة مسربة",
+  "reference_text": "ملفات شهرية بالرخص التي يقترب انتهاؤها وأُرسل لأصحابها تذكير بالتجديد: رقم الرخصة، ومعرّف الممارس، وجواله، وتاريخ الانتهاء، وتاريخ الإرسال. فيها بيانات شخصية."
+ },
+ {
+  "id": "D11",
+  "asset": "filestore.published_licence_stats",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D12",
+  "asset": "filestore.public_register",
+  "decision": "رفض",
+  "error_type": "معنى خاطئ",
+  "reference_text": "السجل العام للتحقق من الرخص: رقم الرخصة واسم صاحبها ومهنته وحالة الرخصة وتاريخ انتهائها، للرخص السارية والموقوفة فقط. لا هوية ولا جوال."
+ },
+ {
+  "id": "D13",
+  "asset": "filestore.published_application_stats",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D14",
+  "asset": "filestore.published_processing_times",
+  "decision": "تعديل",
+  "error_type": "وحدة أو صيغة خاطئة",
+  "reference_text": "الوسيط الشهري لمدة معالجة الطلب بالأيام، من التقديم إلى القرار، لكل مهنة."
+ },
+ {
+  "id": "D15",
+  "asset": "licensing.practitioners.practitioner_id",
+  "decision": "تعديل",
+  "error_type": "يكرر الاسم",
+  "reference_text": "معرّف داخلي ثابت للممارس تمنحه الهيئة عند التسجيل (صيغته P- ثم خمسة أرقام)، ولا يتغير بتغير الرخصة."
+ },
+ {
+  "id": "D16",
+  "asset": "licensing.practitioners.national_id",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D17",
+  "asset": "licensing.practitioners.mobile",
+  "decision": "تعديل",
+  "error_type": "قاعدة مختلقة",
+  "reference_text": "رقم جوال الممارس المعتمد للتواصل، ويُستعمل في رسائل التذكير بالتجديد. بيان شخصي."
+ },
+ {
+  "id": "D18",
+  "asset": "licensing.practitioners.birth_date",
+  "decision": "تعديل",
+  "error_type": "وحدة أو صيغة خاطئة",
+  "reference_text": "تاريخ ميلاد الممارس بصيغة سنة-شهر-يوم. بيان شخصي."
+ },
+ {
+  "id": "D19",
+  "asset": "licensing.practitioners.region_code",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D20",
+  "asset": "licensing.practitioners.registered_on",
+  "decision": "تعديل",
+  "error_type": "يكرر الاسم",
+  "reference_text": "تاريخ فتح ملف الممارس في الهيئة لأول مرة، وقد يسبق إصدار أول رخصة له."
+ },
+ {
+  "id": "D21",
+  "asset": "licensing.licences.licence_no",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D22",
+  "asset": "licensing.licences.licence_class",
+  "decision": "تعديل",
+  "error_type": "يكرر الاسم",
+  "reference_text": "فئة الرخصة: A ممارس مستقل، وB ممارس تحت إشراف ممارس من الفئة A."
+ },
+ {
+  "id": "D23",
+  "asset": "licensing.licences.status",
+  "decision": "رفض",
+  "error_type": "قاعدة مختلقة",
+  "reference_text": "حالة الرخصة كما يسجلها قسم الترخيص: active أو expired أو suspended أو cancelled. لا تتغير إلا بقرار مسجل."
+ },
+ {
+  "id": "D24",
+  "asset": "licensing.licences.issued_on",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D25",
+  "asset": "licensing.licences.expiry_date",
+  "decision": "تعديل",
+  "error_type": "يكرر الاسم",
+  "reference_text": "آخر يوم تصح فيه الرخصة. يُمدّد عند قبول التجديد، وتُعد الرخصة منتهية بعده حتى لو بقيت حالتها active."
+ },
+ {
+  "id": "D26",
+  "asset": "licensing.licences.last_renewed_on",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D27",
+  "asset": "licensing.applications.kind",
+  "decision": "تعديل",
+  "error_type": "قاعدة مختلقة",
+  "reference_text": "نوع الطلب: new (رخصة جديدة) أو renewal (تجديد) أو upgrade (ترقية الفئة من B إلى A)."
+ },
+ {
+  "id": "D28",
+  "asset": "licensing.applications.status",
+  "decision": "رفض",
+  "error_type": "معنى خاطئ",
+  "reference_text": "مرحلة الطلب نفسه: received أو under_review أو approved أو rejected أو withdrawn. ليست حالة الرخصة."
+ },
+ {
+  "id": "D29",
+  "asset": "licensing.applications.submitted_on",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D30",
+  "asset": "licensing.applications.decided_on",
+  "decision": "رفض",
+  "error_type": "قاعدة مختلقة",
+  "reference_text": "تاريخ القرار في الطلب (قبول أو رفض)، وفارغ ما دام الطلب قيد المراجعة. منه ومن تاريخ التقديم تُحسب مدة المعالجة."
+ },
+ {
+  "id": "D31",
+  "asset": "licensing.applications.channel",
+  "decision": "تعديل",
+  "error_type": "يكرر الاسم",
+  "reference_text": "قناة تقديم الطلب: portal (البوابة الإلكترونية) أو service_centre (مركز الخدمة)."
+ },
+ {
+  "id": "D32",
+  "asset": "licensing.renewals.cpd_hours",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D33",
+  "asset": "licensing.renewals.decision",
+  "decision": "رفض",
+  "error_type": "معنى خاطئ",
+  "reference_text": "قرار طلب التجديد: approved أو rejected أو pending. يخص التجديد لا الطلب الجديد."
+ },
+ {
+  "id": "D34",
+  "asset": "licensing.fee_payments.amount_sar",
+  "decision": "تعديل",
+  "error_type": "وحدة أو صيغة خاطئة",
+  "reference_text": "المبلغ المدفوع بالريال السعودي، بخانتين عشريتين."
+ },
+ {
+  "id": "D35",
+  "asset": "licensing.fee_payments.method",
+  "decision": "تعديل",
+  "error_type": "يكرر الاسم",
+  "reference_text": "طريقة دفع الرسم: card (بطاقة) أو sadad (سداد) أو transfer (حوالة)."
+ },
+ {
+  "id": "D36",
+  "asset": "licensing.fee_schedule.fee_sar",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D37",
+  "asset": "licensing.professions.cpd_hours_required",
+  "decision": "قبول",
+  "error_type": "لا خطأ",
+  "reference_text": ""
+ },
+ {
+  "id": "D38",
+  "asset": "filestore.public_register.full_name",
+  "decision": "رفض",
+  "error_type": "قيمة مسربة",
+  "reference_text": "الاسم الكامل لصاحب الرخصة كما يظهر في السجل العام للتحقق. بيان شخصي يُنشر للتحقق الفردي فقط."
+ },
+ {
+  "id": "D39",
+  "asset": "filestore.published_licence_stats.active_licences",
+  "decision": "تعديل",
+  "error_type": "قاعدة مختلقة",
+  "reference_text": "عدد الرخص السارية في آخر يوم من الشهر لكل مهنة ومنطقة، كما يحسبه تقرير الأداء من حالة الرخصة. تعريف «رخصة سارية» في القاموس."
+ },
+ {
+  "id": "D40",
+  "asset": "filestore.renewal_reminders.reminder_sent_on",
+  "decision": "تعديل",
+  "error_type": "وحدة أو صيغة خاطئة",
+  "reference_text": "تاريخ إرسال رسالة التذكير بالتجديد (يوم فقط، بلا وقت)."
+ }
+]

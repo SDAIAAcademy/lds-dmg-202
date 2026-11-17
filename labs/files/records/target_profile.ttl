@@ -1,0 +1,36 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix tp: <https://data.example.org/target-profile#> .
+
+# Target portal profile of the Sinwan case (written for the course LDS-DMG-202; not a real portal's profile)
+
+tp:DatasetShape a sh:NodeShape ;
+  sh:targetClass dcat:Dataset ;
+  sh:property [ sh:path dct:identifier ; sh:minCount 1 ; sh:maxCount 1 ; sh:message "identifier: one is required" ] ;
+  sh:property [ sh:path dct:title ; sh:qualifiedValueShape [ sh:languageIn ( "ar" ) ] ; sh:qualifiedMinCount 1 ; sh:message "title: an Arabic title is required" ] ;
+  sh:property [ sh:path dct:title ; sh:qualifiedValueShape [ sh:languageIn ( "en" ) ] ; sh:qualifiedMinCount 1 ; sh:message "title: an English title is required" ] ;
+  sh:property [ sh:path dct:description ; sh:qualifiedValueShape [ sh:languageIn ( "ar" ) ] ; sh:qualifiedMinCount 1 ; sh:message "description: an Arabic description is required" ] ;
+  sh:property [ sh:path dct:publisher ; sh:minCount 1 ; sh:nodeKind sh:IRI ; sh:message "publisher: required, as a link" ] ;
+  sh:property [ sh:path dcat:contactPoint ; sh:minCount 1 ; sh:node tp:ContactShape ; sh:message "contact point: required, with an e-mail" ] ;
+  sh:property [ sh:path dct:license ; sh:minCount 1 ; sh:in ( <https://creativecommons.org/licenses/by/4.0/> ) ; sh:message "licence: one from the portal's list is required" ] ;
+  sh:property [ sh:path dcat:keyword ; sh:minCount 2 ; sh:message "keywords: at least two are required" ] ;
+  sh:property [ sh:path dcat:theme ; sh:minCount 1 ; sh:in ( tp:ECON tp:GOVE tp:EDUC ) ; sh:message "theme: one from the portal's list is required" ] ;
+  sh:property [ sh:path dct:accrualPeriodicity ; sh:minCount 1 ; sh:in (
+      <http://publications.europa.eu/resource/authority/frequency/DAILY>
+      <http://publications.europa.eu/resource/authority/frequency/WEEKLY>
+      <http://publications.europa.eu/resource/authority/frequency/MONTHLY>
+      <http://publications.europa.eu/resource/authority/frequency/QUARTERLY>
+      <http://publications.europa.eu/resource/authority/frequency/ANNUAL> ) ; sh:message "periodicity: one from the portal's list is required" ] ;
+  sh:property [ sh:path dct:modified ; sh:minCount 1 ; sh:datatype xsd:date ; sh:message "modified: a date (year-month-day) is required" ] ;
+  sh:property [ sh:path dcat:distribution ; sh:minCount 1 ; sh:node tp:DistributionShape ; sh:message "distribution: at least one, with a download link and a media type" ] .
+
+tp:ContactShape a sh:NodeShape ;
+  sh:property [ sh:path vcard:hasEmail ; sh:minCount 1 ; sh:nodeKind sh:IRI ; sh:pattern "^mailto:[^@]+@[^@]+$" ] .
+
+tp:DistributionShape a sh:NodeShape ;
+  sh:property [ sh:path dcat:downloadURL ; sh:minCount 1 ; sh:nodeKind sh:IRI ; sh:pattern "^https://" ] ;
+  sh:property [ sh:path dcat:mediaType ; sh:minCount 1 ; sh:nodeKind sh:IRI ; sh:pattern "^https://www.iana.org/assignments/media-types/" ] .

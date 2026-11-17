@@ -1,0 +1,174 @@
+{
+ "terms": [
+  {
+   "id": "T01",
+   "name_ar": "ممارس مرخَّص",
+   "name_en": "Licensed practitioner",
+   "owner": "راكان التريكي",
+   "classification": "مقيد",
+   "columns": [
+    "licensing.practitioners.practitioner_id",
+    "licensing.practitioners.full_name",
+    "licensing.licences.practitioner_id"
+   ]
+  },
+  {
+   "id": "T02",
+   "name_ar": "رخصة مهنية",
+   "name_en": "Professional licence",
+   "owner": "راكان التريكي",
+   "classification": "عام",
+   "columns": [
+    "licensing.licences.licence_no",
+    "licensing.licences.issued_on",
+    "filestore.public_register.licence_no"
+   ]
+  },
+  {
+   "id": "T03",
+   "name_ar": "رقم الهوية الوطنية",
+   "name_en": "National identity number",
+   "owner": "راكان التريكي",
+   "classification": "مقيد",
+   "columns": [
+    "licensing.practitioners.national_id"
+   ]
+  },
+  {
+   "id": "T04",
+   "name_ar": "جوال التواصل",
+   "name_en": "Contact mobile number",
+   "owner": "راكان التريكي",
+   "classification": "مقيد",
+   "columns": [
+    "licensing.practitioners.mobile",
+    "filestore.renewal_reminders.mobile"
+   ]
+  },
+  {
+   "id": "T05",
+   "name_ar": "مهنة منظَّمة",
+   "name_en": "Regulated profession",
+   "owner": "راكان التريكي",
+   "classification": "عام",
+   "columns": [
+    "licensing.licences.profession_code",
+    "licensing.professions.profession_code"
+   ]
+  },
+  {
+   "id": "T06",
+   "name_ar": "فئة الرخصة",
+   "name_en": "Licence class",
+   "owner": "راكان التريكي",
+   "classification": "عام",
+   "columns": [
+    "licensing.licences.licence_class"
+   ]
+  },
+  {
+   "id": "T07",
+   "name_ar": "حالة الرخصة",
+   "name_en": "Licence status",
+   "owner": "راكان التريكي",
+   "classification": "عام",
+   "columns": [
+    "licensing.licences.status",
+    "filestore.public_register.status"
+   ]
+  },
+  {
+   "id": "T08",
+   "name_ar": "رخصة سارية",
+   "name_en": "Active licence",
+   "owner": "راكان التريكي",
+   "classification": "عام",
+   "columns": [
+    "filestore.published_licence_stats.active_licences"
+   ]
+  },
+  {
+   "id": "T09",
+   "name_ar": "تاريخ انتهاء الرخصة",
+   "name_en": "Licence expiry date",
+   "owner": "راكان التريكي",
+   "classification": "عام",
+   "columns": [
+    "licensing.licences.expiry_date",
+    "filestore.renewal_reminders.expiry_date"
+   ]
+  },
+  {
+   "id": "T10",
+   "name_ar": "طلب ترخيص",
+   "name_en": "Licensing application",
+   "owner": "راكان التريكي",
+   "classification": "مقيد",
+   "columns": [
+    "licensing.applications.application_id",
+    "licensing.applications.kind",
+    "licensing.applications.submitted_on"
+   ]
+  },
+  {
+   "id": "T11",
+   "name_ar": "قرار الطلب",
+   "name_en": "Application decision",
+   "owner": "راكان التريكي",
+   "classification": "مقيد",
+   "columns": [
+    "licensing.applications.status",
+    "licensing.applications.decided_on"
+   ]
+  },
+  {
+   "id": "T12",
+   "name_ar": "تجديد الرخصة",
+   "name_en": "Licence renewal",
+   "owner": "راكان التريكي",
+   "classification": "مقيد",
+   "columns": [
+    "licensing.renewals.renewal_id",
+    "licensing.renewals.decision",
+    "licensing.licences.last_renewed_on"
+   ]
+  },
+  {
+   "id": "T13",
+   "name_ar": "ساعات التطوير المهني",
+   "name_en": "Continuing professional development hours",
+   "owner": "راكان التريكي",
+   "classification": "مقيد",
+   "columns": [
+    "licensing.renewals.cpd_hours",
+    "licensing.professions.cpd_hours_required"
+   ]
+  },
+  {
+   "id": "T14",
+   "name_ar": "رسم الترخيص",
+   "name_en": "Licensing fee",
+   "owner": "مدير الشؤون المالية",
+   "classification": "مقيد",
+   "columns": [
+    "licensing.fee_payments.amount_sar",
+    "licensing.fee_payments.paid_on"
+   ]
+  },
+  {
+   "id": "T15",
+   "name_ar": "منطقة الممارسة",
+   "name_en": "Practice region",
+   "owner": "راكان التريكي",
+   "classification": "عام",
+   "columns": [
+    "licensing.practitioners.region_code"
+   ]
+  }
+ ],
+ "active_licences": {
+  "by_rule": 1710,
+  "by_status_only": 1804,
+  "as_of": "2026-10-31"
+ }
+}

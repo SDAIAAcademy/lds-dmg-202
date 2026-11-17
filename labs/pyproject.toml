@@ -1,0 +1,15 @@
+[project]
+name = "lds-dmg-202-labs"
+version = "2027.1.0"
+description = "Lab kit of the SDAIA Academy course LDS-DMG-202"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "acryl-datahub[sqlalchemy,s3,datahub-business-glossary]==1.7.0.20",
+  "openpyxl>=3.1",
+  "pyyaml>=6.0",
+  "rdflib>=7.0",
+  "pyshacl>=0.26",
+]
+
+[tool.uv]
+package = false

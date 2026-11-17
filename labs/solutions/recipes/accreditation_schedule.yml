@@ -1,0 +1,11 @@
+# Harvest schedule for the trainer's catalogue instance (datahub ingest deploy) · reference solution of the follow-up task
+# cron: minute hour day-of-month month day-of-week
+harvests:
+  - recipe: recipes/accreditation_db.yml
+    name: accreditation-db
+    schedule: "0 3 * * *"
+    timezone: Asia/Riyadh
+  - recipe: recipes/accreditation_files.yml
+    name: accreditation-files
+    schedule: "0 4 * * 0"
+    timezone: Asia/Riyadh

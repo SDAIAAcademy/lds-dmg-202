@@ -1,0 +1,16 @@
+# Harvest recipe: Sinwan file store, licensing folder (local files)
+# Copied from the vendor's example. Edit only the lines marked EDIT.
+source:
+  type: s3
+  config:
+    platform: file
+    path_specs:
+      - include: "files/sources/filestore/licensing/{table}/*.csv"
+        exclude: []       # EDIT: folders that are not assets
+    profiling:
+      enabled: false      # EDIT: profile statistics
+      include_field_sample_values: true   # EDIT: sample values
+sink:
+  type: file
+  config:
+    filename: out/licensing_files.json

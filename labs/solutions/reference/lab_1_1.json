@@ -1,0 +1,37 @@
+{
+ "db_datasets": [
+  "applications",
+  "fee_payments",
+  "fee_schedule",
+  "licences",
+  "practitioners",
+  "professions",
+  "regions",
+  "renewals",
+  "v_active_licences"
+ ],
+ "file_datasets": [
+  "public_register",
+  "published_application_stats",
+  "published_licence_stats",
+  "published_processing_times",
+  "renewal_reminders"
+ ],
+ "excluded": [
+  "tmp_import_0925",
+  "licences_backup_2024",
+  "_staging"
+ ],
+ "rows": {
+  "practitioners": 2400,
+  "licences": 2268,
+  "applications": 3748,
+  "renewals": 1446,
+  "fee_payments": 3526
+ },
+ "schedule": {
+  "licensing-db": "0 3 * * *",
+  "licensing-files": "0 4 * * 0",
+  "timezone": "Asia/Riyadh"
+ }
+}
