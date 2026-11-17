@@ -5,7 +5,8 @@
 
 Lab 1.1 and the follow-up task run the open-source catalogue's real harvest (no server: the
 catalogue writes to a local file). The other labs run the kit on the reference files in
-solutions/reference/. It also checks that the supplied starting files still hold their planted
+solutions/reference/; the follow-up task also validates its five reference records and walks
+the accreditation domain's recorded lineage for the review's impact questions. It also checks that the supplied starting files still hold their planted
 problems. No lab calls a language model. Outputs go to out/, which you may delete afterwards.
 """
 from __future__ import annotations
@@ -119,7 +120,27 @@ def capstone() -> None:
     code, text = run("kit/health.py", "--state", "files/capstone/accreditation_state.xlsx",
                      "--config", "solutions/reference/health_config_reference.yml")
     print(text)
-    assert code == 0 and "datasets in the domain: 9" in text and "complete (all required attributes): 0/9" in text
+    assert code == 0 and "datasets in the domain: 10" in text and "complete (all required attributes): 0/10" in text
+    code, text = run("kit/dcat.py", "--workbook", "solutions/reference/accreditation_records_reference.xlsx")
+    print(text)
+    assert code == 0 and text.count("passes the target portal's validator") == 5
+    code, text = run("kit/dcat.py", "--workbook", "files/capstone/accreditation_records.xlsx")
+    assert code == 1 and "0 records; five are required" in text, "the follow-up records workbook is not blank"
+    lineage = ("--events", "files/capstone/accreditation_events.jsonl", "--owners", "files/capstone/accreditation_owners.csv")
+    for column, counts, must in [
+        ("accreditation.cpd_records.hours", "datasets affected: 3 · jobs: 3",
+         ["warehouse.fact_cpd", "bi.cpd_compliance", "files.accreditation/published_cpd_hours"]),
+        ("accreditation.cpd_courses.profession_code", "datasets affected: 4 · jobs: 4",
+         ["files.accreditation/cpd_course_catalogue", "warehouse.fact_cpd", "bi.cpd_compliance", "files.accreditation/published_cpd_hours"]),
+        ("accreditation.accreditations.status", "datasets affected: 1 · jobs: 1", ["INDIRECT/FILTER", "accreditation_status"]),
+        ("accreditation.providers.contact_email", "datasets affected: 1 · jobs: 1",
+         ["legacy.provider_mailing · last run 2026-05-03 · STALE", "owner (no owner)"]),
+    ]:
+        code, text = run("kit/impact.py", "--column", column, *lineage)
+        print(text)
+        assert code == 0 and counts in text, (column, counts)
+        for m in must:
+            assert m in text, (column, m)
 
 
 LABS_RUN = {"1.1": lab_1_1, "1.2": lab_1_2, "1.3": lab_1_3, "2.1": lab_2_1, "2.2": lab_2_2, "2.3": lab_2_3, "capstone": capstone}

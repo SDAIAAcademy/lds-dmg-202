@@ -410,6 +410,14 @@ def build_accreditation(practitioners):
               [(m, p, h) for (m, p), h in sorted(by.items()) if m.startswith("2026")])
     write_csv(fs / "certificate_uploads" / "uploads_2026_10.csv", ["record_id", "practitioner_id", "certificate_no", "uploaded_on"],
               [(r[0], r[1], r[5], r[3]) for r in records[-200:]])
+    # published aggregate of the inspection visits: counts by quarter and outcome, never the notes
+    outcomes = {}
+    for v in visits:
+        y, m = int(v[2][:4]), int(v[2][5:7])
+        key = (f"{y}-Q{(m - 1) // 3 + 1}", v[3])
+        outcomes[key] = outcomes.get(key, 0) + 1
+    write_csv(fs / "published_visit_outcomes" / "visit_outcomes_2025_2026.csv", ["quarter", "outcome", "visits"],
+              [(q, o, n) for (q, o), n in sorted(outcomes.items())])
     write_csv(fs / "_staging" / "provider_import.csv", ["a", "b"], [("1", "2")])
 
 
@@ -467,7 +475,8 @@ harvests:
 
 
 # ------------------------------------------------------------------ lineage events
-NS = {"licensing": "sqlite://licensing", "warehouse": "sqlite://warehouse", "files": "file://filestore", "bi": "bi://dashboards"}
+NS = {"licensing": "sqlite://licensing", "warehouse": "sqlite://warehouse", "files": "file://filestore", "bi": "bi://dashboards",
+      "accreditation": "sqlite://accreditation"}
 PRODUCER = "https://example.com/sinwan/pipelines"
 SCHEMA_URL = "https://openlineage.io/spec/2-0-2/OpenLineage.json#/$defs/RunEvent"
 CL_URL = "https://openlineage.io/spec/facets/1-2-0/ColumnLineageDatasetFacet.json#/$defs/ColumnLineageDatasetFacet"
@@ -546,6 +555,115 @@ DATASET_OWNERS = [
     ("file://filestore", "licensing/legacy_quarterly", "", ""),
     ("bi://dashboards", "renewals_overview", "عمار الوشمي", "فارس الزاعق"),
 ]
+
+
+# follow-up task: the accreditation domain's pipelines (files/capstone/), so the review's impact
+# question is asked on the domain the participant reports on. Lab 2.1's files are not touched.
+ACC_JOBS = [
+    {"job": "nightly.load_cpd_facts", "every": 1, "last": date(2026, 10, 30), "owner": "فارس الزاعق",
+     "inputs": [("accreditation", "cpd_records"), ("accreditation", "cpd_courses")], "output": ("warehouse", "fact_cpd"),
+     "fields": {"record_id": [field("accreditation", "cpd_records", "record_id")],
+                "practitioner_id": [field("accreditation", "cpd_records", "practitioner_id")],
+                "course_id": [field("accreditation", "cpd_records", "course_id")],
+                "profession_code": [field("accreditation", "cpd_courses", "profession_code")],
+                "hours": [field("accreditation", "cpd_records", "hours")],
+                "completed_on": [field("accreditation", "cpd_records", "completed_on")]},
+     "dataset": [field("accreditation", "cpd_records", "course_id", "INDIRECT", "JOIN"),
+                 field("accreditation", "cpd_courses", "course_id", "INDIRECT", "JOIN")]},
+    {"job": "monthly.export_cpd_hours", "every": 30, "last": date(2026, 10, 1), "owner": "غيداء الحوشان",
+     "inputs": [("warehouse", "fact_cpd")], "output": ("files", "accreditation/published_cpd_hours"),
+     "fields": {"month": [field("warehouse", "fact_cpd", "completed_on", "DIRECT", "TRANSFORMATION")],
+                "profession_code": [field("warehouse", "fact_cpd", "profession_code")],
+                "hours_recorded": [field("warehouse", "fact_cpd", "hours", "DIRECT", "AGGREGATION")]},
+     "dataset": [field("warehouse", "fact_cpd", "completed_on", "INDIRECT", "GROUP_BY")]},
+    {"job": "daily.refresh_cpd_compliance", "every": 1, "last": date(2026, 10, 30), "owner": "عمار الوشمي",
+     "inputs": [("warehouse", "fact_cpd"), ("licensing", "professions")], "output": ("bi", "cpd_compliance"),
+     "fields": {"hours_completed": [field("warehouse", "fact_cpd", "hours", "DIRECT", "AGGREGATION")],
+                "practitioners_reporting": [field("warehouse", "fact_cpd", "practitioner_id", "DIRECT", "AGGREGATION")],
+                "hours_required": [field("licensing", "professions", "cpd_hours_required")]},
+     "dataset": [field("warehouse", "fact_cpd", "profession_code", "INDIRECT", "GROUP_BY"),
+                 field("warehouse", "fact_cpd", "completed_on", "INDIRECT", "FILTER")]},
+    {"job": "nightly.export_provider_list", "every": 1, "last": date(2026, 10, 30), "owner": "فارس الزاعق",
+     "inputs": [("accreditation", "providers"), ("accreditation", "accreditations")], "output": ("files", "accreditation/published_provider_list"),
+     "fields": {"provider_id": [field("accreditation", "providers", "provider_id")],
+                "name_ar": [field("accreditation", "providers", "name_ar")],
+                "city": [field("accreditation", "providers", "city")],
+                "accreditation_status": [field("accreditation", "accreditations", "status")],
+                "valid_to": [field("accreditation", "accreditations", "valid_to")]},
+     "dataset": [field("accreditation", "accreditations", "status", "INDIRECT", "FILTER")]},
+    {"job": "weekly.export_course_catalogue", "every": 7, "last": date(2026, 10, 26), "owner": "فارس الزاعق",
+     "inputs": [("accreditation", "cpd_courses")], "output": ("files", "accreditation/cpd_course_catalogue"),
+     "fields": {c: [field("accreditation", "cpd_courses", c)] for c in ["course_id", "provider_id", "profession_code", "title_ar", "hours", "delivery"]},
+     "dataset": []},
+    {"job": "daily.export_certificate_uploads", "every": 1, "last": date(2026, 10, 30), "owner": "فارس الزاعق",
+     "inputs": [("accreditation", "cpd_records")], "output": ("files", "accreditation/certificate_uploads"),
+     "fields": {"record_id": [field("accreditation", "cpd_records", "record_id")],
+                "practitioner_id": [field("accreditation", "cpd_records", "practitioner_id")],
+                "certificate_no": [field("accreditation", "cpd_records", "certificate_no")],
+                "uploaded_on": [field("accreditation", "cpd_records", "completed_on")]},
+     "dataset": []},
+    {"job": "quarterly.export_visit_outcomes", "every": 91, "last": date(2026, 10, 1), "owner": "غيداء الحوشان",
+     "inputs": [("accreditation", "provider_visits")], "output": ("files", "accreditation/published_visit_outcomes"),
+     "fields": {"quarter": [field("accreditation", "provider_visits", "visited_on", "DIRECT", "TRANSFORMATION")],
+                "outcome": [field("accreditation", "provider_visits", "outcome")],
+                "visits": [field("accreditation", "provider_visits", "visit_id", "DIRECT", "AGGREGATION")]},
+     "dataset": [field("accreditation", "provider_visits", "visited_on", "INDIRECT", "GROUP_BY"),
+                 field("accreditation", "provider_visits", "outcome", "INDIRECT", "GROUP_BY")]},
+    {"job": "legacy.provider_mailing", "every": 30, "last": date(2026, 5, 3), "owner": "",
+     "inputs": [("accreditation", "providers")], "output": ("files", "accreditation/legacy_provider_mailing"),
+     "fields": {c: [field("accreditation", "providers", c)] for c in ["provider_id", "name_ar", "contact_email"]},
+     "dataset": []},
+]
+
+ACC_OWNERS = [
+    ("sqlite://accreditation", "providers", "مدير الاعتماد", ""),
+    ("sqlite://accreditation", "accreditations", "مدير الاعتماد", ""),
+    ("sqlite://accreditation", "cpd_courses", "مدير الاعتماد", ""),
+    ("sqlite://accreditation", "cpd_records", "مدير الاعتماد", ""),
+    ("sqlite://accreditation", "provider_visits", "مدير الاعتماد", ""),
+    ("sqlite://licensing", "professions", "راكان التريكي", "منيرة العبيد"),
+    ("sqlite://warehouse", "fact_cpd", "عمار الوشمي", "فارس الزاعق"),
+    ("file://filestore", "accreditation/published_cpd_hours", "غيداء الحوشان", ""),
+    ("file://filestore", "accreditation/published_provider_list", "مدير الاعتماد", ""),
+    ("file://filestore", "accreditation/cpd_course_catalogue", "مدير الاعتماد", ""),
+    ("file://filestore", "accreditation/certificate_uploads", "مدير الاعتماد", "فارس الزاعق"),
+    ("file://filestore", "accreditation/published_visit_outcomes", "غيداء الحوشان", ""),
+    ("file://filestore", "accreditation/legacy_provider_mailing", "", ""),
+    ("bi://dashboards", "cpd_compliance", "عمار الوشمي", "فارس الزاعق"),
+]
+
+
+def lineage_events(jobs):
+    events = []
+    for j in jobs:
+        runs = [j["last"] - timedelta(days=j["every"] * k) for k in range(2, -1, -1)]
+        for when in runs:
+            run_id = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{j['job']}/{when}"))
+            base = {"run": {"runId": run_id}, "job": {"namespace": "sinwan", "name": j["job"]},
+                    "producer": PRODUCER, "schemaURL": SCHEMA_URL}
+            inputs = [{"namespace": NS[a], "name": b} for a, b in j["inputs"]]
+            ons, oname = j["output"]
+            out = {"namespace": NS[ons], "name": oname, "facets": {"columnLineage": {
+                "_producer": PRODUCER, "_schemaURL": CL_URL,
+                "fields": {k: {"inputFields": v} for k, v in j["fields"].items()}}}}
+            if j["dataset"]:
+                out["facets"]["columnLineage"]["dataset"] = j["dataset"]
+            events.append({"eventType": "START", "eventTime": f"{when}T01:{len(events) % 50:02d}:00Z", **base, "inputs": inputs, "outputs": []})
+            events.append({"eventType": "COMPLETE", "eventTime": f"{when}T02:{len(events) % 50:02d}:00Z", **base, "inputs": inputs, "outputs": [out]})
+    events.sort(key=lambda e: (e["eventTime"], e["job"]["name"]))
+    return events
+
+
+def write_events(path: Path, events) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(("\n".join(json.dumps(e, ensure_ascii=False, sort_keys=True) for e in events) + "\n").encode("utf-8"))
+
+
+def build_accreditation_lineage():
+    events = lineage_events(ACC_JOBS)
+    write_events(OUT / "capstone" / "accreditation_events.jsonl", events)
+    write_csv(OUT / "capstone" / "accreditation_owners.csv", ["namespace", "name", "owner", "steward"], ACC_OWNERS)
+    return events
 
 
 def build_lineage():
@@ -635,16 +753,16 @@ def build_state():
     # follow-up task: the accreditation domain as first harvested, attributes left for the participant to fill
     acc = [("accreditation.accreditations", "sqlite", 5, 1), ("accreditation.cpd_courses", "sqlite", 6, 1),
            ("accreditation.cpd_records", "sqlite", 6, 1), ("accreditation.provider_visits", "sqlite", 5, 1),
-           ("accreditation.providers", "sqlite", 5, 1), ("filestore.accreditation.certificate_uploads", "s3", 4, 7),
-           ("filestore.accreditation.cpd_course_catalogue", "s3", 6, 7), ("filestore.accreditation.published_cpd_hours", "s3", 3, 7),
-           ("filestore.accreditation.published_provider_list", "s3", 5, 7)]
+           ("accreditation.providers", "sqlite", 5, 1), ("filestore.accreditation.certificate_uploads", "file", 4, 7),
+           ("filestore.accreditation.cpd_course_catalogue", "file", 6, 7), ("filestore.accreditation.published_cpd_hours", "file", 3, 7),
+           ("filestore.accreditation.published_provider_list", "file", 5, 7), ("filestore.accreditation.published_visit_outcomes", "file", 3, 7)]
     wb = openpyxl.Workbook()
     sheet(wb, "datasets", ["dataset", "platform", "columns", "columns_linked_to_terms", "description_status", "owner",
                            "business_steward", "it_steward", "classification", "schedule_days", "last_successful_harvest"],
           [(ds, pf, cols, 0, "none", "مدير الاعتماد", "", "", "", days, d(AS_OF)) for ds, pf, cols, days in acc],
           fill_cols=range(3, 11), widths=[46, 10, 9, 12, 16, 20, 18, 16, 12, 10, 16])
     sheet(wb, "harvest_runs", ["pipeline", "run_date", "result", "datasets_written"],
-          [("accreditation-db", d(AS_OF), "success", 5), ("accreditation-files", d(AS_OF), "success", 4)], widths=[20, 14, 10, 14])
+          [("accreditation-db", d(AS_OF), "success", 5), ("accreditation-files", d(AS_OF), "success", 5)], widths=[20, 14, 10, 14])
     save(wb, OUT / "capstone" / "accreditation_state.xlsx")
     return rows, runs
 
@@ -762,6 +880,31 @@ RECORDS_FIXED = {
     "sinwan-fee-schedule": {"download_url": "https://data.example.org/sinwan/fee-schedule.csv", "media_type": "text/csv", "keywords": "رسوم، ترخيص"},
 }
 
+# reference solution of the follow-up task: the five accreditation sets published by the course's own
+# rule (no personal column, no free-text notes), each a record that passes the target profile
+ACC_RECORDS_REFERENCE = [
+    ("sinwan-accredited-providers", "مزودو التدريب المعتمدون", "Accredited training providers",
+     "مزودو التدريب الذين يحملون اعتمادًا ساريًا من الهيئة لتقديم ساعات التطوير المهني، بالمدينة وتاريخ انتهاء الاعتماد.",
+     "مكتب البيانات المفتوحة", "opendata@example.com", "CC-BY-4.0", "مزودو تدريب، اعتماد، تطوير مهني", "EDUC", "MONTHLY", "2026-10-30",
+     "https://data.example.org/sinwan/accredited-providers.csv", "text/csv"),
+    ("sinwan-accreditation-decisions", "قرارات اعتماد مزودي التدريب", "Training provider accreditation decisions",
+     "قرار الاعتماد الأخير لكل مزود تدريب: حالته (ساري، أو منتهٍ، أو موقوف) وتاريخ بدايته ونهايته.",
+     "مكتب البيانات المفتوحة", "opendata@example.com", "CC-BY-4.0", "اعتماد، قرارات، مزودو تدريب", "GOVE", "MONTHLY", "2026-10-30",
+     "https://data.example.org/sinwan/accreditation-decisions.csv", "text/csv"),
+    ("sinwan-cpd-courses", "دورات التطوير المهني المعتمدة", "Accredited CPD courses",
+     "الدورات التي تحتسب الهيئة ساعاتها في التطوير المهني، بالمزود والمهنة وعدد الساعات وطريقة التقديم.",
+     "مكتب البيانات المفتوحة", "opendata@example.com", "CC-BY-4.0", "دورات، تطوير مهني، ساعات", "EDUC", "WEEKLY", "2026-10-26",
+     "https://data.example.org/sinwan/cpd-courses.csv", "text/csv"),
+    ("sinwan-cpd-hours", "ساعات التطوير المهني المسجلة شهريًا", "Monthly recorded CPD hours",
+     "مجموع ساعات التطوير المهني التي سجلها الممارسون في كل شهر بحسب المهنة، من سجلات الإكمال. لا يتضمن بيانات أي ممارس بعينه.",
+     "مكتب البيانات المفتوحة", "opendata@example.com", "CC-BY-4.0", "تطوير مهني، ساعات، مهن", "EDUC", "MONTHLY", "2026-10-01",
+     "https://data.example.org/sinwan/cpd-hours.csv", "text/csv"),
+    ("sinwan-visit-outcomes", "نتائج زيارات الرقابة على مزودي التدريب", "Training provider inspection visit outcomes",
+     "عدد زيارات الرقابة على مزودي التدريب في كل ربع سنة بحسب نتيجتها: ممتثل، أو يحتاج متابعة. لا يتضمن ملاحظات الزيارات.",
+     "مكتب البيانات المفتوحة", "opendata@example.com", "CC-BY-4.0", "رقابة، زيارات، مزودو تدريب", "GOVE", "QUARTERLY", "2026-10-01",
+     "https://data.example.org/sinwan/visit-outcomes.csv", "text/csv"),
+]
+
 HEALTH_REFERENCE = HEALTH_CONFIG.replace("description_reviewed: false", "description_reviewed: true")     .replace("business_steward: false", "business_steward: true").replace("it_steward: false", "it_steward: true")     .replace("classification: false", "classification: true").replace("count_machine_drafts_as_described: true", "count_machine_drafts_as_described: false")     .replace("fresh_within_intervals: 10", "fresh_within_intervals: 2")
 
 
@@ -792,6 +935,9 @@ def build_references():
     sheet(wb, "records", header, fixed)
     save(wb, REF / "dataset_records_reference.xlsx")
     (REF / "health_config_reference.yml").write_bytes(HEALTH_REFERENCE.encode("utf-8"))
+    wb = openpyxl.Workbook()
+    sheet(wb, "records", header, ACC_RECORDS_REFERENCE, widths=[30, 30, 34, 60, 20, 24, 12, 30, 8, 12, 12, 46, 10])
+    save(wb, REF / "accreditation_records_reference.xlsx")
 
 
 def main():
@@ -811,6 +957,7 @@ def main():
     build_drafts()
     build_glossary()
     build_lineage()
+    build_accreditation_lineage()
     state_rows, runs = build_state()
     build_records()
     write_text("capstone/brief.txt", C.CAPSTONE_BRIEF)

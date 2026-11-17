@@ -48,7 +48,7 @@ uv run kit/harvest_check.py  # كل أمر في الصفحات يُشغَّل م
 | 2.1 | `D2_1_impact.html` | `files/lineage/` | `solutions/D2_1_impact.md` |
 | 2.2 | `D2_2_health.html` | `files/reference/` | `solutions/D2_2_health.md`، `solutions/reference/health_config_reference.yml` |
 | 2.3 | `D2_3_records.html` | `files/records/` | `solutions/D2_3_records.md`، `solutions/reference/dataset_records_reference.xlsx` |
-| المتابعة | `files/capstone/brief.txt` | `files/capstone/` (الموجز، وحالة الكتالوج، وورقة السجلات)، `files/sources/accreditation.db` | `solutions/recipes/accreditation_*.yml` |
+| المتابعة | `files/capstone/brief.txt` | `files/capstone/` (الموجز، وحالة الكتالوج، وورقة السجلات، وأحداث المسار ومالكو الأصول)، `files/sources/accreditation.db` | `solutions/capstone.md`، `solutions/recipes/accreditation_*.yml`، `solutions/reference/accreditation_records_reference.xlsx` |
 
 ## تشغيل الحلول
 

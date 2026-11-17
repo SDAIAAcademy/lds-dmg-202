@@ -2,9 +2,10 @@
 
     uv run kit/impact.py --column licensing.licences.status
     uv run kit/impact.py --column licensing.licences.expiry_date --as-of 2026-10-31
+    uv run kit/impact.py --column accreditation.cpd_records.hours         --events files/capstone/accreditation_events.jsonl --owners files/capstone/accreditation_owners.csv
 
 Reads files/lineage/events.jsonl (OpenLineage run events with the columnLineage facet) and
-files/lineage/owners.csv. Prints every dataset and column that depends on the column, how
+files/lineage/owners.csv (the follow-up task passes the accreditation domain's two files). Prints every dataset and column that depends on the column, how
 (DIRECT: the value is copied or computed from it; INDIRECT: it filters or groups the rows), the
 job that carries it, the job's last run and whether that run is stale, and the owner.
 """
@@ -18,7 +19,8 @@ from datetime import date
 
 from common import FILES, info
 
-ALIAS = {"licensing": "sqlite://licensing", "warehouse": "sqlite://warehouse", "files": "file://filestore", "bi": "bi://dashboards"}
+ALIAS = {"licensing": "sqlite://licensing", "warehouse": "sqlite://warehouse", "files": "file://filestore", "bi": "bi://dashboards",
+         "accreditation": "sqlite://accreditation"}
 
 
 def label(ns: str, name: str) -> str:
@@ -31,6 +33,7 @@ def main() -> int:
     ap.add_argument("--column", required=True, help="namespace.dataset.column, e.g. licensing.licences.status")
     ap.add_argument("--as-of", default="2026-10-31")
     ap.add_argument("--events", default=str(FILES / "lineage" / "events.jsonl"))
+    ap.add_argument("--owners", default=str(FILES / "lineage" / "owners.csv"))
     a = ap.parse_args()
     ns_alias, rest = a.column.split(".", 1)
     dataset, column = rest.rsplit(".", 1)
@@ -59,7 +62,7 @@ def main() -> int:
                 edges[(f["namespace"], f["name"], f["field"])].add((tgt[0], tgt[1], "*", f"{t.get('type', 'INDIRECT')}/{t.get('subtype', '')}", job))
 
     owners = {}
-    with open(FILES / "lineage" / "owners.csv", encoding="utf-8") as fh:
+    with open(a.owners, encoding="utf-8") as fh:
         for r in csv.DictReader(fh):
             owners[(r["namespace"], r["name"])] = (r["owner"] or "(no owner)", r["steward"] or "(no steward)")
 
