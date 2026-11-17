@@ -632,6 +632,20 @@ def build_state():
     sheet(wb, "harvest_runs", ["pipeline", "run_date", "result", "datasets_written"], runs, widths=[18, 14, 10, 14])
     save(wb, OUT / "reference" / "catalogue_state.xlsx")
     (OUT / "reference" / "health_config.yml").write_bytes(HEALTH_CONFIG.encode("utf-8"))
+    # follow-up task: the accreditation domain as first harvested, attributes left for the participant to fill
+    acc = [("accreditation.accreditations", "sqlite", 5, 1), ("accreditation.cpd_courses", "sqlite", 6, 1),
+           ("accreditation.cpd_records", "sqlite", 6, 1), ("accreditation.provider_visits", "sqlite", 5, 1),
+           ("accreditation.providers", "sqlite", 5, 1), ("filestore.accreditation.certificate_uploads", "s3", 4, 7),
+           ("filestore.accreditation.cpd_course_catalogue", "s3", 6, 7), ("filestore.accreditation.published_cpd_hours", "s3", 3, 7),
+           ("filestore.accreditation.published_provider_list", "s3", 5, 7)]
+    wb = openpyxl.Workbook()
+    sheet(wb, "datasets", ["dataset", "platform", "columns", "columns_linked_to_terms", "description_status", "owner",
+                           "business_steward", "it_steward", "classification", "schedule_days", "last_successful_harvest"],
+          [(ds, pf, cols, 0, "none", "مدير الاعتماد", "", "", "", days, d(AS_OF)) for ds, pf, cols, days in acc],
+          fill_cols=range(3, 11), widths=[46, 10, 9, 12, 16, 20, 18, 16, 12, 10, 16])
+    sheet(wb, "harvest_runs", ["pipeline", "run_date", "result", "datasets_written"],
+          [("accreditation-db", d(AS_OF), "success", 5), ("accreditation-files", d(AS_OF), "success", 4)], widths=[20, 14, 10, 14])
+    save(wb, OUT / "capstone" / "accreditation_state.xlsx")
     return rows, runs
 
 

@@ -116,6 +116,10 @@ def capstone() -> None:
     code, text = run("kit/harvest_check.py", "--domain", "accreditation", "--schedule", "solutions/recipes/accreditation_schedule.yml")
     print(text)
     assert code == 0 and "RESULT: PASS" in text
+    code, text = run("kit/health.py", "--state", "files/capstone/accreditation_state.xlsx",
+                     "--config", "solutions/reference/health_config_reference.yml")
+    print(text)
+    assert code == 0 and "datasets in the domain: 9" in text and "complete (all required attributes): 0/9" in text
 
 
 LABS_RUN = {"1.1": lab_1_1, "1.2": lab_1_2, "1.3": lab_1_3, "2.1": lab_2_1, "2.2": lab_2_2, "2.3": lab_2_3, "capstone": capstone}
