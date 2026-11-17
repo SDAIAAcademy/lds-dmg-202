@@ -1,37 +1,71 @@
 <article class="lab" data-lab="1.3">
-  <div class="box goal">
-    <h3>الهدف</h3>
-    <p>REPLACE: في النهاية يستطيع المشاركون …</p>
-  </div>
-
-  <h2>ما تحتاجه</h2>
+<div class="box goal">
+  <h3>ستخرج من هذا المختبر بـ</h3>
   <ul>
-    <li>REPLACE: الملفات والأداة والحساب التي يستخدمها المختبر</li>
+    <li>قاموس لمجال الترخيص من 15 مصطلحًا معتمدًا من مالكها، لكل منها تعريف ومالك ومشرف وتصنيف وإصدار.</li>
+    <li>ربط الأعمدة الثلاثين بمصطلحاتها، وملف قاموس يقبله الكتالوج.</li>
   </ul>
+</div>
 
-  <div class="step">
-    <h3>REPLACE: الخطوة الأولى <span class="min">15 د</span></h3>
-    <p>REPLACE: ما يفعله المشارك ولماذا، في جملتين</p>
-    <div class="prompt" data-tool="كتالوج بيانات مفتوح المصدر">REPLACE: الأمر الذي ينسخه المشاركون، والأجزاء التي يغيّرونها <span class="ph">ملوّنة</span></div>
-  </div>
+<h2>ما تحتاجه</h2>
+<div class="files">
+  <a href="files/glossary/glossary_workbook.xlsx" download><b>glossary/glossary_workbook.xlsx</b><span>ورقة <code>terms</code> بخمسة عشر سطرًا للتعبئة، وورقة <code>columns</code> بالأعمدة الثلاثين.</span></a>
+  <a href="files/glossary/steward_notes.txt"><b>glossary/steward_notes.txt</b><span>ملاحظات المشرفين: معنى كل مفهوم، ومالكه، وتصنيفه، والخلاف على «رخصة سارية» وقرار المالك فيه.</span></a>
+</div>
+<p class="small">التعريفات الخمسة الأولى (T01 إلى T05) تُكتب دون أي أداة ذكاء اصطناعي، واكتب «نعم» في <code>written_without_ai</code>. في العشرة الباقية المساعد مرشد: يسأل عن تعريفك ويقترح ما ينقصه، ولا يكتبه، ولا تلصق فيه الملاحظات.</p>
 
-  <div class="step">
-    <h3>REPLACE: الخطوة الثانية <span class="min">10 د</span></h3>
-    <p>REPLACE: ما يفعله المشارك ولماذا، في جملتين</p>
-  </div>
+<h2>الخطوات</h2>
 
-  <div class="step stretch">
-    <h3>✱ إضافي</h3>
-    <p>REPLACE: توسعة لمن ينهي مبكرًا</p>
-  </div>
+<div class="step">
+  <h3>1 · الملاحظات والأعمدة <span class="min">8 د</span></h3>
+  <p>اقرأ الملاحظات الخمس عشرة وقواعد القاموس في آخرها، ثم ورقة الأعمدة. ضع بجانب كل ملاحظة رقم المصطلح الذي ستكتبه منها.</p>
+</div>
 
-  <h2>أسئلة تحقق</h2>
-  <ol class="checks">
-    <li>REPLACE: سؤال يبيّن أن المختبر نجح</li>
-  </ol>
+<div class="step">
+  <h3>2 · خمسة تعريفات بيدك <span class="min">15 د</span></h3>
+  <p>اكتب الاسم العربي والإنجليزي والتعريف للمصطلحات T01 إلى T05: النوع أولًا، ثم ما يميزه. لا تُعد اسم المصطلح في تعريفه.</p>
+</div>
 
-  <details class="instructor">
-    <summary>للمدرّب</summary>
-    <p>REPLACE: مفتاح الإجابة والفخاخ والأخطاء الشائعة</p>
-  </details>
+<div class="step">
+  <h3>3 · العشرة الباقية <span class="min">15 د</span></h3>
+  <p>اكتب T06 إلى T15. في «رخصة سارية» اكتب التعريف الذي قرره المالك، واذكر في التعريف اسم الرقم الآخر حتى لا يُخلط به.</p>
+</div>
+
+<div class="step">
+  <h3>4 · المالك والتصنيف والحالة <span class="min">10 د</span></h3>
+  <p>املأ المالك والمشرف ومستوى التصنيف من الملاحظات، والإصدار 1.0. بعد أن تعرض المصطلح على المالك (المدرب يؤدي دوره)، اجعل الحالة «معتمد» واكتب اسم المالك في <code>approved_by</code>.</p>
+</div>
+
+<div class="step">
+  <h3>5 · ربط الأعمدة <span class="min">12 د</span></h3>
+  <p>في ورقة الأعمدة اكتب لكل عمود رقم مصطلحه. عمودان باسم <code>status</code> في جدولين لا يعنيان الشيء نفسه؛ عد إلى الملاحظات قبل أن تربط بالاسم.</p>
+</div>
+
+<div class="step">
+  <h3>6 · فحص القاموس <span class="min">10 د</span></h3>
+  <p>احفظ الملف وشغّل الفحص. يكتب القاموس في <code>out/glossary.yml</code> بصيغة الكتالوج، ثم يحمّله أداة الكتالوج ليثبت أنها تقبله. أصلح حتى ينتهي بـ <code>RESULT: PASS</code>.</p>
+  <pre class="code"><code>uv run kit/glossary.py</code></pre>
+</div>
+
+<div class="step stretch">
+  <h3>✱ تمرين إضافي</h3>
+  <p>اكتب الإصدار 1.1 لمصطلح «رخصة سارية» لو أُضيفت فترة سماح بعد الانتهاء، وسطرًا بسبب التغيير ومن يعتمده.</p>
+</div>
+
+<h2>أسئلة تحقق</h2>
+<ol class="checks">
+  <li>بأي مصطلح ربطت <code>applications.status</code>، وبأيٍّ ربطت <code>licences.status</code>؟ ولماذا؟</li>
+  <li>من يعتمد مصطلح الرسوم، ولماذا ليس مدير الترخيص؟</li>
+  <li>ما الفرق بين عدد الرخص السارية بتعريف المالك وعدد الرخص بحالة active؟</li>
+</ol>
+
+<details class="instructor">
+  <summary>للمدرّب</summary>
+  <ul>
+    <li>المرجع: <code>solutions/reference/glossary_reference.xlsx</code> و<code>solutions/D1_3_glossary.md</code>. التحقق: <code>uv run solutions/check.py 1.3</code>.</li>
+    <li>الفخاخ: <code>applications.status</code> يرتبط بـ T11 (قرار الطلب) لا بـ T07؛ <code>renewals.decision</code> بـ T12 لا بـ T11؛ الرسوم يعتمدها مدير الشؤون المالية؛ <code>public_register.licence_no</code> عام مع أن جدول الممارسين مقيد.</li>
+    <li>في نهاية أكتوبر: 1710 رخصة سارية بتعريف المالك، و1804 بحالة active وحدها. الفرق 94 رخصة انتهت ولم تُحدّث حالتها.</li>
+    <li>أدِّ دور المالك في الخطوة 4: ارفض اعتماد أي تعريف دائري أو بلا «لا يدخل فيه» حيث يلزم.</li>
+  </ul>
+</details>
 </article>

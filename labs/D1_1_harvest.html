@@ -1,37 +1,83 @@
 <article class="lab" data-lab="1.1">
-  <div class="box goal">
-    <h3>الهدف</h3>
-    <p>REPLACE: في النهاية يستطيع المشاركون …</p>
-  </div>
-
-  <h2>ما تحتاجه</h2>
+<div class="box goal">
+  <h3>ستخرج من هذا المختبر بـ</h3>
   <ul>
-    <li>REPLACE: الملفات والأداة والحساب التي يستخدمها المختبر</li>
+    <li>وصفتي استخلاص (recipe) تفهرسان كل جدول وعرض ومجلد بيانات في مجال الترخيص، ولا تفهرسان ما ليس أصلًا.</li>
+    <li>إحصاءات تنميط لكل جدول وملف، بلا أي قيمة ظاهرة من الأعمدة الشخصية.</li>
+    <li>جدولة لكل وصفة بتوقيت الرياض، وناتج فحص ينتهي بـ <code>RESULT: PASS</code>.</li>
   </ul>
+</div>
 
-  <div class="step">
-    <h3>REPLACE: الخطوة الأولى <span class="min">15 د</span></h3>
-    <p>REPLACE: ما يفعله المشارك ولماذا، في جملتين</p>
-    <div class="prompt" data-tool="كتالوج بيانات مفتوح المصدر">REPLACE: الأمر الذي ينسخه المشاركون، والأجزاء التي يغيّرونها <span class="ph">ملوّنة</span></div>
-  </div>
+<h2>ما تحتاجه</h2>
+<div class="files">
+  <a href="files/recipes/harvest_notes.txt"><b>recipes/harvest_notes.txt</b><span>شروط الموافقة على ربط الكتالوج بالمصدرين، كما كتبها فارس الزاعق.</span></a>
+  <a href="files/recipes/licensing_db.yml"><b>recipes/licensing_db.yml</b><span>وصفة قاعدة بيانات الترخيص، منسوخة من مثال المورد كما هو.</span></a>
+  <a href="files/recipes/licensing_files.yml"><b>recipes/licensing_files.yml</b><span>وصفة مجلد الترخيص في مخزن الملفات.</span></a>
+  <a href="files/recipes/schedule.yml"><b>recipes/schedule.yml</b><span>جدولة الوصفتين في نسخة الكتالوج التي يديرها المدرب.</span></a>
+</div>
+<p class="small">المصادر في <code>files/sources/</code>: قاعدة <code>licensing.db</code> ومجلد <code>filestore/licensing/</code>. كلها اصطناعية. أداة الاستخلاص هي أداة سطر الأوامر في كتالوج DataHub المفتوح المصدر، وتكتب ما تستخلصه في ملف محلي في <code>out/</code> بلا خادم. الذكاء الاصطناعي مرشد في هذا المختبر: اسأله عن معنى خيار، ولا تلصق فيه شيئًا من المصادر.</p>
 
-  <div class="step">
-    <h3>REPLACE: الخطوة الثانية <span class="min">10 د</span></h3>
-    <p>REPLACE: ما يفعله المشارك ولماذا، في جملتين</p>
-  </div>
+<div class="callout tip">
+  <b>مرة واحدة قبل المختبر.</b> افتح طرفية (terminal) في مجلد <code>labs</code> من المقرر، وشغّل الأمر التالي. يجهز البيئة في دقيقتين تقريبًا. في Google Colab اتبع ما في <code>labs/README.md</code>.
+  <pre class="code"><code>uv sync</code></pre>
+</div>
 
-  <div class="step stretch">
-    <h3>✱ إضافي</h3>
-    <p>REPLACE: توسعة لمن ينهي مبكرًا</p>
-  </div>
+<h2>الخطوات</h2>
 
-  <h2>أسئلة تحقق</h2>
-  <ol class="checks">
-    <li>REPLACE: سؤال يبيّن أن المختبر نجح</li>
-  </ol>
+<div class="step">
+  <h3>1 · خمسة شروط من الملاحظات <span class="min">8 د</span></h3>
+  <p>اقرأ <code>harvest_notes.txt</code>، واكتب في ورقة خمسة شروط قصيرة: ما يُفهرس، وما لا يُفهرس، والتنميط، والقيم الشخصية، والجدولة. كل سطر في الوصفتين ستغيره يخدم شرطًا منها.</p>
+</div>
 
-  <details class="instructor">
-    <summary>للمدرّب</summary>
-    <p>REPLACE: مفتاح الإجابة والفخاخ والأخطاء الشائعة</p>
-  </details>
+<div class="step">
+  <h3>2 · شغّل الوصفتين كما وصلتا <span class="min">10 د</span></h3>
+  <p>شغّل الأوامر الثلاثة بالترتيب. الأول والثاني يستخلصان، والثالث يقرأ ما كُتب في <code>out/</code> ويطبع جدولًا بكل أصل ثم قائمة بما يحتاج إصلاحًا.</p>
+  <pre class="code"><code>uv run datahub ingest -c files/recipes/licensing_db.yml
+uv run datahub ingest -c files/recipes/licensing_files.yml
+uv run kit/harvest_check.py</code></pre>
+  <p>عدّ الأصول في الجدول، وضع علامة على كل ما لا ينبغي أن يكون فيه.</p>
+</div>
+
+<div class="step">
+  <h3>3 · الاستبعاد والتنميط <span class="min">14 د</span></h3>
+  <p>عدّل في الوصفتين الأسطر الموسومة <code>EDIT</code> فقط. أنماط الجداول تعابير نمطية (regular expressions) على الاسم الكامل <code>main.اسم_الجدول</code>؛ مثال لجدول يبدأ بـ old_: <code>'.*\.old_.*'</code>. أنماط الملفات من نوع glob؛ مثال لمجلد اسمه archive: <code>"**/archive/**"</code>. ثم شغّل التنميط بـ <code>enabled: true</code>، وأعد الأوامر الثلاثة.</p>
+</div>
+
+<div class="step">
+  <h3>4 · لا قيمة ظاهرة من الأعمدة الشخصية <span class="min">14 د</span></h3>
+  <p>أطفئ القيم النموذجية في الوصفتين، وأعد التشغيل. اقرأ عمود <code>values</code> في الجدول: إن بقي فيه <code>VISIBLE</code>، فالقيم ما زالت تظهر من باب آخر. أداة الملفات تحسب أيضًا تكرار كل قيمة؛ خيارها <code>include_field_distinct_value_frequencies</code> تحت <code>profiling</code>. أطفئه وأعد التشغيل.</p>
+</div>
+
+<div class="step">
+  <h3>5 · الجدولة بتوقيت الرياض <span class="min">10 د</span></h3>
+  <p>في <code>schedule.yml</code> اكتب لكل وصفة تعبير cron من خمسة حقول: الدقيقة، والساعة، ويوم الشهر، والشهر، ويوم الأسبوع (0 هو الأحد). استعمل التوقيت الذي في الملاحظات، والمنطقة الزمنية <code>Asia/Riyadh</code>.</p>
+</div>
+
+<div class="step">
+  <h3>6 · حتى ينجح الفحص <span class="min">14 د</span></h3>
+  <p>أعد الأوامر الثلاثة حتى ينتهي الفحص بـ <code>RESULT: PASS</code>. اكتب: عدد الأصول المفهرسة، وعدد صفوف جدول الرخص، ونسبة الفراغ في عمود الجوال. يطبع الفحص لكل وصفة أمر النشر في نسخة المدرب؛ لا تشغّله إلا إن طلب المدرب.</p>
+</div>
+
+<div class="step stretch">
+  <h3>✱ تمرين إضافي</h3>
+  <p>اكتب وصفة ثالثة للمجلدات العامة وحدها (الإحصاءات المنشورة) تُظهر القيم النموذجية، واكتب سطرًا يبرر لماذا يجوز ذلك فيها ولا يجوز في غيرها.</p>
+</div>
+
+<h2>أسئلة تحقق</h2>
+<ol class="checks">
+  <li>كم أصلًا فُهرس في البداية، وكم منها ليس أصلًا؟</li>
+  <li>لماذا لا يظهر للعرض <code>v_active_licences</code> ملف تنميط، ومع ذلك ينجح الفحص؟</li>
+  <li>بعد أن أطفأت القيم النموذجية، في أي أصل بقيت قيم ظاهرة، ومن أي باب؟</li>
+</ol>
+
+<details class="instructor">
+  <summary>للمدرّب</summary>
+  <ul>
+    <li>المرجع: <code>solutions/recipes/</code> و<code>solutions/D1_1_harvest.md</code>. التحقق: <code>uv run solutions/check.py 1.1</code>.</li>
+    <li>في البداية 17 أصلًا، ثلاثة منها ليست أصولًا: <code>tmp_import_0925</code> و<code>licences_backup_2024</code> و<code>_staging</code>. بعد الإصلاح 14: ثمانية جداول وعرض وخمسة مجلدات.</li>
+    <li>الفخ المقصود في الخطوة 4: بعد إطفاء القيم النموذجية يبقى <code>mobile</code> ظاهرًا في <code>renewal_reminders</code> من تكرار القيم. هذا هو الدرس: «أطفأت القيم» ليس دليلًا؛ الدليل هو الناتج.</li>
+    <li>تحذيرات الاستخلاص عن الانحراف المعياري وعن العرض في SQLite طبيعية ولا تؤثر.</li>
+    <li>مع نسخة كتالوج حقيقية: يتغير قسم <code>sink</code> إلى <code>datahub-rest</code> بعنوان الخادم، ويُشغَّل أمر النشر المطبوع. هذا المسار لم يُجرَّب في بناء المقرر.</li>
+  </ul>
+</details>
 </article>
