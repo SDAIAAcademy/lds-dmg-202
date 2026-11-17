@@ -491,6 +491,14 @@
         {
           "title": "OpenLineage: column lineage dataset facet 1-2-0",
           "url": "https://openlineage.io/spec/facets/1-2-0/ColumnLineageDatasetFacet.json"
+        },
+        {
+          "title": "DCMI Metadata Terms",
+          "url": "https://www.dublincore.org/specifications/dublin-core/dcmi-terms/"
+        },
+        {
+          "title": "EU Vocabularies: Frequency (authority table used for dct:accrualPeriodicity)",
+          "url": "https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/frequency"
         }
       ]
     },

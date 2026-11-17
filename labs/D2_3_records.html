@@ -1,37 +1,71 @@
 <article class="lab" data-lab="2.3">
-  <div class="box goal">
-    <h3>الهدف</h3>
-    <p>REPLACE: في النهاية يستطيع المشاركون …</p>
-  </div>
-
-  <h2>ما تحتاجه</h2>
+<div class="box goal">
+  <h3>ستخرج من هذا المختبر بـ</h3>
   <ul>
-    <li>REPLACE: الملفات والأداة والحساب التي يستخدمها المختبر</li>
+    <li>خمسة سجلات لمجموعات بيانات منشورة من مجال الترخيص، تجتاز أداة التحقق في البوابة المستهدفة، بالترخيص وجهة الاتصال والدورية والتوزيع.</li>
+    <li>ملف السجلات بصيغة DCAT، وقائمة بما تحتاجه من المالك قبل النشر.</li>
   </ul>
+</div>
 
-  <div class="step">
-    <h3>REPLACE: الخطوة الأولى <span class="min">15 د</span></h3>
-    <p>REPLACE: ما يفعله المشارك ولماذا، في جملتين</p>
-    <div class="prompt" data-tool="كتالوج بيانات مفتوح المصدر">REPLACE: الأمر الذي ينسخه المشاركون، والأجزاء التي يغيّرونها <span class="ph">ملوّنة</span></div>
-  </div>
+<h2>ما تحتاجه</h2>
+<div class="files">
+  <a href="files/records/dataset_records.xlsx" download><b>records/dataset_records.xlsx</b><span>ورقة <code>records</code> بالسجلات الخمسة كما أُعدت، وورقة <code>lists</code> بقوائم البوابة.</span></a>
+  <a href="files/records/target_fields.txt"><b>records/target_fields.txt</b><span>الحقول التي تشترطها البوابة المستهدفة، وقوائمها.</span></a>
+  <a href="files/records/target_profile.ttl"><b>records/target_profile.ttl</b><span>قواعد التحقق نفسها بلغة SHACL. البوابة وقواعدها خاصة بالحالة، كُتبت لهذا المقرر.</span></a>
+</div>
+<p class="small">المجموعات الخمس إحصاءات وقوائم مصنفة «عام». لا يحتاج المختبر نموذجًا.</p>
 
-  <div class="step">
-    <h3>REPLACE: الخطوة الثانية <span class="min">10 د</span></h3>
-    <p>REPLACE: ما يفعله المشارك ولماذا، في جملتين</p>
-  </div>
+<h2>الخطوات</h2>
 
-  <div class="step stretch">
-    <h3>✱ إضافي</h3>
-    <p>REPLACE: توسعة لمن ينهي مبكرًا</p>
-  </div>
+<div class="step">
+  <h3>1 · الحقول والقوائم <span class="min">8 د</span></h3>
+  <p>اقرأ الحقول المطلوبة، ثم ورقة <code>lists</code>. ضع علامة على كل حقل لا يقبل إلا قيمة من قائمة.</p>
+</div>
 
-  <h2>أسئلة تحقق</h2>
-  <ol class="checks">
-    <li>REPLACE: سؤال يبيّن أن المختبر نجح</li>
-  </ol>
+<div class="step">
+  <h3>2 · التحقق كما وصل <span class="min">7 د</span></h3>
+  <p>شغّل الأداة من مجلد <code>labs</code>. تكتب السجلات بصيغة DCAT في <code>out/records.ttl</code>، ثم تتحقق منها بقواعد البوابة. اكتب عدد البنود التي تحتاج إصلاحًا.</p>
+  <pre class="code"><code>uv run kit/dcat.py</code></pre>
+</div>
 
-  <details class="instructor">
-    <summary>للمدرّب</summary>
-    <p>REPLACE: مفتاح الإجابة والفخاخ والأخطاء الشائعة</p>
-  </details>
+<div class="step">
+  <h3>3 · الإصلاح <span class="min">25 د</span></h3>
+  <p>أصلح السجلات في ورقة <code>records</code> بندًا بندًا، وأعد التشغيل بعد كل إصلاح حتى ينتهي بـ <code>RESULT: PASS</code>. لا تخترع قيمة لا تعرفها: إن لم تجدها في الملفات، اكتبها في قائمة ما تحتاجه من المالك، وضع قيمة مؤقتة واضحة.</p>
+</div>
+
+<div class="step">
+  <h3>4 · بعين مستخدم خارجي <span class="min">12 د</span></h3>
+  <p>اقرأ العنوان والوصف والكلمات المفتاحية لكل سجل كأنك باحث لا يعرف الهيئة. هل يعرف ما الذي يعدّه الرقم، وبأي تعريف؟ أداة التحقق لا تسأل هذا السؤال.</p>
+</div>
+
+<div class="step">
+  <h3>5 · سجل كامل <span class="min">8 د</span></h3>
+  <p>افتح <code>out/records.ttl</code> واقرأ سجلًا واحدًا كاملًا: المجموعة، والناشر، وجهة الاتصال، والتوزيع. أين ذهب كل عمود من ورقتك؟</p>
+</div>
+
+<div class="step">
+  <h3>6 · ما تحتاجه من المالك <span class="min">10 د</span></h3>
+  <p>اكتب في <code>out/owner_questions.txt</code> ما يجب أن يؤكده مالك البيانات قبل النشر: القيم المؤقتة، وأي تعريف يحتاج سطرًا في الوصف.</p>
+</div>
+
+<div class="step stretch">
+  <h3>✱ تمرين إضافي</h3>
+  <p>اكتب سجلًا سادسًا لسجل الممارسين نفسه، وبيّن لماذا يرفضه قرار النشر قبل أن تصل إليه أداة التحقق.</p>
+</div>
+
+<h2>أسئلة تحقق</h2>
+<ol class="checks">
+  <li>كم بندًا رفضته الأداة في البداية، وفي كم سجل؟</li>
+  <li>أي إصلاح احتاج قيمة لم تجدها في الملفات؟</li>
+  <li>ما الذي يجب أن يقوله وصف إحصاءات الرخص الشهرية عن تعريف «سارية»؟</li>
+</ol>
+
+<details class="instructor">
+  <summary>للمدرّب</summary>
+  <ul>
+    <li>المرجع: <code>solutions/reference/dataset_records_reference.xlsx</code> و<code>solutions/D2_3_records.md</code>. التحقق: <code>uv run solutions/check.py 2.3</code>.</li>
+    <li>ستة إصلاحات مزروعة في خمسة سجلات: ترخيص بنص حر، وبريد فارغ، ودورية بالعربية، وعنوان إنجليزي فارغ، وتوزيع بلا رابط وبنوع ملف غير معياري، وكلمة مفتاحية واحدة. تعرض الأداة تسعة بنود لأن خطأ التوزيع يظهر في أربع رسائل.</li>
+    <li>الخطوة 4 لا تفحصها الأداة: وصف إحصاءات الرخص لا يقول إن «السارية» فيه تُعد بالحالة وحدها. هذا ما يحتاج المالك أن يقرره.</li>
+  </ul>
+</details>
 </article>

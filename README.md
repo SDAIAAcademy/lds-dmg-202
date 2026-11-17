@@ -116,6 +116,8 @@ uv run solutions/check.py
 - [W3C: Data Catalog Vocabulary (DCAT) Version 3, Recommendation 22 August 2024](https://www.w3.org/TR/vocab-dcat-3/)
 - [OpenLineage: run event schema 2-0-2](https://openlineage.io/spec/2-0-2/OpenLineage.json)
 - [OpenLineage: column lineage dataset facet 1-2-0](https://openlineage.io/spec/facets/1-2-0/ColumnLineageDatasetFacet.json)
+- [DCMI Metadata Terms](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/)
+- [EU Vocabularies: Frequency (authority table used for dct:accrualPeriodicity)](https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/frequency)
 
 ### الأدوات
 

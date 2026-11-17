@@ -1,37 +1,73 @@
 <article class="lab" data-lab="2.1">
-  <div class="box goal">
-    <h3>الهدف</h3>
-    <p>REPLACE: في النهاية يستطيع المشاركون …</p>
-  </div>
-
-  <h2>ما تحتاجه</h2>
+<div class="box goal">
+  <h3>ستخرج من هذا المختبر بـ</h3>
   <ul>
-    <li>REPLACE: الملفات والأداة والحساب التي يستخدمها المختبر</li>
+    <li>قائمة بكل أصل يقع بعد عمود حالة الرخصة في المسار: نوع اعتماده، ومهمته، وتاريخ آخر تشغيل لها، ومالكه.</li>
+    <li>مذكرة أثر لطلب التغيير CR-2026-031: ما يتعطل، وما يتغير رقمه، وما لا تظهره الأحداث، والقرار وشروطه ومالك كل شرط.</li>
   </ul>
+</div>
 
-  <div class="step">
-    <h3>REPLACE: الخطوة الأولى <span class="min">15 د</span></h3>
-    <p>REPLACE: ما يفعله المشارك ولماذا، في جملتين</p>
-    <div class="prompt" data-tool="كتالوج بيانات مفتوح المصدر">REPLACE: الأمر الذي ينسخه المشاركون، والأجزاء التي يغيّرونها <span class="ph">ملوّنة</span></div>
-  </div>
+<h2>ما تحتاجه</h2>
+<div class="files">
+  <a href="files/lineage/change_request.txt"><b>lineage/change_request.txt</b><span>طلب التغيير: استبدال <code>licences.status</code> بعمود رموز جديد فيه قيمة لفترة السماح.</span></a>
+  <a href="files/lineage/notes_from_reporting.txt"><b>lineage/notes_from_reporting.txt</b><span>ملاحظتان من رئيس تقارير الأداء عن مسار لا يمر بخطوط المعالجة.</span></a>
+  <a href="files/lineage/events.jsonl" download><b>lineage/events.jsonl</b><span>48 حدث تشغيل بصيغة OpenLineage من خطوط معالجة الهيئة، بتتبع على مستوى العمود.</span></a>
+  <a href="files/lineage/owners.csv"><b>lineage/owners.csv</b><span>مالك كل أصل ومشرفه كما في الكتالوج.</span></a>
+  <a href="files/lineage/impact_note_template.txt"><b>lineage/impact_note_template.txt</b><span>قالب المذكرة بأقسامه الخمسة.</span></a>
+</div>
+<p class="small">لا يحتاج المختبر نموذجًا. الأحداث تحمل أسماء أعمدة وجداول ومهام فقط، بلا أي قيمة من بيانات الأشخاص.</p>
 
-  <div class="step">
-    <h3>REPLACE: الخطوة الثانية <span class="min">10 د</span></h3>
-    <p>REPLACE: ما يفعله المشارك ولماذا، في جملتين</p>
-  </div>
+<h2>الخطوات</h2>
 
-  <div class="step stretch">
-    <h3>✱ إضافي</h3>
-    <p>REPLACE: توسعة لمن ينهي مبكرًا</p>
-  </div>
+<div class="step">
+  <h3>1 · الطلب والملاحظات <span class="min">8 د</span></h3>
+  <p>اقرأ طلب التغيير، وضع خطًا تحت تقدير الفريق للأثر. ثم اقرأ ملاحظات قسم التقارير، واكتب ما الذي فيها لن تجده في الأحداث.</p>
+</div>
 
-  <h2>أسئلة تحقق</h2>
-  <ol class="checks">
-    <li>REPLACE: سؤال يبيّن أن المختبر نجح</li>
-  </ol>
+<div class="step">
+  <h3>2 · أداة الأثر <span class="min">12 د</span></h3>
+  <p>شغّل الأداة من مجلد <code>labs</code> على العمود المطلوب تغييره، واقرأ كل سطر: الأصل، والمسافة عن العمود (القفزة)، والمالك، ونوع الاعتماد، والمهمة وآخر تشغيل لها.</p>
+  <pre class="code"><code>uv run kit/impact.py --column licensing.licences.status</code></pre>
+</div>
 
-  <details class="instructor">
-    <summary>للمدرّب</summary>
-    <p>REPLACE: مفتاح الإجابة والفخاخ والأخطاء الشائعة</p>
-  </details>
+<div class="step">
+  <h3>3 · نوع الأثر وحياة المهمة <span class="min">12 د</span></h3>
+  <p>اكتب أمام كل أصل في جدول القسم الثاني من المذكرة: هل ينسخ القيمة (<code>DIRECT</code>)، فيتعطل حين يختفي العمود، أم يصفّي الصفوف بها (<code>INDIRECT</code>)، فيتغير رقمه حين تأتي قيمة جديدة. علّم المهمة التي تقول الأداة إنها متوقفة، ولا تحذفها من الجدول.</p>
+</div>
+
+<div class="step">
+  <h3>4 · ما لا تظهره الأحداث <span class="min">8 د</span></h3>
+  <p>أضف في القسم الثالث ما في ملاحظات التقارير، ومن يُسأل عن كل منه. اسأل نفسك: ماذا يحدث لعدّ «السارية» حين تظهر قيمة فترة السماح الجديدة؟</p>
+</div>
+
+<div class="step">
+  <h3>5 · مذكرة الأثر <span class="min">22 د</span></h3>
+  <p>أكمل القالب في <code>out/impact_note.txt</code> (انسخه إليه أولًا). القرار مضي أو توقف، وكل شرط يحوّل التوقف إلى مضي له مالك باسمه من <code>owners.csv</code>. اكتب بلغة يفهمها عضو لجنة التغيير.</p>
+</div>
+
+<div class="step">
+  <h3>6 · دقيقتان لزميل <span class="min">8 د</span></h3>
+  <p>اعرض قرارك على زميل في دقيقتين، ودعه يسألك عن أصل واحد في جدولك. بدّلا الدور.</p>
+</div>
+
+<div class="step stretch">
+  <h3>✱ تمرين إضافي</h3>
+  <p>شغّل الأداة على <code>licensing.licences.expiry_date</code>، وقارن قائمة المتأثرين بقائمة عمود الحالة. أي أصل يظهر في الأولى وحدها، ولماذا؟</p>
+</div>
+
+<h2>أسئلة تحقق</h2>
+<ol class="checks">
+  <li>كم أصلًا وكم مهمة بعد عمود الحالة في المسار؟ وأيها يتعطل وأيها يتغير رقمه؟</li>
+  <li>من يملك ملف المهمة المتوقفة؟ ومن ستسأل عنه؟</li>
+  <li>لماذا لا يكفي تقدير فريق التطوير «لا أثر خارج النظام»؟</li>
+</ol>
+
+<details class="instructor">
+  <summary>للمدرّب</summary>
+  <ul>
+    <li>المرجع: <code>solutions/D2_1_impact.md</code>. التحقق: <code>uv run solutions/check.py 2.1</code> (يتأكد من أن الأداة تعطي الأصول السبعة والمهام السبع والمهمة المتوقفة).</li>
+    <li>الفخاخ: الملف <code>legacy_quarterly</code> بلا مالك ومهمته متوقفة منذ أبريل؛ الاستخراج اليدوي الشهري لا يظهر في الأحداث؛ الإحصاءات المنشورة على بعد ثلاث قفزات، وتعدّ «السارية» بالحالة وحدها.</li>
+    <li>القرار المتوقع: توقف الآن، ومضي بشروط. اقبل «مضي بشروط» إن كانت الشروط سابقة للتنفيذ ولكل منها مالك. لا تقبل «مضي» بلا شروط.</li>
+  </ul>
+</details>
 </article>
