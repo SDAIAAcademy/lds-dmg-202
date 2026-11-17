@@ -1,0 +1,15 @@
+namespace,name,owner,steward
+sqlite://accreditation,providers,مدير الاعتماد,
+sqlite://accreditation,accreditations,مدير الاعتماد,
+sqlite://accreditation,cpd_courses,مدير الاعتماد,
+sqlite://accreditation,cpd_records,مدير الاعتماد,
+sqlite://accreditation,provider_visits,مدير الاعتماد,
+sqlite://licensing,professions,راكان التريكي,منيرة العبيد
+sqlite://warehouse,fact_cpd,عمار الوشمي,فارس الزاعق
+file://filestore,accreditation/published_cpd_hours,غيداء الحوشان,
+file://filestore,accreditation/published_provider_list,مدير الاعتماد,
+file://filestore,accreditation/cpd_course_catalogue,مدير الاعتماد,
+file://filestore,accreditation/certificate_uploads,مدير الاعتماد,فارس الزاعق
+file://filestore,accreditation/published_visit_outcomes,غيداء الحوشان,
+file://filestore,accreditation/legacy_provider_mailing,,
+bi://dashboards,cpd_compliance,عمار الوشمي,فارس الزاعق

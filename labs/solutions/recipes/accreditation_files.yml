@@ -1,0 +1,16 @@
+# Harvest recipe: Sinwan file store, accreditation folder · reference solution of the follow-up task
+source:
+  type: s3
+  config:
+    platform: file
+    path_specs:
+      - include: "files/sources/filestore/accreditation/{table}/*.csv"
+        exclude: ["**/_staging/**"]
+    profiling:
+      enabled: true
+      include_field_sample_values: false
+      include_field_distinct_value_frequencies: false
+sink:
+  type: file
+  config:
+    filename: out/accreditation_files.json

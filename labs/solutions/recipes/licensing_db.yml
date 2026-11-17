@@ -1,0 +1,17 @@
+# Harvest recipe: Sinwan licensing database (SQLite) · reference solution of lab 1.1
+source:
+  type: sqlalchemy
+  config:
+    platform: sqlite
+    platform_instance: licensing
+    connect_uri: "sqlite:///files/sources/licensing.db"
+    include_views: true
+    table_pattern:
+      deny: ['.*\.tmp_.*', '.*_backup_[0-9]{4}$']
+    profiling:
+      enabled: true
+      include_field_sample_values: false
+sink:
+  type: file
+  config:
+    filename: out/licensing_db.json

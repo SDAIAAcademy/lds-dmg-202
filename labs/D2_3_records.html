@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-ax="lab" data-track="executives">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المختبر 2.3 · خمسة سجلات لبوابة البيانات المفتوحة · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات</title>
+<meta name="generator" content="SDAIA Academy engine 1.0.0">
+<link rel="icon" href="../_engine/icon.svg">
+<link rel="alternate" type="text/markdown" href="D2_3_records.md">
+<link rel="describedby" href="../llms.txt">
+<link rel="stylesheet" href="../_engine/academy.css">
+</head>
+<body>
+<header>
+<div class="wrap">
+<div class="top"><div class="logo"></div><nav><a href="../index.html">صفحة المقرر</a><a href="../slides/day2.html#lab-2-3">العودة إلى الشرائح</a></nav></div>
+<span class="tag">المختبر 2.3</span>
+<h1>خمسة سجلات لبوابة البيانات المفتوحة</h1>
+<p>تصلح خمسة سجلات لمجموعات بيانات منشورة من مجال الترخيص حتى تجتاز أداة التحقق في البوابة المستهدفة، بالترخيص وجهة الاتصال والدورية والتوزيع، ثم تقرأ السجل بصيغة DCAT.</p>
+<div class="meta"><span>70 دقيقة</span><span>اليوم 2</span><span>الجلسة 3: النشر والكتالوج سياقًا للمساعدين</span></div>
+</div>
+</header>
+<main class="wrap">
+<article class="lab" data-lab="2.3">
+<div class="box goal">
+  <h3>ستخرج من هذا المختبر بـ</h3>
+  <ul>
+    <li>خمسة سجلات لمجموعات بيانات منشورة من مجال الترخيص، تجتاز أداة التحقق في البوابة المستهدفة، بالترخيص وجهة الاتصال والدورية والتوزيع.</li>
+    <li>ملف السجلات بصيغة DCAT، وقائمة بما تحتاجه من المالك قبل النشر.</li>
+  </ul>
+</div>
+
+<h2>ما تحتاجه</h2>
+<div class="files">
+  <a href="files/records/dataset_records.xlsx" download><b>records/dataset_records.xlsx</b><span>ورقة <code>records</code> بالسجلات الخمسة كما أُعدت، وورقة <code>lists</code> بقوائم البوابة.</span></a>
+  <a href="files/records/target_fields.txt"><b>records/target_fields.txt</b><span>الحقول التي تشترطها البوابة المستهدفة، وقوائمها.</span></a>
+  <a href="files/records/target_profile.ttl"><b>records/target_profile.ttl</b><span>قواعد التحقق نفسها بلغة SHACL. البوابة وقواعدها خاصة بالحالة، كُتبت لهذا المقرر.</span></a>
+</div>
+<p class="small">المجموعات الخمس إحصاءات وقوائم مصنفة «عام». لا يحتاج المختبر نموذجًا.</p>
+
+<h2>الخطوات</h2>
+
+<div class="step">
+  <h3>1 · الحقول والقوائم <span class="min">8 د</span></h3>
+  <p>اقرأ الحقول المطلوبة، ثم ورقة <code>lists</code>. ضع علامة على كل حقل لا يقبل إلا قيمة من قائمة.</p>
+</div>
+
+<div class="step">
+  <h3>2 · التحقق كما وصل <span class="min">7 د</span></h3>
+  <p>شغّل الأداة من مجلد <code>labs</code>. تكتب السجلات بصيغة DCAT في <code>out/records.ttl</code>، ثم تتحقق منها بقواعد البوابة. اكتب عدد البنود التي تحتاج إصلاحًا.</p>
+  <pre class="code"><code>uv run kit/dcat.py</code></pre>
+</div>
+
+<div class="step">
+  <h3>3 · الإصلاح <span class="min">25 د</span></h3>
+  <p>أصلح السجلات في ورقة <code>records</code> بندًا بندًا، وأعد التشغيل بعد كل إصلاح حتى ينتهي بـ <code>RESULT: PASS</code>. لا تخترع قيمة لا تعرفها: إن لم تجدها في الملفات، اكتبها في قائمة ما تحتاجه من المالك، وضع قيمة مؤقتة واضحة.</p>
+</div>
+
+<div class="step">
+  <h3>4 · بعين مستخدم خارجي <span class="min">12 د</span></h3>
+  <p>اقرأ العنوان والوصف والكلمات المفتاحية لكل سجل كأنك باحث لا يعرف الهيئة. هل يعرف ما الذي يعدّه الرقم، وبأي تعريف؟ أداة التحقق لا تسأل هذا السؤال.</p>
+</div>
+
+<div class="step">
+  <h3>5 · سجل كامل <span class="min">8 د</span></h3>
+  <p>افتح <code>out/records.ttl</code> واقرأ سجلًا واحدًا كاملًا: المجموعة، والناشر، وجهة الاتصال، والتوزيع. أين ذهب كل عمود من ورقتك؟</p>
+</div>
+
+<div class="step">
+  <h3>6 · ما تحتاجه من المالك <span class="min">10 د</span></h3>
+  <p>اكتب في <code>out/owner_questions.txt</code> ما يجب أن يؤكده مالك البيانات قبل النشر: القيم المؤقتة، وأي تعريف يحتاج سطرًا في الوصف.</p>
+</div>
+
+<div class="step stretch">
+  <h3>✱ تمرين إضافي</h3>
+  <p>اكتب سجلًا سادسًا لسجل الممارسين نفسه، وبيّن لماذا يرفضه قرار النشر قبل أن تصل إليه أداة التحقق.</p>
+</div>
+
+<h2>أسئلة تحقق</h2>
+<ol class="checks">
+  <li>كم بندًا رفضته الأداة في البداية، وفي كم سجل؟</li>
+  <li>أي إصلاح احتاج قيمة لم تجدها في الملفات؟</li>
+  <li>ما الذي يجب أن يقوله وصف إحصاءات الرخص الشهرية عن تعريف «سارية»؟</li>
+</ol>
+
+<details class="instructor">
+  <summary>للمدرّب</summary>
+  <ul>
+    <li>المرجع: <code>solutions/reference/dataset_records_reference.xlsx</code> و<code>solutions/D2_3_records.md</code>. التحقق: <code>uv run solutions/check.py 2.3</code>.</li>
+    <li>ستة إصلاحات مزروعة في خمسة سجلات: ترخيص بنص حر، وبريد فارغ، ودورية بالعربية، وعنوان إنجليزي فارغ، وتوزيع بلا رابط وبنوع ملف غير معياري، وكلمة مفتاحية واحدة. تعرض الأداة تسعة بنود لأن خطأ التوزيع يظهر في أربع رسائل.</li>
+    <li>الخطوة 4 لا تفحصها الأداة: وصف إحصاءات الرخص لا يقول إن «السارية» فيه تُعد بالحالة وحدها. هذا ما يحتاج المالك أن يقرره.</li>
+  </ul>
+</details>
+</article>
+<nav class="pager"><a href="D2_2_health.html" rel="prev">→ المختبر السابق</a></nav>
+</main>
+<footer><div class="wrap">أكاديمية سدايا · مسار التنفيذيين والقادة · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات<br><span class="muted">إصدار المقرر 2027.1.0 · المحرّك 1.0.0 · بُني في ⁦2026-11-17⁩ · الإيداع 2da61d2</span></div></footer>
+<script type="application/json" id="academy-data">{"v":1,"engine":"1.0.0","build":{"at":"2026-11-17T23:56:31Z","version":"2027.1.0","commit":"2da61d2"},"course":{"id":"lds-dmg-202","code":"LDS-DMG-202","title":"البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات","track":"executives","lang":"ar","dir":"rtl","url":"https://sdaiaacademy.github.io/lds-dmg-202/","repo":"SDAIAAcademy/lds-dmg-202","home":"../index.html"},"lab":{"id":"2.3","title":"خمسة سجلات لبوابة البيانات المفتوحة","summary":"تصلح خمسة سجلات لمجموعات بيانات منشورة من مجال الترخيص حتى تجتاز أداة التحقق في البوابة المستهدفة، بالترخيص وجهة الاتصال والدورية والتوزيع، ثم تقرأ السجل بصيغة DCAT.","minutes":70,"day":2,"unit":"اليوم 2","session":3,"deck":"../slides/day2.html#lab-2-3","prev":"D2_2_health.html","next":null,"alt":{}},"ai":{"context":{"course":"../context/course.md","courseJs":"../context/course.js","day":null,"llms":"../llms.txt"},"tasks":[],"tools":[]},"features":{},"strings":{}}</script>
+<script src="../_engine/academy.js"></script>
+</body>
+</html>

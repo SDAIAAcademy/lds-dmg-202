@@ -1,0 +1,7 @@
+# Lab kit of LDS-DMG-202 for Google Colab or any Python 3.11 or 3.12 without uv.
+# Same versions as uv.lock. Install with: pip install -r requirements-colab.txt
+acryl-datahub[sqlalchemy,s3,datahub-business-glossary]==1.7.0.20
+openpyxl==3.1.5
+pyyaml==6.0.3
+rdflib==7.6.0
+pyshacl==0.40.2

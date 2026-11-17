@@ -1,0 +1,11 @@
+# Harvest schedule for the trainer's catalogue instance (datahub ingest deploy)
+# cron: minute hour day-of-month month day-of-week
+harvests:
+  - recipe: recipes/licensing_db.yml
+    name: licensing-db
+    schedule: "* * * * *"      # EDIT
+    timezone: UTC              # EDIT
+  - recipe: recipes/licensing_files.yml
+    name: licensing-files
+    schedule: "* * * * *"      # EDIT
+    timezone: UTC              # EDIT

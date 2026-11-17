@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-ax="lab" data-track="executives">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المختبر 1.2 · مراجعة 40 وصفًا صاغته الآلة · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات</title>
+<meta name="generator" content="SDAIA Academy engine 1.0.0">
+<link rel="icon" href="../_engine/icon.svg">
+<link rel="alternate" type="text/markdown" href="D1_2_drafts.md">
+<link rel="describedby" href="../llms.txt">
+<link rel="stylesheet" href="../_engine/academy.css">
+</head>
+<body>
+<header>
+<div class="wrap">
+<div class="top"><div class="logo"></div><nav><a href="../index.html">صفحة المقرر</a><a href="../slides/day1.html#lab-1-2">العودة إلى الشرائح</a></nav></div>
+<span class="tag">المختبر 1.2</span>
+<h1>مراجعة 40 وصفًا صاغته الآلة</h1>
+<p>تراجع 40 وصفًا لأصول مجال الترخيص صاغتها الآلة، فتقبل أو تعدّل أو ترفض، وتسمي نوع الخطأ، وتكتب اسمك مراجِعًا لكل سطر، ثم تحسب معدل الخطأ وأكثر أنواعه شيوعًا.</p>
+<div class="meta"><span>70 دقيقة</span><span>اليوم 1</span><span>الجلسة 2: مساعدة الآلة ومراجعتها</span></div>
+</div>
+</header>
+<main class="wrap">
+<article class="lab" data-lab="1.2">
+<div class="box goal">
+  <h3>ستخرج من هذا المختبر بـ</h3>
+  <ul>
+    <li>سجل مراجعة لأربعين وصفًا صاغته الآلة: قبول أو تعديل أو رفض، ونوع الخطأ، والنص المصحح، واسم المراجِع في كل سطر.</li>
+    <li>معدل الخطأ، وأكثر أنواع الخطأ شيوعًا، واقتراح واحد يقلل أكثرها.</li>
+  </ul>
+</div>
+
+<h2>ما تحتاجه</h2>
+<div class="files">
+  <a href="files/drafts/drafts.xlsx" download><b>drafts/drafts.xlsx</b><span>المسودات الأربعون، وما أُرسل إلى النموذج لكل منها، وأعمدة المراجعة فارغة.</span></a>
+  <a href="files/drafts/review_rubric.txt"><b>drafts/review_rubric.txt</b><span>سلّم المراجعة: متى تقبل ومتى تعدّل ومتى ترفض، وأنواع الخطأ الستة.</span></a>
+  <a href="files/drafts/steward_notes.txt"><b>drafts/steward_notes.txt</b><span>ملاحظات المشرفين: المصدر الذي تحكم به على كل وصف.</span></a>
+</div>
+<p class="small">هذا المختبر لا يحتاج نموذجًا. المسودات في الملف مكتوبة سلفًا لهذا المقرر، بديلًا عن ناتج نموذج، وفيها أخطاء مزروعة من الأنواع التي يقع فيها النموذج حين لا يرى إلا أسماء الأعمدة. لا يدخل أي محتوى من الملفات أداة ذكاء اصطناعي في هذا المختبر.</p>
+
+<h2>الخطوات</h2>
+
+<div class="step">
+  <h3>1 · السلّم والمصدر <span class="min">8 د</span></h3>
+  <p>اقرأ السلّم، ثم ملاحظات المشرفين. لاحظ عمود <code>sent_to_model</code>: النموذج رأى الأسماء والأنواع فقط، فكل ما في الوصف غير ذلك إما من فهمه العام وإما مختلق.</p>
+</div>
+
+<div class="step">
+  <h3>2 · المسودات من 1 إلى 20 <span class="min">22 د</span></h3>
+  <p>لكل مسودة: القرار، ونوع خطأ واحد (الأهم)، والنص المصحح عند التعديل أو الرفض، واسمك في <code>reviewer</code>. إن وجدت في وصف قيمة من البيانات، فالقرار رفض، وأبلغ المدرب.</p>
+</div>
+
+<div class="step">
+  <h3>3 · المسودات من 21 إلى 40 <span class="min">22 د</span></h3>
+  <p>تابع بالطريقة نفسها. انتبه للأعمدة المتشابهة الأسماء في جداول مختلفة: الاسم لا يكفي للحكم.</p>
+</div>
+
+<div class="step">
+  <h3>4 · التقرير <span class="min">8 د</span></h3>
+  <p>احفظ الملف، ثم شغّل التقرير من مجلد <code>labs</code>. أكمل كل سطر يذكره حتى ينتهي بـ <code>RESULT: PASS</code>.</p>
+  <pre class="code"><code>uv run kit/review_report.py</code></pre>
+</div>
+
+<div class="step">
+  <h3>5 · النوعان الأكثر شيوعًا <span class="min">10 د</span></h3>
+  <p>قارن معدلك وأكثر نوعين شيوعًا عندك مع زميل. اكتب تعديلًا واحدًا على طلب الصياغة (ما يُرسل إلى النموذج، أو ما يُطلب منه) يقلل النوع الأول، دون أن يرسل أي قيمة من البيانات.</p>
+</div>
+
+<div class="step stretch">
+  <h3>✱ تمرين إضافي</h3>
+  <p>إن أتاح المدرب نموذجًا مستضافًا معتمدًا: صُغ أوصافًا لعشرة أعمدة من الإحصاءات المنشورة (مصنفة «عام») من أسمائها وأنواعها وحدها، وقِس معدل خطئها بالسلّم نفسه.</p>
+</div>
+
+<h2>أسئلة تحقق</h2>
+<ol class="checks">
+  <li>ما معدل الخطأ عندك، وما أكثر نوعين شيوعًا؟</li>
+  <li>كم مسودة فيها قيمة مسربة، ومن أين جاءت القيمة إن لم يُرسل إلى النموذج غير الأسماء؟</li>
+  <li>لماذا لا يكفي أن يكون الوصف سليم اللغة لتقبله؟</li>
+</ol>
+
+<details class="instructor">
+  <summary>للمدرّب</summary>
+  <ul>
+    <li>المرجع: <code>solutions/reference/drafts_reviewed.xlsx</code> و<code>solutions/D1_2_drafts.md</code>. 16 قبول، و15 تعديل، و9 رفض: معدل الخطأ 24 من 40، أي 60٪. الأنواع: يكرر الاسم 8، وقاعدة مختلقة 6، ومعنى خاطئ 4، ووحدة أو صيغة خاطئة 4، وقيمة مسربة 2.</li>
+    <li>اقبل خلافًا في الحدود: قاعدة مختلقة تُعدّل أو تُرفض بحسب أثرها على ما يُعد. لا خلاف في القيمة المسربة: رفض دائمًا.</li>
+    <li>جواب السؤال الثاني: سطر <code>sent_to_model</code> يقول «الأسماء والأنواع فقط»، والقيمتان ظهرتا مع ذلك. في المسودتين D10 وD38 خرق لقاعدة الإرسال يُسأل عنه من أعدّ الطلب. هذا ما يجعل السجل وتسمية المراجِع إلزاميين.</li>
+    <li>توافق جيد مع المرجع: 32 قرارًا من 40 أو أكثر.</li>
+  </ul>
+</details>
+</article>
+<nav class="pager"><a href="D1_1_harvest.html" rel="prev">→ المختبر السابق</a><a href="D1_3_glossary.html" rel="next">المختبر التالي ←</a></nav>
+</main>
+<footer><div class="wrap">أكاديمية سدايا · مسار التنفيذيين والقادة · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات<br><span class="muted">إصدار المقرر 2027.1.0 · المحرّك 1.0.0 · بُني في ⁦2026-11-17⁩ · الإيداع 2da61d2</span></div></footer>
+<script type="application/json" id="academy-data">{"v":1,"engine":"1.0.0","build":{"at":"2026-11-17T23:56:31Z","version":"2027.1.0","commit":"2da61d2"},"course":{"id":"lds-dmg-202","code":"LDS-DMG-202","title":"البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات","track":"executives","lang":"ar","dir":"rtl","url":"https://sdaiaacademy.github.io/lds-dmg-202/","repo":"SDAIAAcademy/lds-dmg-202","home":"../index.html"},"lab":{"id":"1.2","title":"مراجعة 40 وصفًا صاغته الآلة","summary":"تراجع 40 وصفًا لأصول مجال الترخيص صاغتها الآلة، فتقبل أو تعدّل أو ترفض، وتسمي نوع الخطأ، وتكتب اسمك مراجِعًا لكل سطر، ثم تحسب معدل الخطأ وأكثر أنواعه شيوعًا.","minutes":70,"day":1,"unit":"اليوم 1","session":2,"deck":"../slides/day1.html#lab-1-2","prev":"D1_1_harvest.html","next":"D1_3_glossary.html","alt":{}},"ai":{"context":{"course":"../context/course.md","courseJs":"../context/course.js","day":null,"llms":"../llms.txt"},"tasks":[],"tools":[]},"features":{},"strings":{}}</script>
+<script src="../_engine/academy.js"></script>
+</body>
+</html>

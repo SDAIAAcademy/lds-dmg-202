@@ -1,0 +1,13 @@
+namespace,name,owner,steward
+sqlite://licensing,licences,راكان التريكي,منيرة العبيد
+sqlite://licensing,practitioners,راكان التريكي,منيرة العبيد
+sqlite://licensing,applications,راكان التريكي,منيرة العبيد
+sqlite://licensing,renewals,راكان التريكي,منيرة العبيد
+sqlite://warehouse,fact_licence,عمار الوشمي,فارس الزاعق
+sqlite://warehouse,fact_application,عمار الوشمي,فارس الزاعق
+sqlite://warehouse,monthly_licence_stats,عمار الوشمي,فارس الزاعق
+file://filestore,licensing/published_licence_stats,غيداء الحوشان,منيرة العبيد
+file://filestore,licensing/public_register,راكان التريكي,منيرة العبيد
+file://filestore,licensing/renewal_reminders,راكان التريكي,فارس الزاعق
+file://filestore,licensing/legacy_quarterly,,
+bi://dashboards,renewals_overview,عمار الوشمي,فارس الزاعق

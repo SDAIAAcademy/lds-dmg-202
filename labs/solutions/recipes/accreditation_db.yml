@@ -1,0 +1,17 @@
+# Harvest recipe: Sinwan accreditation database (SQLite) · reference solution of the follow-up task
+source:
+  type: sqlalchemy
+  config:
+    platform: sqlite
+    platform_instance: accreditation
+    connect_uri: "sqlite:///files/sources/accreditation.db"
+    include_views: true
+    table_pattern:
+      deny: ['.*\.tmp_.*', '.*_backup_[0-9]{4}$']
+    profiling:
+      enabled: true
+      include_field_sample_values: false
+sink:
+  type: file
+  config:
+    filename: out/accreditation_db.json

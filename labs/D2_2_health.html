@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-ax="lab" data-track="executives">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المختبر 2.2 · قياس صحة مجال الترخيص · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات</title>
+<meta name="generator" content="SDAIA Academy engine 1.0.0">
+<link rel="icon" href="../_engine/icon.svg">
+<link rel="alternate" type="text/markdown" href="D2_2_health.md">
+<link rel="describedby" href="../llms.txt">
+<link rel="stylesheet" href="../_engine/academy.css">
+</head>
+<body>
+<header>
+<div class="wrap">
+<div class="top"><div class="logo"></div><nav><a href="../index.html">صفحة المقرر</a><a href="../slides/day2.html#lab-2-2">العودة إلى الشرائح</a></nav></div>
+<span class="tag">المختبر 2.2</span>
+<h1>قياس صحة مجال الترخيص</h1>
+<p>تقيس من حالة الكتالوج المرجعية تغطية مجال الترخيص واكتماله وحداثته، بعد أن تقرر ما يُعد وصفًا وما يُعد حديثًا، وتكتب ثلاث أولويات وفقرة صحة للمالك.</p>
+<div class="meta"><span>70 دقيقة</span><span>اليوم 2</span><span>الجلسة 2: الكتالوج في التشغيل</span></div>
+</div>
+</header>
+<main class="wrap">
+<article class="lab" data-lab="2.2">
+<div class="box goal">
+  <h3>ستخرج من هذا المختبر بـ</h3>
+  <ul>
+    <li>إعداد قياس تختار فيه السمات المطلوبة لاكتمال الأصل، ومعنى «موصوف» و«حديث»، ولكل اختيار مرجعه.</li>
+    <li>قياسات التغطية والاكتمال والحداثة لمجال الترخيص، وثلاث أولويات لكل منها مالك وقياس، وفقرة صحة للمالك.</li>
+  </ul>
+</div>
+
+<h2>ما تحتاجه</h2>
+<div class="files">
+  <a href="files/reference/catalogue_state.xlsx" download><b>reference/catalogue_state.xlsx</b><span>حالة كتالوج مجال الترخيص في 31 أكتوبر 2026: ستة عشر أصلًا بسماتها، وسجل تشغيل الاستخلاص لثمانية وعشرين يومًا.</span></a>
+  <a href="files/reference/health_config.yml"><b>reference/health_config.yml</b><span>إعداد القياس كما وصل. الأسطر التي تقررها معلّمة بـ <code>EDIT</code>.</span></a>
+</div>
+<p class="small">حالة الكتالوج ملف مرجعي جاهز، لا ناتج مختبرات اليوم الأول، فلا تحتاج أن تكون أكملتها. لا يحتاج المختبر نموذجًا.</p>
+
+<h2>الخطوات</h2>
+
+<div class="step">
+  <h3>1 · القياس كما وصل <span class="min">8 د</span></h3>
+  <p>شغّل الأداة من مجلد <code>labs</code> بالإعداد كما هو، واكتب الأرقام الثلاثة: الاكتمال والحداثة وعدد التشغيلات الفاشلة. هل تصدّقها؟</p>
+  <pre class="code"><code>uv run kit/health.py</code></pre>
+</div>
+
+<div class="step">
+  <h3>2 · السمات المطلوبة <span class="min">14 د</span></h3>
+  <p>اجعل كل سمة <code>true</code> أو <code>false</code> في <code>required</code>، واكتب بجانبها تعليقًا بمرجعها: ضابط في مجال البيانات الوصفية ودليل البيانات، أو قرار في الحالة. السمة التي لا تجد لها مرجعًا لا تجعلها مطلوبة.</p>
+</div>
+
+<div class="step">
+  <h3>3 · «موصوف» و«حديث» <span class="min">10 د</span></h3>
+  <p>قرر هل تُعد مسودة صاغتها الآلة ولم يراجعها أحد وصفًا (<code>count_machine_drafts_as_described</code>). ثم اختر حد الحداثة بعدد فترات الجدولة: كم استخلاصًا فائتًا تقبل قبل أن تقول إن المدخل قديم؟</p>
+</div>
+
+<div class="step">
+  <h3>4 · إعادة القياس <span class="min">12 د</span></h3>
+  <p>أعد التشغيل، وضع الرقمين قبل التعديل وبعده جنبًا إلى جنب. اكتب لكل فرق سطرًا: أي قرار من قراراتك أحدثه.</p>
+</div>
+
+<div class="step">
+  <h3>5 · ثلاث أولويات <span class="min">18 د</span></h3>
+  <p>من قوائم «ناقص» و«قديم» و«فشل»، اختر ثلاث أولويات. لكل منها: ما يُعمل، ومالكه باسمه، والقياس الذي يثبت إنجازه، والرقم المستهدف بعد شهر.</p>
+</div>
+
+<div class="step">
+  <h3>6 · فقرة للمالك <span class="min">8 د</span></h3>
+  <p>اكتب خمسة أسطر لمدير الترخيص: أين يقف المجال، وما يقلقك، وما تطلبه منه. لا مصطلح تقني بلا شرح، ولا نسبة بلا تعريفها.</p>
+</div>
+
+<div class="step stretch">
+  <h3>✱ تمرين إضافي</h3>
+  <p>اقترح مؤشرين من مؤشرات استخدام الكتالوج في الضوابط الوطنية، وبيّن من أين تأتي أرقامهما في أداة كتالوج حقيقية، ولماذا لا تجدهما في ملف الحالة.</p>
+</div>
+
+<h2>أسئلة تحقق</h2>
+<ol class="checks">
+  <li>كم أصلًا مكتملًا قبل تعديلك وبعده؟ وأي قرار أحدث أكبر فرق؟</li>
+  <li>لماذا تبدو أصول مخزن الملفات حديثة بالإعداد الأول، وماذا يقول سجل التشغيل؟</li>
+  <li>ما الأولوية التي وضعتها أولًا، ومن مالكها؟</li>
+</ol>
+
+<details class="instructor">
+  <summary>للمدرّب</summary>
+  <ul>
+    <li>المرجع: <code>solutions/reference/health_config_reference.yml</code> و<code>solutions/D2_2_health.md</code>. التحقق: <code>uv run solutions/check.py 2.2</code>.</li>
+    <li>الفخاخ في الإعداد الأول: المالك وحده مطلوب، ومسودات الآلة تُعد وصفًا، وحد الحداثة عشر فترات فيغطي ثلاثة أسابيع من الفشل.</li>
+    <li>اقبل اختلافًا في سمة واحدة إن كان معها مرجع، مثل جعل ربط عمود بمصطلح مطلوبًا. لا تقبل حدًا للحداثة يجعل الفشل المتكرر غير مرئي.</li>
+  </ul>
+</details>
+</article>
+<nav class="pager"><a href="D2_1_impact.html" rel="prev">→ المختبر السابق</a><a href="D2_3_records.html" rel="next">المختبر التالي ←</a></nav>
+</main>
+<footer><div class="wrap">أكاديمية سدايا · مسار التنفيذيين والقادة · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات<br><span class="muted">إصدار المقرر 2027.1.0 · المحرّك 1.0.0 · بُني في ⁦2026-11-17⁩ · الإيداع 2da61d2</span></div></footer>
+<script type="application/json" id="academy-data">{"v":1,"engine":"1.0.0","build":{"at":"2026-11-17T23:56:31Z","version":"2027.1.0","commit":"2da61d2"},"course":{"id":"lds-dmg-202","code":"LDS-DMG-202","title":"البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات","track":"executives","lang":"ar","dir":"rtl","url":"https://sdaiaacademy.github.io/lds-dmg-202/","repo":"SDAIAAcademy/lds-dmg-202","home":"../index.html"},"lab":{"id":"2.2","title":"قياس صحة مجال الترخيص","summary":"تقيس من حالة الكتالوج المرجعية تغطية مجال الترخيص واكتماله وحداثته، بعد أن تقرر ما يُعد وصفًا وما يُعد حديثًا، وتكتب ثلاث أولويات وفقرة صحة للمالك.","minutes":70,"day":2,"unit":"اليوم 2","session":2,"deck":"../slides/day2.html#lab-2-2","prev":"D2_1_impact.html","next":"D2_3_records.html","alt":{}},"ai":{"context":{"course":"../context/course.md","courseJs":"../context/course.js","day":null,"llms":"../llms.txt"},"tasks":[],"tools":[]},"features":{},"strings":{}}</script>
+<script src="../_engine/academy.js"></script>
+</body>
+</html>

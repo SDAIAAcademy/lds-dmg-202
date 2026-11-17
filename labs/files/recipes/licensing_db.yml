@@ -1,0 +1,18 @@
+# Harvest recipe: Sinwan licensing database (SQLite)
+# Copied from the vendor's example. Edit only the lines marked EDIT.
+source:
+  type: sqlalchemy
+  config:
+    platform: sqlite
+    platform_instance: licensing
+    connect_uri: "sqlite:///files/sources/licensing.db"
+    include_views: true
+    table_pattern:
+      deny: []            # EDIT: patterns of tables that are not assets
+    profiling:
+      enabled: false      # EDIT: profile statistics
+      include_field_sample_values: true   # EDIT: sample values
+sink:
+  type: file
+  config:
+    filename: out/licensing_db.json

@@ -1,0 +1,16 @@
+# Harvest recipe: Sinwan file store, licensing folder · reference solution of lab 1.1
+source:
+  type: s3
+  config:
+    platform: file
+    path_specs:
+      - include: "files/sources/filestore/licensing/{table}/*.csv"
+        exclude: ["**/_staging/**"]
+    profiling:
+      enabled: true
+      include_field_sample_values: false
+      include_field_distinct_value_frequencies: false
+sink:
+  type: file
+  config:
+    filename: out/licensing_files.json

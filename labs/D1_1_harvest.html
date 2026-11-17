@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-ax="lab" data-track="executives">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المختبر 1.1 · استخلاص قاعدة بيانات ومخزن ملفات · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات</title>
+<meta name="generator" content="SDAIA Academy engine 1.0.0">
+<link rel="icon" href="../_engine/icon.svg">
+<link rel="alternate" type="text/markdown" href="D1_1_harvest.md">
+<link rel="describedby" href="../llms.txt">
+<link rel="stylesheet" href="../_engine/academy.css">
+</head>
+<body>
+<header>
+<div class="wrap">
+<div class="top"><div class="logo"></div><nav><a href="../index.html">صفحة المقرر</a><a href="../slides/day1.html#lab-1-1">العودة إلى الشرائح</a></nav></div>
+<span class="tag">المختبر 1.1</span>
+<h1>استخلاص قاعدة بيانات ومخزن ملفات</h1>
+<p>تشغّل أداة الاستخلاص في كتالوج مفتوح المصدر على قاعدة بيانات الترخيص ومجلد الترخيص في مخزن الملفات، وتصلح الوصفتين حتى يُفهرس كل أصل بمخططه وإحصاءات تنميطه بلا قيم شخصية ظاهرة، وبجدولة بتوقيت الرياض.</p>
+<div class="meta"><span>70 دقيقة</span><span>اليوم 1</span><span>الجلسة 1: البيانات الوصفية والاستخلاص المجدول</span></div>
+</div>
+</header>
+<main class="wrap">
+<article class="lab" data-lab="1.1">
+<div class="box goal">
+  <h3>ستخرج من هذا المختبر بـ</h3>
+  <ul>
+    <li>وصفتي استخلاص (recipe) تفهرسان كل جدول وعرض ومجلد بيانات في مجال الترخيص، ولا تفهرسان ما ليس أصلًا.</li>
+    <li>إحصاءات تنميط لكل جدول وملف، بلا أي قيمة ظاهرة من الأعمدة الشخصية.</li>
+    <li>جدولة لكل وصفة بتوقيت الرياض، وناتج فحص ينتهي بـ <code>RESULT: PASS</code>.</li>
+  </ul>
+</div>
+
+<h2>ما تحتاجه</h2>
+<div class="files">
+  <a href="files/recipes/harvest_notes.txt"><b>recipes/harvest_notes.txt</b><span>شروط الموافقة على ربط الكتالوج بالمصدرين، كما كتبها فارس الزاعق.</span></a>
+  <a href="files/recipes/licensing_db.yml"><b>recipes/licensing_db.yml</b><span>وصفة قاعدة بيانات الترخيص، منسوخة من مثال المورد كما هو.</span></a>
+  <a href="files/recipes/licensing_files.yml"><b>recipes/licensing_files.yml</b><span>وصفة مجلد الترخيص في مخزن الملفات.</span></a>
+  <a href="files/recipes/schedule.yml"><b>recipes/schedule.yml</b><span>جدولة الوصفتين في نسخة الكتالوج التي يديرها المدرب.</span></a>
+</div>
+<p class="small">المصادر في <code>files/sources/</code>: قاعدة <code>licensing.db</code> ومجلد <code>filestore/licensing/</code>. كلها اصطناعية. أداة الاستخلاص هي أداة سطر الأوامر في كتالوج DataHub المفتوح المصدر، وتكتب ما تستخلصه في ملف محلي في <code>out/</code> بلا خادم. الذكاء الاصطناعي مرشد في هذا المختبر: اسأله عن معنى خيار، ولا تلصق فيه شيئًا من المصادر.</p>
+
+<div class="callout tip">
+  <b>مرة واحدة قبل المختبر.</b> افتح طرفية (terminal) في مجلد <code>labs</code> من المقرر، وشغّل الأمر التالي. يجهز البيئة في دقيقتين تقريبًا. في Google Colab اتبع ما في <code>labs/README.md</code>.
+  <pre class="code"><code>uv sync</code></pre>
+</div>
+
+<h2>الخطوات</h2>
+
+<div class="step">
+  <h3>1 · خمسة شروط من الملاحظات <span class="min">8 د</span></h3>
+  <p>اقرأ <code>harvest_notes.txt</code>، واكتب في ورقة خمسة شروط قصيرة: ما يُفهرس، وما لا يُفهرس، والتنميط، والقيم الشخصية، والجدولة. كل سطر في الوصفتين ستغيره يخدم شرطًا منها.</p>
+</div>
+
+<div class="step">
+  <h3>2 · شغّل الوصفتين كما وصلتا <span class="min">10 د</span></h3>
+  <p>شغّل الأوامر الثلاثة بالترتيب. الأول والثاني يستخلصان، والثالث يقرأ ما كُتب في <code>out/</code> ويطبع جدولًا بكل أصل ثم قائمة بما يحتاج إصلاحًا.</p>
+  <pre class="code"><code>uv run datahub ingest -c files/recipes/licensing_db.yml
+uv run datahub ingest -c files/recipes/licensing_files.yml
+uv run kit/harvest_check.py</code></pre>
+  <p>عدّ الأصول في الجدول، وضع علامة على كل ما لا ينبغي أن يكون فيه.</p>
+</div>
+
+<div class="step">
+  <h3>3 · الاستبعاد والتنميط <span class="min">14 د</span></h3>
+  <p>عدّل في الوصفتين الأسطر الموسومة <code>EDIT</code> فقط. أنماط الجداول تعابير نمطية (regular expressions) على الاسم الكامل <code>main.اسم_الجدول</code>؛ مثال لجدول يبدأ بـ old_: <code>'.*\.old_.*'</code>. أنماط الملفات من نوع glob؛ مثال لمجلد اسمه archive: <code>"**/archive/**"</code>. ثم شغّل التنميط بـ <code>enabled: true</code>، وأعد الأوامر الثلاثة.</p>
+</div>
+
+<div class="step">
+  <h3>4 · لا قيمة ظاهرة من الأعمدة الشخصية <span class="min">14 د</span></h3>
+  <p>أطفئ القيم النموذجية في الوصفتين، وأعد التشغيل. اقرأ عمود <code>values</code> في الجدول: إن بقي فيه <code>VISIBLE</code>، فالقيم ما زالت تظهر من باب آخر. أداة الملفات تحسب أيضًا تكرار كل قيمة؛ خيارها <code>include_field_<wbr>distinct_<wbr>value_<wbr>frequencies</code> تحت <code>profiling</code>. أطفئه وأعد التشغيل.</p>
+</div>
+
+<div class="step">
+  <h3>5 · الجدولة بتوقيت الرياض <span class="min">10 د</span></h3>
+  <p>في <code>schedule.yml</code> اكتب لكل وصفة تعبير cron من خمسة حقول: الدقيقة، والساعة، ويوم الشهر، والشهر، ويوم الأسبوع (0 هو الأحد). استعمل التوقيت الذي في الملاحظات، والمنطقة الزمنية <code>Asia/Riyadh</code>.</p>
+</div>
+
+<div class="step">
+  <h3>6 · حتى ينجح الفحص <span class="min">14 د</span></h3>
+  <p>أعد الأوامر الثلاثة حتى ينتهي الفحص بـ <code>RESULT: PASS</code>. اكتب: عدد الأصول المفهرسة، وعدد صفوف جدول الرخص، ونسبة الفراغ في عمود الجوال. يطبع الفحص لكل وصفة أمر النشر في نسخة المدرب؛ لا تشغّله إلا إن طلب المدرب.</p>
+</div>
+
+<div class="step stretch">
+  <h3>✱ تمرين إضافي</h3>
+  <p>اكتب وصفة ثالثة للمجلدات العامة وحدها (الإحصاءات المنشورة) تُظهر القيم النموذجية، واكتب سطرًا يبرر لماذا يجوز ذلك فيها ولا يجوز في غيرها.</p>
+</div>
+
+<h2>أسئلة تحقق</h2>
+<ol class="checks">
+  <li>كم أصلًا فُهرس في البداية، وكم منها ليس أصلًا؟</li>
+  <li>لماذا لا يظهر للعرض <code>v_active_licences</code> ملف تنميط، ومع ذلك ينجح الفحص؟</li>
+  <li>بعد أن أطفأت القيم النموذجية، في أي أصل بقيت قيم ظاهرة، ومن أي باب؟</li>
+</ol>
+
+<details class="instructor">
+  <summary>للمدرّب</summary>
+  <ul>
+    <li>المرجع: <code>solutions/recipes/</code> و<code>solutions/D1_1_harvest.md</code>. التحقق: <code>uv run solutions/check.py 1.1</code>.</li>
+    <li>في البداية 17 أصلًا، ثلاثة منها ليست أصولًا: <code>tmp_import_0925</code> و<code>licences_backup_2024</code> و<code>_staging</code>. بعد الإصلاح 14: ثمانية جداول وعرض وخمسة مجلدات.</li>
+    <li>الفخ المقصود في الخطوة 4: بعد إطفاء القيم النموذجية يبقى <code>mobile</code> ظاهرًا في <code>renewal_reminders</code> من تكرار القيم. هذا هو الدرس: «أطفأت القيم» ليس دليلًا؛ الدليل هو الناتج.</li>
+    <li>تحذيرات الاستخلاص عن الانحراف المعياري وعن العرض في SQLite طبيعية ولا تؤثر.</li>
+    <li>مع نسخة كتالوج حقيقية: يتغير قسم <code>sink</code> إلى <code>datahub-rest</code> بعنوان الخادم، ويُشغَّل أمر النشر المطبوع. هذا المسار لم يُجرَّب في بناء المقرر.</li>
+  </ul>
+</details>
+</article>
+<nav class="pager"><span></span><a href="D1_2_drafts.html" rel="next">المختبر التالي ←</a></nav>
+</main>
+<footer><div class="wrap">أكاديمية سدايا · مسار التنفيذيين والقادة · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات<br><span class="muted">إصدار المقرر 2027.1.0 · المحرّك 1.0.0 · بُني في ⁦2026-11-17⁩ · الإيداع 2da61d2</span></div></footer>
+<script type="application/json" id="academy-data">{"v":1,"engine":"1.0.0","build":{"at":"2026-11-17T23:56:31Z","version":"2027.1.0","commit":"2da61d2"},"course":{"id":"lds-dmg-202","code":"LDS-DMG-202","title":"البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات","track":"executives","lang":"ar","dir":"rtl","url":"https://sdaiaacademy.github.io/lds-dmg-202/","repo":"SDAIAAcademy/lds-dmg-202","home":"../index.html"},"lab":{"id":"1.1","title":"استخلاص قاعدة بيانات ومخزن ملفات","summary":"تشغّل أداة الاستخلاص في كتالوج مفتوح المصدر على قاعدة بيانات الترخيص ومجلد الترخيص في مخزن الملفات، وتصلح الوصفتين حتى يُفهرس كل أصل بمخططه وإحصاءات تنميطه بلا قيم شخصية ظاهرة، وبجدولة بتوقيت الرياض.","minutes":70,"day":1,"unit":"اليوم 1","session":1,"deck":"../slides/day1.html#lab-1-1","prev":null,"next":"D1_2_drafts.html","alt":{}},"ai":{"context":{"course":"../context/course.md","courseJs":"../context/course.js","day":null,"llms":"../llms.txt"},"tasks":[],"tools":[]},"features":{},"strings":{}}</script>
+<script src="../_engine/academy.js"></script>
+</body>
+</html>

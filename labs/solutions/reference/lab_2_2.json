@@ -1,0 +1,406 @@
+{
+ "state": [
+  [
+   "licensing.practitioners",
+   "sqlite",
+   8,
+   4,
+   "reviewed",
+   "راكان التريكي",
+   "منيرة العبيد",
+   "فارس الزاعق",
+   "مقيد",
+   1,
+   "2026-10-31"
+  ],
+  [
+   "licensing.licences",
+   "sqlite",
+   8,
+   8,
+   "reviewed",
+   "راكان التريكي",
+   "منيرة العبيد",
+   "فارس الزاعق",
+   "مقيد",
+   1,
+   "2026-10-31"
+  ],
+  [
+   "licensing.applications",
+   "sqlite",
+   8,
+   5,
+   "reviewed",
+   "راكان التريكي",
+   "منيرة العبيد",
+   "فارس الزاعق",
+   "مقيد",
+   1,
+   "2026-10-31"
+  ],
+  [
+   "licensing.renewals",
+   "sqlite",
+   6,
+   3,
+   "reviewed",
+   "راكان التريكي",
+   "منيرة العبيد",
+   "فارس الزاعق",
+   "مقيد",
+   1,
+   "2026-10-31"
+  ],
+  [
+   "licensing.fee_payments",
+   "sqlite",
+   5,
+   2,
+   "machine_draft",
+   "مدير الشؤون المالية",
+   "",
+   "فارس الزاعق",
+   "مقيد",
+   1,
+   "2026-10-31"
+  ],
+  [
+   "licensing.fee_schedule",
+   "sqlite",
+   4,
+   0,
+   "machine_draft",
+   "مدير الشؤون المالية",
+   "",
+   "فارس الزاعق",
+   "عام",
+   1,
+   "2026-10-31"
+  ],
+  [
+   "licensing.professions",
+   "sqlite",
+   4,
+   2,
+   "reviewed",
+   "راكان التريكي",
+   "منيرة العبيد",
+   "فارس الزاعق",
+   "عام",
+   1,
+   "2026-10-31"
+  ],
+  [
+   "licensing.regions",
+   "sqlite",
+   2,
+   1,
+   "reviewed",
+   "راكان التريكي",
+   "منيرة العبيد",
+   "فارس الزاعق",
+   "عام",
+   1,
+   "2026-10-31"
+  ],
+  [
+   "licensing.v_active_licences",
+   "sqlite",
+   5,
+   0,
+   "none",
+   "",
+   "",
+   "فارس الزاعق",
+   "",
+   1,
+   "2026-10-31"
+  ],
+  [
+   "filestore.licensing.renewal_reminders",
+   "file",
+   5,
+   2,
+   "reviewed",
+   "راكان التريكي",
+   "",
+   "فارس الزاعق",
+   "مقيد",
+   7,
+   "2026-10-04"
+  ],
+  [
+   "filestore.licensing.published_licence_stats",
+   "file",
+   5,
+   1,
+   "machine_draft",
+   "غيداء الحوشان",
+   "منيرة العبيد",
+   "فارس الزاعق",
+   "عام",
+   7,
+   "2026-10-04"
+  ],
+  [
+   "filestore.licensing.public_register",
+   "file",
+   5,
+   2,
+   "reviewed",
+   "راكان التريكي",
+   "منيرة العبيد",
+   "فارس الزاعق",
+   "عام",
+   7,
+   "2026-10-04"
+  ],
+  [
+   "filestore.licensing.published_application_stats",
+   "file",
+   5,
+   0,
+   "machine_draft",
+   "غيداء الحوشان",
+   "",
+   "فارس الزاعق",
+   "",
+   7,
+   "2026-10-04"
+  ],
+  [
+   "filestore.licensing.published_processing_times",
+   "file",
+   4,
+   0,
+   "none",
+   "",
+   "",
+   "فارس الزاعق",
+   "",
+   7,
+   "2026-10-04"
+  ],
+  [
+   "warehouse.fact_licence",
+   "sqlite",
+   6,
+   0,
+   "reviewed",
+   "عمار الوشمي",
+   "",
+   "فارس الزاعق",
+   "مقيد",
+   1,
+   "2026-10-31"
+  ],
+  [
+   "warehouse.monthly_licence_stats",
+   "sqlite",
+   4,
+   0,
+   "none",
+   "عمار الوشمي",
+   "",
+   "فارس الزاعق",
+   "عام",
+   1,
+   "2026-10-31"
+  ]
+ ],
+ "runs": [
+  [
+   "licensing-db",
+   "2026-10-04",
+   "success",
+   11
+  ],
+  [
+   "licensing-files",
+   "2026-10-04",
+   "success",
+   5
+  ],
+  [
+   "licensing-db",
+   "2026-10-05",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-06",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-07",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-08",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-09",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-10",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-11",
+   "success",
+   11
+  ],
+  [
+   "licensing-files",
+   "2026-10-11",
+   "failed",
+   0
+  ],
+  [
+   "licensing-db",
+   "2026-10-12",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-13",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-14",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-15",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-16",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-17",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-18",
+   "success",
+   11
+  ],
+  [
+   "licensing-files",
+   "2026-10-18",
+   "failed",
+   0
+  ],
+  [
+   "licensing-db",
+   "2026-10-19",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-20",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-21",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-22",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-23",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-24",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-25",
+   "success",
+   11
+  ],
+  [
+   "licensing-files",
+   "2026-10-25",
+   "failed",
+   0
+  ],
+  [
+   "licensing-db",
+   "2026-10-26",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-27",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-28",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-29",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-30",
+   "success",
+   11
+  ],
+  [
+   "licensing-db",
+   "2026-10-31",
+   "success",
+   11
+  ]
+ ]
+}

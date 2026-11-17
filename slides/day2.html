@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-ax="deck" data-track="executives">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اليوم 2 · المسار والقياس والنشر · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات</title>
+<meta name="generator" content="SDAIA Academy engine 1.0.0">
+<link rel="icon" href="../_engine/icon.svg">
+<link rel="alternate" type="text/markdown" href="day2.md">
+<link rel="describedby" href="../llms.txt">
+<link rel="stylesheet" href="../_engine/academy.css">
+</head>
+<body>
+<div class="deck" data-course="البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات" data-track="executives" data-day="اليوم 2">
+<section class="slide title" id="title" data-auto="title" data-label="الترحيب" data-n="1">
+  <div class="kicker">أكاديمية سدايا · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات</div>
+  <h1>المسار والقياس والنشر</h1>
+  <p class="lead mt">اليوم 2: تقدّر أثر التغيير من أحداث المسار، وتقيس صحة المجال في الكتالوج، وتعدّ سجلات للنشر</p>
+  <div class="meta"><span class="track">مسار التنفيذيين والقادة</span><span>يومان تدريبيان + يوم للمشروع الختامي</span><span>3 جلسات · 3 مختبرات</span><span>LDS-DMG-202</span></div>
+  <aside class="notes"><p>اليوم الثاني: المسار، ثم القياس، ثم النشر. افتح بسؤال للقاعة: «لو غيّر فريق التطوير عمودًا في نظامكم غدًا، من سيعرف قبل أن يتعطل تقرير؟» اجمع جوابين ولا تعلّق؛ الجلسة الأولى تجيب.</p></aside>
+</section>
+
+<section class="slide" id="agenda" data-auto="agenda" data-label="جدول اليوم" data-n="2">
+  <div class="kicker">اليوم</div>
+  <h2>المسار والقياس والنشر</h2>
+  <div class="agenda"><div class="item"><div><b>الجلسة 1 · تتبع أصل البيانات من الأحداث</b><small>المسار أحداث تبثها خطوط المعالجة، والأثر على مستوى العمود، وقرار المضي أو التوقف</small></div></div><div class="item"><div><b>الجلسة 2 · الكتالوج في التشغيل</b><small>التغطية والاكتمال والحداثة، ومؤشرات الضوابط الوطنية، وتقرير صحة يقرؤه المالك</small></div></div><div class="item"><div><b>الجلسة 3 · النشر والكتالوج سياقًا للمساعدين</b><small>مفردات DCAT وDublin Core، والحقول المطلوبة والترخيص وجهة الاتصال، وأدوات التحقق، والكتالوج سياقًا لمساعدي الذكاء الاصطناعي</small></div></div></div>
+</section>
+
+<section class="slide" id="review-day1" data-lo="LO1 LO2" data-n="3">
+  <div class="kicker">مراجعة اليوم 1</div>
+  <h2>أين يُحسم ما يظهر في الكتالوج؟</h2>
+  <div class="quiz" data-type="single" data-lo="LO1" data-id="review-day1-q1">
+    <p class="lead">في كتالوج جهة أخرى، ظهر في مدخل جدول المرشحين رقم جوال كامل في خانة القيم الشائعة. المشرف الفني حذف الرقم من المدخل يدويًا. ماذا سيحدث في الاستخلاص المجدول التالي؟</p>
+    <div class="opts">
+      <div class="opt" data-ok data-k="أ">يعود الرقم، فالوصفة هي التي تقرر ما يظهر</div>
+      <div class="opt" data-why="الكتالوج لا يحفظ تعديلات المدخل في وجه القيم؛ الاستخلاص يكتب ما تقرره الوصفة" data-k="ب">لا يعود، لأن الكتالوج يحفظ التعديل اليدوي</div>
+      <div class="opt" data-why="التصنيف يُعرض بجانب المدخل، لكنه لا يطفئ القيم النموذجية في الوصفة" data-k="ج">لا يعود إن صُنّف الجدول «مقيدًا» في الكتالوج</div>
+      <div class="opt" data-why="الموصل يقرأ ولا يكتب في المصدر؛ المشكلة في الوصفة لا في قاعدة البيانات" data-k="د">يعود ما لم يُحذف الرقم من قاعدة البيانات نفسها</div>
+    </div>
+    <div class="callout tip why"><b>لماذا.</b> الاستخلاص يعيد كتابة ما تقرره الوصفة في كل تشغيل. الإصلاح سطر في الوصفة، والدليل هو الناتج بعدها.</div>
+  </div>
+  <aside class="notes"><p>الإجابة: أ. دقيقتان. إن اختار أحد «يحفظ التعديل»، ارجع إلى فخ المختبر 1.1: أطفأنا القيم النموذجية، فبقي تكرار القيم يُظهر الجوال. الدرس نفسه: الدليل هو الناتج.</p></aside>
+</section>
+
+<!-- الجلسة 1 -->
+
+<section class="slide section" id="s1" data-auto="section" data-session="1" data-n="4">
+  <div class="kicker">الجلسة 1</div>
+  <h1>تتبع أصل البيانات من الأحداث</h1>
+  <ul class="bullets outcomes"><li>تقرأ حدث تشغيل من أحداث تتبع أصل البيانات</li><li>تتتبع أثر تغيير عمود إلى التقارير والملاك</li><li>تكتب مذكرة أثر بقرار وشروط</li></ul>
+  <div class="sess-no">01</div>
+</section>
+
+<section class="slide" id="impact-question" data-lo="LO4" data-n="5" data-session="1">
+  <div class="kicker">سؤال الأثر</div>
+  <h2>«لو تغيّر هذا العمود، ماذا يتأثر؟» سؤال يُطرح قبل التغيير</h2>
+  <div class="cols cols-2">
+    <ul class="bullets">
+      <li>فريق التطوير يرى نظامه، ولا يرى من يقرأ منه</li>
+      <li>المستهلكون يكتشفون التغيير حين يتعطل تقريرهم، أو أسوأ: حين لا يتعطل ويتغير رقمه</li>
+      <li>المسار المسجل يجيب في دقائق، بأسماء الأصول وملاكها</li>
+    </ul>
+    <div class="card c-teal"><h4>في مجال الاختبارات</h4><p class="small mb0">يريد فريق نظام الاختبارات أن تصبح الدرجة من 1000 بدل 100. من يقرأ عمود <span class="ltr">score</span>؟</p></div>
+  </div>
+  <div class="callout warn mt"><b>أين يقع الخطأ.</b> «التغيير داخلي في النظام» تقدير من يعرف نصف المسار.</div>
+  <aside class="notes"><p>مثال الاختبارات للشرح فقط؛ المختبر على مجال الترخيص. اسأل القاعة: كم تقريرًا عندكم يقرأ من نظام لا يملكه صاحب التقرير؟ الجواب الصادق في أغلب الجهات: لا نعرف.</p></aside>
+</section>
+
+<section class="slide" id="lineage-events" data-lo="LO4" data-n="6" data-session="1">
+  <div class="kicker">من أين يأتي المسار</div>
+  <h2>كل تشغيل لمهمة يبث حدثًا: ماذا قرأ، وماذا كتب</h2>
+  <div class="flow">
+    <div class="step c-teal"><b>1 · المهمة</b>الاسم ومساحة الأسماء، مثل <span class="ltr">nightly.build_pass_rates</span></div>
+    <div class="arrow frag" data-frag="b">←</div><div class="step c-cyan frag" data-frag="b"><b>2 · التشغيل</b>معرّف فريد ووقت ونوع الحدث: بدأ، انتهى، فشل</div>
+    <div class="arrow frag" data-frag="c">←</div><div class="step c-purple frag" data-frag="c"><b>3 · المدخلات والمخرجات</b>الجداول والملفات التي قرأها وكتبها</div>
+    <div class="arrow frag" data-frag="d">←</div><div class="step c-coral frag" data-frag="d"><b>4 · أوجه إضافية</b>منها تتبع الأعمدة: أي عمود حُسب من أي عمود</div>
+  </div>
+  <div class="callout tip mt frag" data-frag="d"><b>الحدث لا يعرف المالك.</b> المالك في الكتالوج؛ الأداة تجمع الاثنين.</div>
+  <aside class="notes"><p>اضغط لكل خطوة. الصيغة مواصفة مفتوحة اسمها <span class="en">OpenLineage</span>، والحدث هنا بإصدار المواصفة 2-0-2، وتتبع الأعمدة وجه اسمه <span class="en">ColumnLineageDatasetFacet</span> بالإصدار 1-2-0. أدوات الكتالوج المفتوحة المصدر تستقبل هذه الأحداث.</p><p>المصادر: مخطط حدث التشغيل في OpenLineage 2-0-2، ومخطط وجه تتبع الأعمدة 1-2-0.</p></aside>
+</section>
+
+<section class="slide" id="event-anatomy" data-lo="LO4" data-n="7" data-session="1">
+  <div class="kicker">حدث واحد مختصرًا</div>
+  <h2>حدث «انتهى» لمهمة نسب الاجتياز</h2>
+  <pre class="code"><code>{"eventType": "COMPLETE",
+ "job": {"namespace": "exams", "name": "nightly.build_pass_rates"},
+ "run": {"runId": "…"},
+ "inputs":  [{"namespace": "sqlite://exams", "name": "exam_results"}],
+ "outputs": [{"namespace": "sqlite://warehouse", "name": "pass_rate_by_session",
+   "facets": {"columnLineage": {"fields": {"pass_rate": {"inputFields": [
+     {"name": "exam_results", "field": "passed",
+      "transformations": [{"type": "DIRECT", "subtype": "AGGREGATION"}]}]}}}}}]}</code></pre>
+  <aside class="notes"><p>مثال مكتوب للشرح من مجال الاختبارات، بحقول المواصفة. اقرأه مع القاعة من أعلى: المهمة، ثم المدخل، ثم المخرج، ثم السطر الأهم: عمود <span class="ltr">pass_rate</span> حُسب من <span class="ltr">passed</span> بتجميع. لا قيمة واحدة من البيانات في الحدث: أسماء فقط.</p></aside>
+</section>
+
+<section class="slide" id="direct-indirect" data-lo="LO4" data-n="8" data-session="1">
+  <div class="kicker">نوعا الاعتماد</div>
+  <h2>المباشر يحمل القيمة، وغير المباشر يقرر أي الصفوف</h2>
+  <div class="cols cols-2">
+    <div class="card c-teal"><h4><span class="ltr">DIRECT</span></h4><p class="small mb0">القيمة تنتقل: نسخ (<span class="ltr">IDENTITY</span>)، أو تحويل، أو تجميع. حين يختفي العمود يتعطل المستهلك.</p></div>
+    <div class="card c-coral"><h4><span class="ltr">INDIRECT</span></h4><p class="small mb0">القيمة تختار الصفوف: تصفية، أو ربط، أو تجميع بحسبها. حين تتغير قيمها يتغير الرقم بصمت.</p></div>
+  </div>
+  <div class="callout warn mt"><b>الصامت أخطر.</b> تقرير يتعطل يُصلح في يومه؛ رقم تغيّر قد يُنشر شهورًا.</div>
+  <aside class="notes"><p>في الاختبارات: لو صارت الدرجة من 1000، فتقرير يعرض الدرجة ينسخها (مباشر) ويظهر الخلل فورًا. أما مهمة تصفّي «الناجحين» بشرط الدرجة 60 أو أكثر (غير مباشر) فستعدّ كل المرشحين ناجحين، ولن يتعطل شيء.</p><p>الأنواع الفرعية من توثيق OpenLineage لوجه تتبع الأعمدة.</p></aside>
+</section>
+
+<section class="slide" id="hops" data-lo="LO4" data-n="9" data-session="1">
+  <div class="kicker">المشي في المسار</div>
+  <h2>القفزة الأولى لا تكفي: الأثر ينتقل عبر كل من يقرأ ممن قرأ</h2>
+  <div class="flow">
+    <div class="step c-teal"><b>العمود</b><span class="ltr">exam_results.score</span></div>
+    <div class="arrow frag" data-frag="b">←</div><div class="step c-cyan frag" data-frag="b"><b>القفزة 1</b>جدول النتائج في المستودع</div>
+    <div class="arrow frag" data-frag="c">←</div><div class="step c-purple frag" data-frag="c"><b>القفزة 2</b>نسب الاجتياز بحسب الجلسة</div>
+    <div class="arrow frag" data-frag="d">←</div><div class="step c-coral frag" data-frag="d"><b>القفزة 3</b>ملف نسب الاجتياز المنشور</div>
+  </div>
+  <div class="callout tip mt frag" data-frag="d"><b>لكل قفزة مالك.</b> صاحب الملف المنشور لم يسمع بطلب التغيير، وهو أول من يُسأل عنه.</div>
+  <aside class="notes"><p>اضغط لكل قفزة. أداة الأثر في المختبر تمشي في الأحداث بالطريقة نفسها، وتجمع المالك والمشرف من الكتالوج لكل أصل. اسأل: من يبلّغ صاحب القفزة الثالثة؟ ليس فريق التطوير، فهو لا يعرفه.</p></aside>
+</section>
+
+<section class="slide" id="stale-jobs" data-lo="LO4" data-n="10" data-session="1">
+  <div class="kicker">مهمة متوقفة</div>
+  <h2>آخر تشغيل قديم لا يعني أن المهمة ماتت</h2>
+  <ul class="bullets">
+    <li>المسار يعرف آخر مرة بثت فيها المهمة حدثًا، ولا يعرف هل ستعود</li>
+    <li>في مجال الاختبارات: مهمة تصدّر النتائج لهيئة مهنية كل فصل، آخر تشغيل لها قبل فصلين. متوقفة أم مُهملة أم ملغاة؟</li>
+    <li>القاعدة: لا تُسقطها من المذكرة ولا تفترض موتها؛ سؤالها يذهب إلى من يقرأ ناتجها</li>
+  </ul>
+  <aside class="notes"><p>المثال مخترع على مجال الاختبارات. الأداة في المختبر تعلّم المهمة «متوقفة» إذا مضى على آخر تشغيل أكثر من فترتين من فترات جدولتها. هذا حد اخترناه للمختبر؛ الحد في جهتك قرار. اسأل القاعة: ماذا تفعل إن لم تجد من يقرأ الناتج؟ ودع الجواب للمختبر.</p></aside>
+</section>
+
+<section class="slide" id="what-events-miss" data-lo="LO4" data-n="11" data-session="1">
+  <div class="kicker">ما لا يراه المسار</div>
+  <h2>الأحداث تُظهر ما يمر بخطوط المعالجة فقط</h2>
+  <div class="cols cols-3">
+    <div class="card c-teal"><h4>العمل خارج الخطوط</h4><p class="small mb0">في الاختبارات: مراقب يطبع كشف الحضور من شاشة النظام قبل كل جلسة.</p></div>
+    <div class="card c-cyan"><h4>الجداول المحسوبة</h4><p class="small mb0">ملف بيانات في قسم الاختبارات يقرأ النتائج مباشرة باتصال شخصي.</p></div>
+    <div class="card c-coral"><h4>الأنظمة الأخرى</h4><p class="small mb0">نظام لا يبث أحداثًا، ويقرأ عبر واجهة برمجية.</p></div>
+  </div>
+  <div class="callout note mt"><b>اسأل الملاك.</b> المذكرة فيها قسم لما لا تظهره الأحداث، باسم من سُئل.</div>
+  <aside class="notes"><p>المسار المسجل دليل قوي، لكنه ليس كاملًا. المقابل العملي: رسالة قصيرة لملاك الأصول التي في القفزة الأولى: «هل يقرأ أحد هذا العمود خارج الخطوط؟». الأمثلة من مجال الاختبارات؛ في المختبر ملاحظات من قسم التقارير، اقرأها قبل الأداة.</p></aside>
+</section>
+
+<section class="slide" id="go-no-go" data-lo="LO4" data-n="12" data-session="1">
+  <div class="kicker">مذكرة الأثر</div>
+  <h2>القرار مضي أو توقف، والتوقف تتبعه شروط لكل منها مالك</h2>
+  <table class="t small">
+    <tr><th>القسم</th><th>ما يُكتب</th></tr>
+    <tr><td>ما يتغير</td><td>عمود واحد، بلغة الأعمال</td></tr>
+    <tr><td>ما يتأثر</td><td>كل أصل: هل يتعطل أم يتغير رقمه، ومالكه</td></tr>
+    <tr><td>ما لا تظهره الأحداث</td><td>ما قاله الملاك، ومن سُئل</td></tr>
+    <tr><td>القرار</td><td>مضي أو توقف، والشروط التي يتحول بها التوقف إلى مضي</td></tr>
+    <tr><td>من يُبلَّغ</td><td>كل مالك، ومن يقرأ الأرقام المنشورة</td></tr>
+  </table>
+  <aside class="notes"><p>القرار ليس رفض التغيير. أغلب المذكرات الجيدة تقول: «توقف الآن، ومضي حين تتحقق هذه الشروط». الشرط بلا مالك أمنية. لجنة التغيير تقرأ القسمين الأخيرين أولًا.</p></aside>
+</section>
+
+<section class="slide" id="check-impact" data-lo="LO4" data-n="13" data-session="1">
+  <div class="kicker">نقطة تحقق</div>
+  <h2>ماذا تكتب عن مهمة التصفية؟</h2>
+  <div class="quiz" data-type="single" data-lo="LO4" data-id="check-impact-q1">
+    <p class="lead">في مجال الاختبارات، مهمة تبني «عدد الناجحين في كل جلسة» تصفّي الصفوف بشرط على عمود الدرجة، ولا تنسخه. الدرجة ستصبح من 1000. ماذا تكتب عنها في المذكرة؟</p>
+    <div class="opts">
+      <div class="opt" data-why="لا يتعطل شيء في التصفية: العمود باقٍ باسمه، والشرط يعمل على القيم الجديدة" data-k="أ">تتعطل المهمة حين تتغير القيم، فيظهر الخلل في يومه ويُصلح</div>
+      <div class="opt" data-why="غياب العمود من ناتج المهمة لا يعني غياب الأثر؛ الشرط يقرر من يُعد" data-k="ب">لا أثر، لأن عمود الدرجة لا يظهر في ناتجها</div>
+      <div class="opt" data-why="الأثر يقع على الرقم الذي تنتجه المهمة؛ فريق التطوير لا يملك هذا الرقم ولا يعرف قارئه" data-k="ج">أثرها على فريق التطوير وحده، فهو من يغيّر</div>
+      <div class="opt" data-ok data-k="د">يتغير رقمها بصمت: سيُعد الجميع ناجحين ما لم يُعدّل الشرط</div>
+    </div>
+    <div class="callout tip why"><b>لماذا.</b> الاعتماد غير المباشر لا يكسر شيئًا. يغيّر من يُعد، والرقم الخاطئ يبدو صحيحًا.</div>
+  </div>
+  <aside class="notes"><p>الإجابة: د. من اختار «تتعطل» خلط بين النوعين؛ ارجع إلى شريحة المباشر وغير المباشر.</p></aside>
+</section>
+
+<section class="slide lab top" id="lab-2-1" data-auto="lab" data-lab="2.1" data-label="المختبر 2.1" data-n="14" data-session="1">
+  <div class="cols cols-2 mid"><div><div class="lab-tag">المختبر 2.1 · 70 دقيقة</div><h2>تقدير أثر تغيير عمود عبر المسار</h2><p class="lead small">تتتبع أثر طلب تغيير على عمود حالة الرخصة عبر أحداث تتبع أصل البيانات، فتسمي التقارير والملفات والملاك المتأثرين، وتضيف ما لا تظهره الأحداث، وتكتب مذكرة أثر بقرار المضي أو التوقف.</p><a class="nb" href="../labs/D2_1_impact.html">D2_1_impact.html</a></div><ul class="checklist"><li>اقرأ طلب التغيير وملاحظات قسم التقارير <span class="min">8 د</span></li><li>شغّل أداة الأثر على عمود الحالة واقرأ كل سطر <span class="min">12 د</span></li><li>فرّق بين الأثر المباشر وغير المباشر، والمهمة الحية والمتوقفة <span class="min">12 د</span></li><li>أضف ما لا تظهره الأحداث <span class="min">8 د</span></li><li>اكتب مذكرة الأثر بالقرار وشروطه ومالك كل شرط <span class="min">22 د</span></li><li>اعرض قرارك على زميل في دقيقتين <span class="min">8 د</span></li><li class="stretch">✱ إضافي: شغّل الأداة على عمود تاريخ الانتهاء، وقارن قائمة المتأثرين بقائمة عمود الحالة</li></ul></div>
+  <aside class="notes"><p>تأكد في الدقائق الأولى أن الجميع شغّل الأداة من مجلد labs. المشكلة المعتادة: كتابة اسم العمود بلا مساحة الأسماء، فلا تجد الأداة شيئًا. ذكّر بأن المذكرة لعضو لجنة غير متخصص.</p><p>من لم يكمل مختبرات الأمس لا يحتاجها: كل الملفات جاهزة في lineage.</p></aside>
+</section>
+
+<section class="slide" id="debrief-2-1" data-label="بعد المختبر 2.1" data-lo="LO4" data-n="15" data-session="1">
+  <div class="kicker">بعد المختبر 2.1</div>
+  <h2>«لا أثر خارج النظام» صار سبعة أصول وثلاثة ملاك</h2>
+  <div class="cols cols-3">
+    <div class="stat"><div class="big">7</div><div class="lbl">أصول وسبع مهام بعد عمود الحالة، حتى ثلاث قفزات</div></div>
+    <div class="stat"><div class="big">1</div><div class="lbl">ملف بلا مالك، ومهمته متوقفة منذ أبريل</div></div>
+    <div class="stat"><div class="big">1</div><div class="lbl">استخراج يدوي شهري لا تراه الأحداث</div></div>
+  </div>
+  <div class="callout note mt"><b>والقيمة الجديدة لفترة السماح؟</b> الرقم المنشور للرخص السارية يتغير ما لم يقرر المالك أين تُعد.</div>
+  <aside class="notes"><p>الأعداد من الحل المرجعي (labs/solutions/D2_1_impact.md). اطلب مذكرتين بقرارين مختلفين، وقارن الشروط. القرار المرجعي: توقف الآن، ومضي حين يبقى العمود القديم دورة واحدة، ويقرر المالك معنى فترة السماح، وتُعدّل المهام والاستخراج اليدوي، ويُسمّى مالك للملف الربع سنوي.</p></aside>
+</section>
+
+<!-- الجلسة 2 -->
+
+<section class="slide section" id="s2" data-auto="section" data-session="2" data-n="16">
+  <div class="kicker">الجلسة 2</div>
+  <h1>الكتالوج في التشغيل</h1>
+  <ul class="bullets outcomes"><li>تختار السمات المطلوبة لاكتمال الأصل وتبرر كل منها</li><li>تقيس التغطية والاكتمال والحداثة لمجال في الكتالوج</li><li>ترتب ثلاث أولويات لكل منها مالك وقياس</li></ul>
+  <div class="sess-no">02</div>
+</section>
+
+<section class="slide" id="health-why" data-lo="LO1 LO2" data-n="17" data-session="2">
+  <div class="kicker">الكتالوج في التشغيل</div>
+  <h2>كتالوج لا يُقاس يشيخ بصمت</h2>
+  <ul class="bullets">
+    <li>كل أسبوع: جدول جديد، ومالك ينتقل، واستخلاص يفشل، ومسودة لا يراجعها أحد</li>
+    <li>المستخدم لا يرى ما ينقص؛ يرى مدخلًا يبدو كاملًا ويثق به</li>
+    <li>القياس الشهري بالتعريفات نفسها هو ما يجعل الكتالوج يُدار</li>
+  </ul>
+  <div class="callout warn mt"><b>أين يقع الخطأ.</b> نسبة عالية بتعريف رخو تطمئن من يجب أن يقلق.</div>
+  <aside class="notes"><p>اسأل القاعة: من يعرف نسبة اكتمال الكتالوج في جهته؟ ومن يعرف كيف حُسبت؟ السؤال الثاني هو موضوع الجلسة.</p></aside>
+</section>
+
+<section class="slide" id="three-measures" data-lo="LO1 LO2" data-n="18" data-session="2">
+  <div class="kicker">ثلاثة قياسات</div>
+  <h2>التغطية والاكتمال والحداثة</h2>
+  <div class="cols cols-3">
+    <div class="card c-teal"><h4>التغطية</h4><p class="small mb0">لكل سمة: كم أصلًا فيه هذه السمة من كل أصول المجال؟</p></div>
+    <div class="card c-cyan"><h4>الاكتمال</h4><p class="small mb0">كم أصلًا فيه كل السمات التي قررنا أنها مطلوبة معًا؟</p></div>
+    <div class="card c-coral"><h4>الحداثة</h4><p class="small mb0">كم أصلًا آخر استخلاص ناجح له داخل الحد الذي قررناه؟</p></div>
+  </div>
+  <div class="callout tip mt"><b>المقام قرار، والبسط قرار.</b> اكتب الاثنين بجانب كل نسبة.</div>
+  <aside class="notes"><p>التغطية تُقاس لكل سمة على حدة، والاكتمال لكل أصل. أصل فيه أربع سمات من خمس مطلوبة يُحسب في التغطية أربع مرات، ولا يُحسب في الاكتمال مرة واحدة.</p></aside>
+</section>
+
+<section class="slide" id="mcm-kpis" data-lo="LO1 LO2" data-n="19" data-session="2">
+  <div class="kicker">الضوابط الوطنية</div>
+  <h2>ضابط إدارة الأداء: مؤشرات للاستخدام ومؤشرات للجودة</h2>
+  <div class="cols cols-2">
+    <div class="card c-teal"><h4>مؤشرات الاستخدام</h4><p class="small mb0">المستخدمون المسجلون والنشطون، والدخول، والاستعلامات، والتعليقات والوسوم، والتقييمات، وشهادات الثقة.</p></div>
+    <div class="card c-purple"><h4>مؤشرات جودة البيانات الوصفية</h4><p class="small mb0"><b>الاكتمال:</b> إلى أي حد اكتملت القواميس ومعاجم البيانات. <b>الدقة:</b> توافق التعريفات والأوصاف مع سياق العمل. <b>الاتساق:</b> اتساق التعريفات عبر الجهة.</p></div>
+  </div>
+  <aside class="notes"><p>الضابط السادس في مجال البيانات الوصفية ودليل البيانات، بمواصفتيه الأولى والثانية. قياسات اليوم تخدم الاكتمال مباشرة. الدقة هي ما قسناه أمس بمعدل خطأ المسودات. الاتساق هو قاموس يمنع تعريفين للمصطلح نفسه.</p><p>المصدر: مكتب إدارة البيانات الوطنية، ضوابط ومواصفات إدارة البيانات الوطنية وحوكمتها وحماية البيانات الشخصية، الضابط MCM.6.</p></aside>
+</section>
+
+<section class="slide" id="definitions-move" data-lo="LO1 LO3" data-n="20" data-session="2">
+  <div class="kicker">مثال توضيحي من مجال الاختبارات</div>
+  <h2>الكتالوج نفسه، وقراران مختلفان، ورقمان</h2>
+  <table class="t small">
+    <tr><th>القرار</th><th>«موصوف» إن كان فيه أي نص</th><th>«موصوف» إن راجعه مشرف</th></tr>
+    <tr><td>الأصول الموصوفة من 10</td><td>9</td><td>5</td></tr>
+    <tr><td>ما تقوله النسبة</td><td>الكتالوج شبه كامل</td><td>نصف الأوصاف لم يقرأها أحد</td></tr>
+  </table>
+  <div class="callout tip mt"><b>الرقم الأول ليس كذبًا.</b> لكنه يجيب عن سؤال لم يسأله المالك.</div>
+  <aside class="notes"><p>أرقام توضيحية لمجال الاختبارات بعشرة أصول، للشرح فقط. الشريحة تقول إن القرار يغيّر الرقم، لا أي القرارين صواب: اسأل أي الرقمين تضعه أمام المالك، ولماذا، واترك القرار لمجال الترخيص في المختبر.</p></aside>
+</section>
+
+<section class="slide" id="freshness" data-lo="LO1" data-n="21" data-session="2">
+  <div class="kicker">الحداثة</div>
+  <h2>الاستخلاص الفاشل لا يمحو المدخل: يتركه بأرقام قديمة</h2>
+  <ul class="bullets">
+    <li>المدخل يبقى بآخر مخطط وآخر أعداد نجح استخلاصها</li>
+    <li>الحداثة تُقاس بعدد فترات الجدولة منذ آخر نجاح، لا بالأيام وحدها</li>
+    <li>الحد سؤال: كم استخلاصًا فائتًا تقبل قبل أن تقول إن المدخل قديم؟</li>
+    <li>سجل التشغيل يقول ما لا يقوله المدخل: متى فشل، وكم مرة</li>
+  </ul>
+  <aside class="notes"><p>الحد بعدد الفترات لا بالأيام لأن المصادر تتحدث بإيقاعات مختلفة: يوم واحد كثير على مصدر ليلي وقليل على مصدر شهري. حد كبير جدًا يخفي الفشل المتكرر، وهذا ما ستراه في المختبر.</p></aside>
+</section>
+
+<section class="slide" id="priorities" data-lo="LO1 LO2" data-n="22" data-session="2">
+  <div class="kicker">من القياس إلى العمل</div>
+  <h2>ثلاث أولويات، لكل منها مالك وقياس ورقم مستهدف</h2>
+  <div class="flow">
+    <div class="step c-teal"><b>1 · القائمة</b>ما ينقص، وما هو قديم، وما فشل</div>
+    <div class="arrow frag" data-frag="b">←</div><div class="step c-cyan frag" data-frag="b"><b>2 · السبب المشترك</b>أصول كثيرة ينقصها الشيء نفسه</div>
+    <div class="arrow frag" data-frag="c">←</div><div class="step c-coral frag" data-frag="c"><b>3 · الأولوية</b>إجراء، ومالك باسمه، وقياس الشهر القادم</div>
+  </div>
+  <div class="callout tip mt frag" data-frag="c"><b>ابدأ بما يصلح كثيرًا بإجراء واحد.</b> عطل في استخلاص يصلح عدة أصول معًا.</div>
+  <aside class="notes"><p>اضغط لكل خطوة. أولوية بلا مالك لا تُنجز، وأولوية بلا قياس لا يُعرف أنها أُنجزت. اطلب من القاعة أن تفكر: أي سمة ناقصة في جهاتهم تحتاج قرار مدير لا عمل مشرف؟</p></aside>
+</section>
+
+<section class="slide" id="health-paragraph" data-lo="LO1 LO2" data-n="23" data-session="2">
+  <div class="kicker">التقرير للمالك</div>
+  <h2>خمسة أسطر يقرؤها مدير لا يعرف كلمة «استخلاص»</h2>
+  <ol class="bullets">
+    <li>أين يقف المجال، برقم واحد وتعريفه</li>
+    <li>ما الذي يقلقك، ولماذا يهمه هو</li>
+    <li>ما تطلبه منه بالاسم والتاريخ</li>
+    <li>ما تغيّر منذ القياس السابق، أو أنه القياس الأول</li>
+    <li>متى تعيد القياس، وبالتعريفات نفسها</li>
+  </ol>
+  <aside class="notes"><p>اقرأ للقاعة فقرة سيئة: «نسبة التغطية 92٪ في سمة المالك والحداثة ممتازة». ثم اسأل: ماذا سيفعل المدير بعد قراءتها؟ لا شيء. الفقرة الجيدة تنتهي بطلب.</p></aside>
+</section>
+
+<section class="slide" id="check-health" data-lo="LO1" data-n="24" data-session="2">
+  <div class="kicker">نقطة تحقق</div>
+  <h2>أي حد للحداثة تختار؟</h2>
+  <div class="quiz" data-type="single" data-lo="LO1" data-id="check-health-q1">
+    <p class="lead">مصدر نتائج الاختبارات يُستخلص كل ليلة. في إعداد القياس حد الحداثة 30 فترة، والقياس يقول 100٪ حديث. في سجل التشغيل فشل في الليالي الخمس الأخيرة. ماذا تفعل؟</p>
+    <div class="opts">
+      <div class="opt" data-why="حد يتسع لشهر من الفشل يخفي العطل الذي وُضع القياس لكشفه" data-k="أ">تبقي الحد، لأن خمس ليال أقل بكثير من ثلاثين فترة</div>
+      <div class="opt" data-why="الأيام وحدها تتجاهل الإيقاع: يوم واحد صارم على مصدر ليلي وتساهل على مصدر شهري" data-k="ب">تقيس بالأيام بدل الفترات، فهي أوضح للمالك</div>
+      <div class="opt" data-ok data-k="ج">تخفض الحد حتى يظهر الفشل، وتبلّغ المشرف الفني</div>
+      <div class="opt" data-why="الحذف يخفي الأصل عن المستخدمين ولا يصلح الاستخلاص" data-k="د">تحذف المدخل حتى ينجح الاستخلاص</div>
+    </div>
+    <div class="callout tip why"><b>لماذا.</b> حد الحداثة يُختار ليكشف العطل في وقته: يتسع لفشل عابر، ولا يتسع لفشل متكرر.</div>
+  </div>
+  <aside class="notes"><p>الإجابة: ج. الرقم 30 مبالغ فيه عمدًا. لا تعطِ القاعة رقمًا للحد هنا: تختاره في المختبر وتبرره. اسأل: من يتلقى البلاغ؟ المشرف الفني، لأن الاستخلاص من عمله.</p></aside>
+</section>
+
+<section class="slide lab top" id="lab-2-2" data-auto="lab" data-lab="2.2" data-label="المختبر 2.2" data-n="25" data-session="2">
+  <div class="cols cols-2 mid"><div><div class="lab-tag">المختبر 2.2 · 70 دقيقة</div><h2>قياس صحة مجال الترخيص</h2><p class="lead small">تقيس من حالة الكتالوج المرجعية تغطية مجال الترخيص واكتماله وحداثته، بعد أن تقرر ما يُعد وصفًا وما يُعد حديثًا، وتكتب ثلاث أولويات وفقرة صحة للمالك.</p><a class="nb" href="../labs/D2_2_health.html">D2_2_health.html</a></div><ul class="checklist"><li>شغّل أداة الصحة بالإعداد كما وصل واقرأ الأرقام <span class="min">8 د</span></li><li>اختر السمات المطلوبة واذكر مرجع كل منها <span class="min">14 د</span></li><li>قرر هل تُعد مسودات الآلة وصفًا، وما معنى الحداثة <span class="min">10 د</span></li><li>أعد التشغيل وفسّر الفرق <span class="min">12 د</span></li><li>اكتب ثلاث أولويات لكل منها مالك وقياس <span class="min">18 د</span></li><li>صغ فقرة الصحة للمالك في خمسة أسطر <span class="min">8 د</span></li><li class="stretch">✱ إضافي: اقترح مؤشرين من مؤشرات استخدام الكتالوج، وبيّن من أين تأتي أرقامهما</li></ul></div>
+  <aside class="notes"><p>حالة الكتالوج ملف مرجعي، لا ناتج مختبرات الأمس، فيبدأ الجميع من النقطة نفسها. راقب الخطوة الثانية: من يجعل كل السمات مطلوبة دون مرجع. اطلب المرجع لكل سطر.</p></aside>
+</section>
+
+<section class="slide" id="debrief-2-2" data-label="بعد المختبر 2.2" data-lo="LO1 LO2" data-n="26" data-session="2">
+  <div class="kicker">بعد المختبر 2.2</div>
+  <h2>الإعداد الأول قال 14 من 16 مكتملة، والإعداد المرجعي قال 7</h2>
+  <div class="cols cols-3">
+    <div class="stat"><div class="big">7/16</div><div class="lbl">أصول مكتملة، وأكبر نقص في مشرف الأعمال: 8 فقط</div></div>
+    <div class="stat"><div class="big">11/16</div><div class="lbl">حديثة بحد فترتين؛ ملفات الترخيص الخمسة قديمة</div></div>
+    <div class="stat"><div class="big">3</div><div class="lbl">أيام أحد متتالية فشل فيها استخلاص الملفات</div></div>
+  </div>
+  <aside class="notes"><p>الأعداد من الحل المرجعي (labs/solutions/D2_2_health.md). الأولوية الأولى المرجعية: إصلاح استخلاص الملفات، مالكها فارس الزاعق. اطلب فقرتين للمالك، واقرأ واحدة تنتهي بطلب.</p></aside>
+</section>
+
+<!-- الجلسة 3 -->
+
+<section class="slide section" id="s3" data-auto="section" data-session="3" data-n="27">
+  <div class="kicker">الجلسة 3</div>
+  <h1>النشر والكتالوج سياقًا للمساعدين</h1>
+  <ul class="bullets outcomes"><li>تكتب سجل مجموعة بيانات بمفردات معيارية</li><li>تصلح سجلًا حتى يجتاز أداة تحقق الكتالوج المستهدف</li><li>تحدد ما يصلح من الكتالوج سياقًا لمساعد ذكاء اصطناعي</li></ul>
+  <div class="sess-no">03</div>
+</section>
+
+<section class="slide" id="why-publish" data-lo="LO5" data-n="28" data-session="3">
+  <div class="kicker">النشر</div>
+  <h2>البيانات المفتوحة تُنشر بترخيص وبيانات وصفية، لا ملفًا وحده</h2>
+  <ul class="bullets">
+    <li>سياسة البيانات المفتوحة: البيانات الوصفية التي تعرّف البيانات وتشرحها تُنشر معها</li>
+    <li>والبيانات المفتوحة تخضع لترخيص يحدد شروط استعمالها</li>
+    <li>منصة البيانات المفتوحة الوطنية تجمع ما تنشره الجهات</li>
+    <li>الكتالوج الداخلي يغذي السجل المنشور، فلا يُكتب الوصف مرتين</li>
+  </ul>
+  <aside class="notes"><p>تذكير بأن النشر المفتوح للبيانات المصنفة «عام» وحدها؛ التصنيف قرار يسبق السجل. اعرض الموقع open.data.gov.sa إن كان الاتصال متاحًا، ولا تبحث فيه عن بيانات الحالة: الهيئة في الحالة مختلقة.</p><p>المصدر: سياسة البيانات المفتوحة (المبدأ الرابع، الشمول، عن البيانات الوصفية التي تُنشر مع البيانات؛ والمبدأ السابع عن الترخيص).</p></aside>
+</section>
+
+<section class="slide" id="dcat-vocab" data-lo="LO5" data-n="29" data-session="3">
+  <div class="kicker">المفردات</div>
+  <h2>DCAT يصف الكتالوج والمجموعة والتوزيع، ويستعير حقوله من Dublin Core</h2>
+  <div class="cols cols-3">
+    <div class="card c-teal"><h4>الكتالوج</h4><p class="small mb0"><span class="ltr">dcat:Catalog</span>: قائمة المجموعات وناشرها.</p></div>
+    <div class="card c-cyan"><h4>المجموعة</h4><p class="small mb0"><span class="ltr">dcat:Dataset</span>: العنوان والوصف والترخيص والدورية وجهة الاتصال.</p></div>
+    <div class="card c-coral"><h4>التوزيع</h4><p class="small mb0"><span class="ltr">dcat:Distribution</span>: ملف بعينه، برابط تنزيل ونوع ملف.</p></div>
+  </div>
+  <div class="callout note mt"><b>الحقول المشتركة بادئتها <span class="ltr">dct:</span>.</b> العنوان والوصف والترخيص والدورية من مصطلحات Dublin Core.</div>
+  <aside class="notes"><p>DCAT بإصداره الثالث توصية من W3C منذ أغسطس 2024. ذكّر بشريحة المفردات أمس: هذا هو المعيار الذي قلنا إنه للنشر. أغلب البوابات تبني ملف قواعد خاصًا بها فوق DCAT، يحدد الحقول المطلوبة وقوائمها.</p><p>المصادر: W3C Data Catalog Vocabulary (DCAT) Version 3؛ DCMI Metadata Terms.</p></aside>
+</section>
+
+<section class="slide" id="dcat-record" data-lo="LO5" data-n="30" data-session="3">
+  <div class="kicker">سجل واحد</div>
+  <h2>نسب الاجتياز الشهرية، سجل DCAT مختصرًا</h2>
+  <pre class="code"><code>&lt;…/dataset/pass-rates&gt; a dcat:Dataset ;
+  dct:identifier "pass-rates" ;
+  dct:title "نسب اجتياز الاختبارات المهنية"@ar, "Professional exam pass rates"@en ;
+  dct:license &lt;https://creativecommons.org/licenses/by/4.0/&gt; ;
+  dct:accrualPeriodicity &lt;http://publications.europa.eu/resource/authority/frequency/MONTHLY&gt; ;
+  dcat:contactPoint [ vcard:hasEmail &lt;mailto:opendata@example.com&gt; ] ;
+  dcat:distribution [ dcat:downloadURL &lt;https://data.example.org/pass-rates.csv&gt; ;
+                      dcat:mediaType &lt;https://www.iana.org/assignments/media-types/text/csv&gt; ] .</code></pre>
+  <aside class="notes"><p>مثال من مجال الاختبارات، مختصر. لاحظ أن الترخيص والدورية ونوع الملف روابط لا نصوص: هذا ما يجعل الآلة تفهمها. العنوان بلغتين، كل منهما بوسم لغته.</p></aside>
+</section>
+
+<section class="slide" id="licence-contact" data-lo="LO5" data-n="31" data-session="3">
+  <div class="kicker">حقلان يُنسيان</div>
+  <h2>الترخيص يقول ماذا يحق لك، وجهة الاتصال تقول لمن تكتب</h2>
+  <div class="cols cols-2">
+    <div class="card c-teal"><h4>الترخيص</h4><p class="small mb0">رابط لترخيص معروف من قائمة البوابة. «مجاني» أو «مفتوح للجميع» لا يقول هل يحق النسخ وإعادة النشر.</p></div>
+    <div class="card c-coral"><h4>جهة الاتصال</h4><p class="small mb0">بريد يصل إلى فريق يرد. من يجد خطأ في الأرقام يحتاج عنوانًا، لا اسم مكتب.</p></div>
+  </div>
+  <aside class="notes"><p>الترخيص المقبول في بوابة الحالة واحد: <span class="en">CC BY 4.0</span>. البوابات الحقيقية تنشر قائمتها. اسأل القاعة: من يرد على بريد البيانات المفتوحة في جهاتكم؟ إن لم يعرف أحد، فهذا أول إصلاح.</p></aside>
+</section>
+
+<section class="slide" id="validator" data-lo="LO5" data-n="32" data-session="3">
+  <div class="kicker">أداة التحقق</div>
+  <h2>أداة التحقق تقرأ السجل بقواعد البوابة، وتسمي كل حقل يخالفها</h2>
+  <pre class="code"><code>[FIX] pass-rates: periodicity: one from the portal's list is required
+[FIX] pass-rates: keywords: at least two are required</code></pre>
+  <ul class="bullets mt">
+    <li>القواعد مكتوبة بلغة <span class="ltr">SHACL</span>: لكل حقل عدده الأدنى، ونوعه، وقائمته</li>
+    <li>الرسالة تقول الحقل والقاعدة، ولا تقول القيمة الصحيحة</li>
+    <li>الاجتياز يعني أن السجل مقروء للبوابة، لا أنه صحيح</li>
+  </ul>
+  <aside class="notes"><p>الرسالتان مثال من مجال الاختبارات بصيغة أداة المختبر. الأداة في المختبر تتحقق بملف قواعد كتبناه لبوابة الحالة؛ ليست قواعد أي بوابة حقيقية. القاعدة العامة صحيحة: كل بوابة جادة تتحقق قبل أن تقبل.</p></aside>
+</section>
+
+<section class="slide" id="outside-reader" data-lo="LO5" data-n="33" data-session="3">
+  <div class="kicker">بعين القارئ الخارجي</div>
+  <h2>ما لا تسأله الأداة: هل يفهم الغريب ما يعدّه الرقم؟</h2>
+  <ul class="bullets">
+    <li>«نسبة الاجتياز» من كل من تقدموا، أم ممن حضروا؟</li>
+    <li>الكلمات المفتاحية بكلمات الباحث، لا بأسماء الأعمدة</li>
+    <li>التعريف من القاموس يدخل الوصف بجملة واحدة</li>
+  </ul>
+  <div class="callout tip mt"><b>القاموس يكتب الوصف المنشور.</b> المصطلح المعتمد أمس هو الجملة التي يحتاجها القارئ اليوم.</div>
+  <aside class="notes"><p>مثال الاختبارات: نسبة الاجتياز من المتقدمين تختلف عن نسبتها من الحاضرين بعدد الغائبين. الوصف الذي لا يقول أيهما يُقرأ بالمعنيين. اربط بخلاف «المرشح الناجح» في نقطة تحقق الأمس.</p></aside>
+</section>
+
+<section class="slide" id="catalogue-ai-context" data-lo="LO5 LO3" data-n="34" data-session="3">
+  <div class="kicker">الكتالوج سياقًا للمساعدين</div>
+  <h2>المساعد يجيب عن «ما البيانات المتاحة؟» بقدر ما يُعطى</h2>
+  <div class="cols cols-2">
+    <div class="card c-teal"><h4>يصلح سياقًا</h4><p class="small mb0">سجلات المجموعات المصنفة «عام»، وتعريفات القاموس المعتمدة، والملاك وجهات الاتصال.</p></div>
+    <div class="card c-coral"><h4>لا يدخل</h4><p class="small mb0">أي قيمة من البيانات، وأي مدخل مصنف «مقيد» أو أعلى، والمسودات التي لم تُراجع.</p></div>
+  </div>
+  <div class="callout warn mt"><b>القاعدة الحكومية.</b> لا بيانات مصنفة «مقيد» أو أعلى في أدوات الذكاء الاصطناعي التوليدي.</div>
+  <aside class="notes"><p>الكتالوج الجيد سياق ممتاز لمساعد يدل الموظفين على البيانات: ما الموجود، ومن يملكه، وبأي تعريف. والكتالوج السيئ يعلّم المساعد أخطاءه. لذلك المسودات غير المراجعة لا تدخل.</p><p>المصدر: سدايا، الإرشادات العامة لاستخدام الذكاء الاصطناعي التوليدي للجهات الحكومية.</p></aside>
+</section>
+
+<section class="slide" id="check-records" data-lo="LO5" data-n="35" data-session="3">
+  <div class="kicker">نقطة تحقق</div>
+  <h2>السجل اجتاز أداة التحقق. هل يُنشر؟</h2>
+  <div class="quiz" data-type="single" data-lo="LO5" data-id="check-records-q1">
+    <p class="lead">سجل «نسب الاجتياز الشهرية» اجتاز أداة التحقق. وصفه يقول «نسبة الناجحين» ولا يقول من أي عدد تُحسب، والمالك لم يقرأه بعد. ماذا تفعل؟</p>
+    <div class="opts">
+      <div class="opt" data-why="الأداة تفحص الشكل والقوائم، ولا تفحص هل يفهم القارئ ما يعدّه الرقم" data-k="أ">تنشره، فاجتياز الأداة يعني أن السجل صحيح</div>
+      <div class="opt" data-ok data-k="ب">تضيف تعريف القاموس، وتنتظر تأكيد المالك</div>
+      <div class="opt" data-why="الوصف جزء من البيانات الوصفية التي تطلبها السياسة؛ حذفه يزيد اللبس" data-k="ج">تحذف الوصف حتى لا يُساء فهمه</div>
+      <div class="opt" data-why="جهة الاتصال للأسئلة بعد النشر، لا بديلًا عن تعريف الرقم قبله" data-k="د">تنشره الآن، وتترك الأسئلة لجهة الاتصال تجيب عنها بعد النشر</div>
+    </div>
+    <div class="callout tip why"><b>لماذا.</b> الاجتياز يعني أن البوابة تقرأ السجل. أما المعنى فيقرره المالك، ويحمله التعريف إلى القارئ.</div>
+  </div>
+  <aside class="notes"><p>الإجابة: ب. هذا ما تفعله الخطوة الرابعة في المختبر.</p></aside>
+</section>
+
+<section class="slide lab top" id="lab-2-3" data-auto="lab" data-lab="2.3" data-label="المختبر 2.3" data-n="36" data-session="3">
+  <div class="cols cols-2 mid"><div><div class="lab-tag">المختبر 2.3 · 70 دقيقة</div><h2>خمسة سجلات لبوابة البيانات المفتوحة</h2><p class="lead small">تصلح خمسة سجلات لمجموعات بيانات منشورة من مجال الترخيص حتى تجتاز أداة التحقق في البوابة المستهدفة، بالترخيص وجهة الاتصال والدورية والتوزيع، ثم تقرأ السجل بصيغة <span class="ltr" dir="ltr">DCAT</span>.</p><a class="nb" href="../labs/D2_3_records.html">D2_3_records.html</a></div><ul class="checklist"><li>اقرأ الحقول المطلوبة وورقة القوائم <span class="min">8 د</span></li><li>شغّل أداة السجلات على الملف كما وصل <span class="min">7 د</span></li><li>أصلح كل سجل حتى يجتاز التحقق <span class="min">25 د</span></li><li>راجع الوصف والكلمات المفتاحية بعين مستخدم خارجي <span class="min">12 د</span></li><li>افتح ملف السجلات واقرأ سجلًا كاملًا <span class="min">8 د</span></li><li>اكتب ما تحتاجه من المالك قبل النشر <span class="min">10 د</span></li><li class="stretch">✱ إضافي: اكتب سجلًا سادسًا لمجموعة لا تصلح للنشر المفتوح، وبيّن لماذا يرفضها قرار النشر قبل أداة التحقق</li></ul></div>
+  <aside class="notes"><p>المشكلة المعتادة: إصلاح بند وإعادة التشغيل دون حفظ الملف. الثانية: كتابة الترخيص نصًا «CC BY» بدل القيمة من ورقة القوائم. لا تقبل اختراع رابط تنزيل: يُكتب مؤقتًا ويذهب إلى أسئلة المالك.</p></aside>
+</section>
+
+<section class="slide" id="debrief-2-3" data-label="بعد المختبر 2.3" data-lo="LO5" data-n="37" data-session="3">
+  <div class="kicker">بعد المختبر 2.3</div>
+  <h2>تسعة بنود رفضتها الأداة، وسؤال واحد لم تسأله</h2>
+  <div class="cols cols-3">
+    <div class="stat"><div class="big">6</div><div class="lbl">إصلاحات في خمسة سجلات، وخطأ التوزيع وحده في أربع رسائل</div></div>
+    <div class="stat"><div class="big">5/5</div><div class="lbl">سجلات تجتاز أداة التحقق بعد الإصلاح</div></div>
+    <div class="stat"><div class="big">1</div><div class="lbl">وصف للرخص السارية لا يقول بأي تعريف تُعد</div></div>
+  </div>
+  <aside class="notes"><p>الأعداد من الحل المرجعي (labs/solutions/D2_3_records.md). اربط الأيام الثلاثة: التعريف في القاموس (1.3)، والرقم المنشور في المسار (2.1)، والوصف الذي لا يقول التعريف هنا. سؤال واحد للمالك يحل الثلاثة.</p></aside>
+</section>
+
+<section class="slide" id="wrap-up" data-n="38" data-session="3">
+  <div class="kicker">خلاصة اليوم 2</div>
+  <h2>ثلاثة أمور تبقى معك</h2>
+  <div class="cols cols-3">
+    <div class="card c-teal"><h4>اسأل المسار قبل التغيير</h4><p class="small mb0">الأحداث تسمي الأصول والملاك، والملاك يسمون ما لا تراه الأحداث.</p></div>
+    <div class="card c-cyan"><h4>عرّف قبل أن تقيس</h4><p class="small mb0">كل نسبة بتعريفها ومقامها، وتُعاد كل شهر بالتعريفات نفسها.</p></div>
+    <div class="card c-coral"><h4>انشر ما يُفهم</h4><p class="small mb0">اجتياز أداة التحقق شرط، والتعريف الذي يفهمه الغريب هو الغاية.</p></div>
+  </div>
+  <aside class="notes"><p>اطلب من كل مشارك أن يكتب أي من الثلاثة سيبدأ به في جهته، وما الرقم الذي سيقيسه في الشهر الأول.</p></aside>
+</section>
+
+<section class="slide dark" id="next" data-label="التالي" data-n="39" data-session="3">
+  <div class="kicker">التالي</div>
+  <h2>مهمة المتابعة: تقرير صحة لمجال الاعتماد</h2>
+  <p class="lead">خلال أسبوعين: وصفتان مجدولتان، وقياسات الصحة، وخمسة سجلات تجتاز أداة التحقق، وخطة 90 يومًا، وصفحة للمالك. ثم مراجعة من خمس دقائق، وخمس لسؤال أثر في مسار مجال الاعتماد.</p>
+  <aside class="notes"><p>الموجز في labs/files/capstone/brief.txt. ذكّر بقاعدة الذكاء الاصطناعي التوليدي: لا قيم من بيانات الأشخاص في أي أداة، ولا في التقرير.</p></aside>
+</section>
+</div>
+<script type="application/json" id="academy-data">{"v":1,"engine":"1.0.0","build":{"at":"2026-11-17T23:56:31Z","version":"2027.1.0","commit":"2da61d2"},"course":{"id":"lds-dmg-202","code":"LDS-DMG-202","title":"البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات","track":"executives","lang":"ar","dir":"rtl","url":"https://sdaiaacademy.github.io/lds-dmg-202/","repo":"SDAIAAcademy/lds-dmg-202","home":"../index.html"},"deck":{"id":"day2","kind":"day","day":2,"label":"اليوم 2","title":"المسار والقياس والنشر","prev":"day1.html","next":"capstone.html","md":"day2.md","alt":{}},"sessions":[{"n":1,"label":"الجلسة 1","title":"تتبع أصل البيانات من الأحداث","slide":"s1","outcomes":["تقرأ حدث تشغيل من أحداث تتبع أصل البيانات","تتتبع أثر تغيير عمود إلى التقارير والملاك","تكتب مذكرة أثر بقرار وشروط"],"minutes":120,"lab":{"id":"2.1","title":"تقدير أثر تغيير عمود عبر المسار","minutes":70,"href":"../labs/D2_1_impact.html"}},{"n":2,"label":"الجلسة 2","title":"الكتالوج في التشغيل","slide":"s2","outcomes":["تختار السمات المطلوبة لاكتمال الأصل وتبرر كل منها","تقيس التغطية والاكتمال والحداثة لمجال في الكتالوج","ترتب ثلاث أولويات لكل منها مالك وقياس"],"minutes":120,"lab":{"id":"2.2","title":"قياس صحة مجال الترخيص","minutes":70,"href":"../labs/D2_2_health.html"}},{"n":3,"label":"الجلسة 3","title":"النشر والكتالوج سياقًا للمساعدين","slide":"s3","outcomes":["تكتب سجل مجموعة بيانات بمفردات معيارية","تصلح سجلًا حتى يجتاز أداة تحقق الكتالوج المستهدف","تحدد ما يصلح من الكتالوج سياقًا لمساعد ذكاء اصطناعي"],"minutes":120,"lab":{"id":"2.3","title":"خمسة سجلات لبوابة البيانات المفتوحة","minutes":70,"href":"../labs/D2_3_records.html"}}],"slides":[{"id":"title","n":1,"title":"المسار والقياس والنشر","kind":"title","session":0,"hash":"148ee1b5","md":"#### [day2#title] المسار والقياس والنشر\n\n*أكاديمية سدايا · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات*\n\nاليوم 2: تقدّر أثر التغيير من أحداث المسار، وتقيس صحة المجال في الكتالوج، وتعدّ سجلات للنشر\n\nمسار التنفيذيين والقادة · يومان تدريبيان + يوم للمشروع الختامي · 3 جلسات · 3 مختبرات · LDS-DMG-202","notes":"اليوم الثاني: المسار، ثم القياس، ثم النشر. افتح بسؤال للقاعة: «لو غيّر فريق التطوير عمودًا في نظامكم غدًا، من سيعرف قبل أن يتعطل تقرير؟» اجمع جوابين ولا تعلّق؛ الجلسة الأولى تجيب.","minutes":null,"lo":[]},{"id":"agenda","n":2,"title":"المسار والقياس والنشر","kind":"content","session":0,"hash":"c7141dd4","md":"#### [day2#agenda] المسار والقياس والنشر\n\n*اليوم*\n\n- **الجلسة 1 · تتبع أصل البيانات من الأحداث**: المسار أحداث تبثها خطوط المعالجة، والأثر على مستوى العمود، وقرار المضي أو التوقف\n- **الجلسة 2 · الكتالوج في التشغيل**: التغطية والاكتمال والحداثة، ومؤشرات الضوابط الوطنية، وتقرير صحة يقرؤه المالك\n- **الجلسة 3 · النشر والكتالوج سياقًا للمساعدين**: مفردات DCAT وDublin Core، والحقول المطلوبة والترخيص وجهة الاتصال، وأدوات التحقق، والكتالوج سياقًا لمساعدي الذكاء الاصطناعي","notes":"","minutes":null,"lo":[]},{"id":"review-day1","n":3,"title":"أين يُحسم ما يظهر في الكتالوج؟","kind":"quiz","session":0,"hash":"9b3b5ff4","md":"#### [day2#review-day1] أين يُحسم ما يظهر في الكتالوج؟\n\n*مراجعة اليوم 1*\n\n**سؤال:** في كتالوج جهة أخرى، ظهر في مدخل جدول المرشحين رقم جوال كامل في خانة القيم الشائعة. المشرف الفني حذف الرقم من المدخل يدويًا. ماذا سيحدث في الاستخلاص المجدول التالي؟\n\n- أ. يعود الرقم، فالوصفة هي التي تقرر ما يظهر\n- ب. لا يعود، لأن الكتالوج يحفظ التعديل اليدوي\n- ج. لا يعود إن صُنّف الجدول «مقيدًا» في الكتالوج\n- د. يعود ما لم يُحذف الرقم من قاعدة البيانات نفسها","notes":"الإجابة: أ. دقيقتان. إن اختار أحد «يحفظ التعديل»، ارجع إلى فخ المختبر 1.1: أطفأنا القيم النموذجية، فبقي تكرار القيم يُظهر الجوال. الدرس نفسه: الدليل هو الناتج.","minutes":null,"lo":["LO1","LO2"]},{"id":"s1","n":4,"title":"تتبع أصل البيانات من الأحداث","kind":"section","session":1,"hash":"633185f1","md":"#### [day2#s1] تتبع أصل البيانات من الأحداث\n\n*الجلسة 1*\n\n- تقرأ حدث تشغيل من أحداث تتبع أصل البيانات\n- تتتبع أثر تغيير عمود إلى التقارير والملاك\n- تكتب مذكرة أثر بقرار وشروط","notes":"","minutes":null,"lo":["LO4"]},{"id":"impact-question","n":5,"title":"«لو تغيّر هذا العمود، ماذا يتأثر؟» سؤال يُطرح قبل التغيير","kind":"content","session":1,"hash":"939ff6e7","md":"#### [day2#impact-question] «لو تغيّر هذا العمود، ماذا يتأثر؟» سؤال يُطرح قبل التغيير\n\n*سؤال الأثر*\n\n- فريق التطوير يرى نظامه، ولا يرى من يقرأ منه\n- المستهلكون يكتشفون التغيير حين يتعطل تقريرهم، أو أسوأ: حين لا يتعطل ويتغير رقمه\n- المسار المسجل يجيب في دقائق، بأسماء الأصول وملاكها\n\n- **في مجال الاختبارات.** يريد فريق نظام الاختبارات أن تصبح الدرجة من 1000 بدل 100. من يقرأ عمود score؟\n\n> **أين يقع الخطأ.** «التغيير داخلي في النظام» تقدير من يعرف نصف المسار.","notes":"مثال الاختبارات للشرح فقط؛ المختبر على مجال الترخيص. اسأل القاعة: كم تقريرًا عندكم يقرأ من نظام لا يملكه صاحب التقرير؟ الجواب الصادق في أغلب الجهات: لا نعرف.","minutes":null,"lo":["LO4"]},{"id":"lineage-events","n":6,"title":"كل تشغيل لمهمة يبث حدثًا: ماذا قرأ، وماذا كتب","kind":"content","session":1,"hash":"7ff678e2","md":"#### [day2#lineage-events] كل تشغيل لمهمة يبث حدثًا: ماذا قرأ، وماذا كتب\n\n*من أين يأتي المسار*\n\n1. **1 · المهمة** الاسم ومساحة الأسماء، مثل nightly.build_pass_rates\n2. **2 · التشغيل** معرّف فريد ووقت ونوع الحدث: بدأ، انتهى، فشل\n3. **3 · المدخلات والمخرجات** الجداول والملفات التي قرأها وكتبها\n4. **4 · أوجه إضافية** منها تتبع الأعمدة: أي عمود حُسب من أي عمود\n\n> **الحدث لا يعرف المالك.** المالك في الكتالوج؛ الأداة تجمع الاثنين.","notes":"اضغط لكل خطوة. الصيغة مواصفة مفتوحة اسمها OpenLineage، والحدث هنا بإصدار المواصفة 2-0-2، وتتبع الأعمدة وجه اسمه ColumnLineageDatasetFacet بالإصدار 1-2-0. أدوات الكتالوج المفتوحة المصدر تستقبل هذه الأحداث.\n\nالمصادر: مخطط حدث التشغيل في OpenLineage 2-0-2، ومخطط وجه تتبع الأعمدة 1-2-0.","minutes":null,"lo":["LO4"]},{"id":"event-anatomy","n":7,"title":"حدث «انتهى» لمهمة نسب الاجتياز","kind":"content","session":1,"hash":"01346d5c","md":"#### [day2#event-anatomy] حدث «انتهى» لمهمة نسب الاجتياز\n\n*حدث واحد مختصرًا*\n\n```\n{\"eventType\": \"COMPLETE\",\n \"job\": {\"namespace\": \"exams\", \"name\": \"nightly.build_pass_rates\"},\n \"run\": {\"runId\": \"…\"},\n \"inputs\":  [{\"namespace\": \"sqlite://exams\", \"name\": \"exam_results\"}],\n \"outputs\": [{\"namespace\": \"sqlite://warehouse\", \"name\": \"pass_rate_by_session\",\n   \"facets\": {\"columnLineage\": {\"fields\": {\"pass_rate\": {\"inputFields\": [\n     {\"name\": \"exam_results\", \"field\": \"passed\",\n      \"transformations\": [{\"type\": \"DIRECT\", \"subtype\": \"AGGREGATION\"}]}]}}}}}]}\n```","notes":"مثال مكتوب للشرح من مجال الاختبارات، بحقول المواصفة. اقرأه مع القاعة من أعلى: المهمة، ثم المدخل، ثم المخرج، ثم السطر الأهم: عمود pass_rate حُسب من passed بتجميع. لا قيمة واحدة من البيانات في الحدث: أسماء فقط.","minutes":null,"lo":["LO4"]},{"id":"direct-indirect","n":8,"title":"المباشر يحمل القيمة، وغير المباشر يقرر أي الصفوف","kind":"content","session":1,"hash":"017decc8","md":"#### [day2#direct-indirect] المباشر يحمل القيمة، وغير المباشر يقرر أي الصفوف\n\n*نوعا الاعتماد*\n\n- **DIRECT.** القيمة تنتقل: نسخ (IDENTITY)، أو تحويل، أو تجميع. حين يختفي العمود يتعطل المستهلك.\n- **INDIRECT.** القيمة تختار الصفوف: تصفية، أو ربط، أو تجميع بحسبها. حين تتغير قيمها يتغير الرقم بصمت.\n\n> **الصامت أخطر.** تقرير يتعطل يُصلح في يومه؛ رقم تغيّر قد يُنشر شهورًا.","notes":"في الاختبارات: لو صارت الدرجة من 1000، فتقرير يعرض الدرجة ينسخها (مباشر) ويظهر الخلل فورًا. أما مهمة تصفّي «الناجحين» بشرط الدرجة 60 أو أكثر (غير مباشر) فستعدّ كل المرشحين ناجحين، ولن يتعطل شيء.\n\nالأنواع الفرعية من توثيق OpenLineage لوجه تتبع الأعمدة.","minutes":null,"lo":["LO4"]},{"id":"hops","n":9,"title":"القفزة الأولى لا تكفي: الأثر ينتقل عبر كل من يقرأ ممن قرأ","kind":"content","session":1,"hash":"531999d0","md":"#### [day2#hops] القفزة الأولى لا تكفي: الأثر ينتقل عبر كل من يقرأ ممن قرأ\n\n*المشي في المسار*\n\n1. **العمود** exam_results.score\n2. **القفزة 1** جدول النتائج في المستودع\n3. **القفزة 2** نسب الاجتياز بحسب الجلسة\n4. **القفزة 3** ملف نسب الاجتياز المنشور\n\n> **لكل قفزة مالك.** صاحب الملف المنشور لم يسمع بطلب التغيير، وهو أول من يُسأل عنه.","notes":"اضغط لكل قفزة. أداة الأثر في المختبر تمشي في الأحداث بالطريقة نفسها، وتجمع المالك والمشرف من الكتالوج لكل أصل. اسأل: من يبلّغ صاحب القفزة الثالثة؟ ليس فريق التطوير، فهو لا يعرفه.","minutes":null,"lo":["LO4"]},{"id":"stale-jobs","n":10,"title":"آخر تشغيل قديم لا يعني أن المهمة ماتت","kind":"content","session":1,"hash":"0d724f09","md":"#### [day2#stale-jobs] آخر تشغيل قديم لا يعني أن المهمة ماتت\n\n*مهمة متوقفة*\n\n- المسار يعرف آخر مرة بثت فيها المهمة حدثًا، ولا يعرف هل ستعود\n- في مجال الاختبارات: مهمة تصدّر النتائج لهيئة مهنية كل فصل، آخر تشغيل لها قبل فصلين. متوقفة أم مُهملة أم ملغاة؟\n- القاعدة: لا تُسقطها من المذكرة ولا تفترض موتها؛ سؤالها يذهب إلى من يقرأ ناتجها","notes":"المثال مخترع على مجال الاختبارات. الأداة في المختبر تعلّم المهمة «متوقفة» إذا مضى على آخر تشغيل أكثر من فترتين من فترات جدولتها. هذا حد اخترناه للمختبر؛ الحد في جهتك قرار. اسأل القاعة: ماذا تفعل إن لم تجد من يقرأ الناتج؟ ودع الجواب للمختبر.","minutes":null,"lo":["LO4"]},{"id":"what-events-miss","n":11,"title":"الأحداث تُظهر ما يمر بخطوط المعالجة فقط","kind":"content","session":1,"hash":"800a2ceb","md":"#### [day2#what-events-miss] الأحداث تُظهر ما يمر بخطوط المعالجة فقط\n\n*ما لا يراه المسار*\n\n- **العمل خارج الخطوط.** في الاختبارات: مراقب يطبع كشف الحضور من شاشة النظام قبل كل جلسة.\n- **الجداول المحسوبة.** ملف بيانات في قسم الاختبارات يقرأ النتائج مباشرة باتصال شخصي.\n- **الأنظمة الأخرى.** نظام لا يبث أحداثًا، ويقرأ عبر واجهة برمجية.\n\n> **اسأل الملاك.** المذكرة فيها قسم لما لا تظهره الأحداث، باسم من سُئل.","notes":"المسار المسجل دليل قوي، لكنه ليس كاملًا. المقابل العملي: رسالة قصيرة لملاك الأصول التي في القفزة الأولى: «هل يقرأ أحد هذا العمود خارج الخطوط؟». الأمثلة من مجال الاختبارات؛ في المختبر ملاحظات من قسم التقارير، اقرأها قبل الأداة.","minutes":null,"lo":["LO4"]},{"id":"go-no-go","n":12,"title":"القرار مضي أو توقف، والتوقف تتبعه شروط لكل منها مالك","kind":"content","session":1,"hash":"65f6f6c9","md":"#### [day2#go-no-go] القرار مضي أو توقف، والتوقف تتبعه شروط لكل منها مالك\n\n*مذكرة الأثر*\n\n| القسم | ما يُكتب |\n| --- | --- |\n| ما يتغير | عمود واحد، بلغة الأعمال |\n| ما يتأثر | كل أصل: هل يتعطل أم يتغير رقمه، ومالكه |\n| ما لا تظهره الأحداث | ما قاله الملاك، ومن سُئل |\n| القرار | مضي أو توقف، والشروط التي يتحول بها التوقف إلى مضي |\n| من يُبلَّغ | كل مالك، ومن يقرأ الأرقام المنشورة |","notes":"القرار ليس رفض التغيير. أغلب المذكرات الجيدة تقول: «توقف الآن، ومضي حين تتحقق هذه الشروط». الشرط بلا مالك أمنية. لجنة التغيير تقرأ القسمين الأخيرين أولًا.","minutes":null,"lo":["LO4"]},{"id":"check-impact","n":13,"title":"ماذا تكتب عن مهمة التصفية؟","kind":"quiz","session":1,"hash":"14873558","md":"#### [day2#check-impact] ماذا تكتب عن مهمة التصفية؟\n\n*نقطة تحقق*\n\n**سؤال:** في مجال الاختبارات، مهمة تبني «عدد الناجحين في كل جلسة» تصفّي الصفوف بشرط على عمود الدرجة، ولا تنسخه. الدرجة ستصبح من 1000. ماذا تكتب عنها في المذكرة؟\n\n- أ. تتعطل المهمة حين تتغير القيم، فيظهر الخلل في يومه ويُصلح\n- ب. لا أثر، لأن عمود الدرجة لا يظهر في ناتجها\n- ج. أثرها على فريق التطوير وحده، فهو من يغيّر\n- د. يتغير رقمها بصمت: سيُعد الجميع ناجحين ما لم يُعدّل الشرط","notes":"الإجابة: د. من اختار «تتعطل» خلط بين النوعين؛ ارجع إلى شريحة المباشر وغير المباشر.","minutes":null,"lo":["LO4"]},{"id":"lab-2-1","n":14,"title":"تقدير أثر تغيير عمود عبر المسار","kind":"lab","session":1,"hash":"014948d3","md":"#### [day2#lab-2-1] تقدير أثر تغيير عمود عبر المسار\n\nالمختبر 2.1 · 70 دقيقة\n\nتتتبع أثر طلب تغيير على عمود حالة الرخصة عبر أحداث تتبع أصل البيانات، فتسمي التقارير والملفات والملاك المتأثرين، وتضيف ما لا تظهره الأحداث، وتكتب مذكرة أثر بقرار المضي أو التوقف.\n\n[D2_1_impact.html](https://sdaiaacademy.github.io/lds-dmg-202/labs/D2_1_impact.html)\n\n- [ ] اقرأ طلب التغيير وملاحظات قسم التقارير (8 د)\n- [ ] شغّل أداة الأثر على عمود الحالة واقرأ كل سطر (12 د)\n- [ ] فرّق بين الأثر المباشر وغير المباشر، والمهمة الحية والمتوقفة (12 د)\n- [ ] أضف ما لا تظهره الأحداث (8 د)\n- [ ] اكتب مذكرة الأثر بالقرار وشروطه ومالك كل شرط (22 د)\n- [ ] اعرض قرارك على زميل في دقيقتين (8 د)\n- [ ] ✱ إضافي: شغّل الأداة على عمود تاريخ الانتهاء، وقارن قائمة المتأثرين بقائمة عمود الحالة","notes":"تأكد في الدقائق الأولى أن الجميع شغّل الأداة من مجلد labs. المشكلة المعتادة: كتابة اسم العمود بلا مساحة الأسماء، فلا تجد الأداة شيئًا. ذكّر بأن المذكرة لعضو لجنة غير متخصص.\n\nمن لم يكمل مختبرات الأمس لا يحتاجها: كل الملفات جاهزة في lineage.","minutes":null,"lo":[]},{"id":"debrief-2-1","n":15,"title":"«لا أثر خارج النظام» صار سبعة أصول وثلاثة ملاك","kind":"content","session":1,"hash":"6fb5da32","md":"#### [day2#debrief-2-1] «لا أثر خارج النظام» صار سبعة أصول وثلاثة ملاك\n\n*بعد المختبر 2.1*\n\n- **7** أصول وسبع مهام بعد عمود الحالة، حتى ثلاث قفزات\n- **1** ملف بلا مالك، ومهمته متوقفة منذ أبريل\n- **1** استخراج يدوي شهري لا تراه الأحداث\n\n> **والقيمة الجديدة لفترة السماح؟** الرقم المنشور للرخص السارية يتغير ما لم يقرر المالك أين تُعد.","notes":"الأعداد من الحل المرجعي (labs/solutions/D2_1_impact.md). اطلب مذكرتين بقرارين مختلفين، وقارن الشروط. القرار المرجعي: توقف الآن، ومضي حين يبقى العمود القديم دورة واحدة، ويقرر المالك معنى فترة السماح، وتُعدّل المهام والاستخراج اليدوي، ويُسمّى مالك للملف الربع سنوي.","minutes":null,"lo":["LO4"]},{"id":"s2","n":16,"title":"الكتالوج في التشغيل","kind":"section","session":2,"hash":"e7721f44","md":"#### [day2#s2] الكتالوج في التشغيل\n\n*الجلسة 2*\n\n- تختار السمات المطلوبة لاكتمال الأصل وتبرر كل منها\n- تقيس التغطية والاكتمال والحداثة لمجال في الكتالوج\n- ترتب ثلاث أولويات لكل منها مالك وقياس","notes":"","minutes":null,"lo":["LO1","LO2","LO3"]},{"id":"health-why","n":17,"title":"كتالوج لا يُقاس يشيخ بصمت","kind":"content","session":2,"hash":"7786e6b2","md":"#### [day2#health-why] كتالوج لا يُقاس يشيخ بصمت\n\n*الكتالوج في التشغيل*\n\n- كل أسبوع: جدول جديد، ومالك ينتقل، واستخلاص يفشل، ومسودة لا يراجعها أحد\n- المستخدم لا يرى ما ينقص؛ يرى مدخلًا يبدو كاملًا ويثق به\n- القياس الشهري بالتعريفات نفسها هو ما يجعل الكتالوج يُدار\n\n> **أين يقع الخطأ.** نسبة عالية بتعريف رخو تطمئن من يجب أن يقلق.","notes":"اسأل القاعة: من يعرف نسبة اكتمال الكتالوج في جهته؟ ومن يعرف كيف حُسبت؟ السؤال الثاني هو موضوع الجلسة.","minutes":null,"lo":["LO1","LO2"]},{"id":"three-measures","n":18,"title":"التغطية والاكتمال والحداثة","kind":"content","session":2,"hash":"1bef145b","md":"#### [day2#three-measures] التغطية والاكتمال والحداثة\n\n*ثلاثة قياسات*\n\n- **التغطية.** لكل سمة: كم أصلًا فيه هذه السمة من كل أصول المجال؟\n- **الاكتمال.** كم أصلًا فيه كل السمات التي قررنا أنها مطلوبة معًا؟\n- **الحداثة.** كم أصلًا آخر استخلاص ناجح له داخل الحد الذي قررناه؟\n\n> **المقام قرار، والبسط قرار.** اكتب الاثنين بجانب كل نسبة.","notes":"التغطية تُقاس لكل سمة على حدة، والاكتمال لكل أصل. أصل فيه أربع سمات من خمس مطلوبة يُحسب في التغطية أربع مرات، ولا يُحسب في الاكتمال مرة واحدة.","minutes":null,"lo":["LO1","LO2"]},{"id":"mcm-kpis","n":19,"title":"ضابط إدارة الأداء: مؤشرات للاستخدام ومؤشرات للجودة","kind":"content","session":2,"hash":"615bc881","md":"#### [day2#mcm-kpis] ضابط إدارة الأداء: مؤشرات للاستخدام ومؤشرات للجودة\n\n*الضوابط الوطنية*\n\n- **مؤشرات الاستخدام.** المستخدمون المسجلون والنشطون، والدخول، والاستعلامات، والتعليقات والوسوم، والتقييمات، وشهادات الثقة.\n- **مؤشرات جودة البيانات الوصفية.** **الاكتمال:** إلى أي حد اكتملت القواميس ومعاجم البيانات. **الدقة:** توافق التعريفات والأوصاف مع سياق العمل. **الاتساق:** اتساق التعريفات عبر الجهة.","notes":"الضابط السادس في مجال البيانات الوصفية ودليل البيانات، بمواصفتيه الأولى والثانية. قياسات اليوم تخدم الاكتمال مباشرة. الدقة هي ما قسناه أمس بمعدل خطأ المسودات. الاتساق هو قاموس يمنع تعريفين للمصطلح نفسه.\n\nالمصدر: مكتب إدارة البيانات الوطنية، ضوابط ومواصفات إدارة البيانات الوطنية وحوكمتها وحماية البيانات الشخصية، الضابط MCM.6.","minutes":null,"lo":["LO1","LO2"]},{"id":"definitions-move","n":20,"title":"الكتالوج نفسه، وقراران مختلفان، ورقمان","kind":"content","session":2,"hash":"221db62a","md":"#### [day2#definitions-move] الكتالوج نفسه، وقراران مختلفان، ورقمان\n\n*مثال توضيحي من مجال الاختبارات*\n\n| القرار | «موصوف» إن كان فيه أي نص | «موصوف» إن راجعه مشرف |\n| --- | --- | --- |\n| الأصول الموصوفة من 10 | 9 | 5 |\n| ما تقوله النسبة | الكتالوج شبه كامل | نصف الأوصاف لم يقرأها أحد |\n\n> **الرقم الأول ليس كذبًا.** لكنه يجيب عن سؤال لم يسأله المالك.","notes":"أرقام توضيحية لمجال الاختبارات بعشرة أصول، للشرح فقط. الشريحة تقول إن القرار يغيّر الرقم، لا أي القرارين صواب: اسأل أي الرقمين تضعه أمام المالك، ولماذا، واترك القرار لمجال الترخيص في المختبر.","minutes":null,"lo":["LO1","LO3"]},{"id":"freshness","n":21,"title":"الاستخلاص الفاشل لا يمحو المدخل: يتركه بأرقام قديمة","kind":"content","session":2,"hash":"6b856275","md":"#### [day2#freshness] الاستخلاص الفاشل لا يمحو المدخل: يتركه بأرقام قديمة\n\n*الحداثة*\n\n- المدخل يبقى بآخر مخطط وآخر أعداد نجح استخلاصها\n- الحداثة تُقاس بعدد فترات الجدولة منذ آخر نجاح، لا بالأيام وحدها\n- الحد سؤال: كم استخلاصًا فائتًا تقبل قبل أن تقول إن المدخل قديم؟\n- سجل التشغيل يقول ما لا يقوله المدخل: متى فشل، وكم مرة","notes":"الحد بعدد الفترات لا بالأيام لأن المصادر تتحدث بإيقاعات مختلفة: يوم واحد كثير على مصدر ليلي وقليل على مصدر شهري. حد كبير جدًا يخفي الفشل المتكرر، وهذا ما ستراه في المختبر.","minutes":null,"lo":["LO1"]},{"id":"priorities","n":22,"title":"ثلاث أولويات، لكل منها مالك وقياس ورقم مستهدف","kind":"content","session":2,"hash":"a62c71f7","md":"#### [day2#priorities] ثلاث أولويات، لكل منها مالك وقياس ورقم مستهدف\n\n*من القياس إلى العمل*\n\n1. **1 · القائمة** ما ينقص، وما هو قديم، وما فشل\n2. **2 · السبب المشترك** أصول كثيرة ينقصها الشيء نفسه\n3. **3 · الأولوية** إجراء، ومالك باسمه، وقياس الشهر القادم\n\n> **ابدأ بما يصلح كثيرًا بإجراء واحد.** عطل في استخلاص يصلح عدة أصول معًا.","notes":"اضغط لكل خطوة. أولوية بلا مالك لا تُنجز، وأولوية بلا قياس لا يُعرف أنها أُنجزت. اطلب من القاعة أن تفكر: أي سمة ناقصة في جهاتهم تحتاج قرار مدير لا عمل مشرف؟","minutes":null,"lo":["LO1","LO2"]},{"id":"health-paragraph","n":23,"title":"خمسة أسطر يقرؤها مدير لا يعرف كلمة «استخلاص»","kind":"content","session":2,"hash":"4c3d6e22","md":"#### [day2#health-paragraph] خمسة أسطر يقرؤها مدير لا يعرف كلمة «استخلاص»\n\n*التقرير للمالك*\n\n1. أين يقف المجال، برقم واحد وتعريفه\n2. ما الذي يقلقك، ولماذا يهمه هو\n3. ما تطلبه منه بالاسم والتاريخ\n4. ما تغيّر منذ القياس السابق، أو أنه القياس الأول\n5. متى تعيد القياس، وبالتعريفات نفسها","notes":"اقرأ للقاعة فقرة سيئة: «نسبة التغطية 92٪ في سمة المالك والحداثة ممتازة». ثم اسأل: ماذا سيفعل المدير بعد قراءتها؟ لا شيء. الفقرة الجيدة تنتهي بطلب.","minutes":null,"lo":["LO1","LO2"]},{"id":"check-health","n":24,"title":"أي حد للحداثة تختار؟","kind":"quiz","session":2,"hash":"31a60d02","md":"#### [day2#check-health] أي حد للحداثة تختار؟\n\n*نقطة تحقق*\n\n**سؤال:** مصدر نتائج الاختبارات يُستخلص كل ليلة. في إعداد القياس حد الحداثة 30 فترة، والقياس يقول 100٪ حديث. في سجل التشغيل فشل في الليالي الخمس الأخيرة. ماذا تفعل؟\n\n- أ. تبقي الحد، لأن خمس ليال أقل بكثير من ثلاثين فترة\n- ب. تقيس بالأيام بدل الفترات، فهي أوضح للمالك\n- ج. تخفض الحد حتى يظهر الفشل، وتبلّغ المشرف الفني\n- د. تحذف المدخل حتى ينجح الاستخلاص","notes":"الإجابة: ج. الرقم 30 مبالغ فيه عمدًا. لا تعطِ القاعة رقمًا للحد هنا: تختاره في المختبر وتبرره. اسأل: من يتلقى البلاغ؟ المشرف الفني، لأن الاستخلاص من عمله.","minutes":null,"lo":["LO1"]},{"id":"lab-2-2","n":25,"title":"قياس صحة مجال الترخيص","kind":"lab","session":2,"hash":"0f6bd1e8","md":"#### [day2#lab-2-2] قياس صحة مجال الترخيص\n\nالمختبر 2.2 · 70 دقيقة\n\nتقيس من حالة الكتالوج المرجعية تغطية مجال الترخيص واكتماله وحداثته، بعد أن تقرر ما يُعد وصفًا وما يُعد حديثًا، وتكتب ثلاث أولويات وفقرة صحة للمالك.\n\n[D2_2_health.html](https://sdaiaacademy.github.io/lds-dmg-202/labs/D2_2_health.html)\n\n- [ ] شغّل أداة الصحة بالإعداد كما وصل واقرأ الأرقام (8 د)\n- [ ] اختر السمات المطلوبة واذكر مرجع كل منها (14 د)\n- [ ] قرر هل تُعد مسودات الآلة وصفًا، وما معنى الحداثة (10 د)\n- [ ] أعد التشغيل وفسّر الفرق (12 د)\n- [ ] اكتب ثلاث أولويات لكل منها مالك وقياس (18 د)\n- [ ] صغ فقرة الصحة للمالك في خمسة أسطر (8 د)\n- [ ] ✱ إضافي: اقترح مؤشرين من مؤشرات استخدام الكتالوج، وبيّن من أين تأتي أرقامهما","notes":"حالة الكتالوج ملف مرجعي، لا ناتج مختبرات الأمس، فيبدأ الجميع من النقطة نفسها. راقب الخطوة الثانية: من يجعل كل السمات مطلوبة دون مرجع. اطلب المرجع لكل سطر.","minutes":null,"lo":[]},{"id":"debrief-2-2","n":26,"title":"الإعداد الأول قال 14 من 16 مكتملة، والإعداد المرجعي قال 7","kind":"content","session":2,"hash":"b257bb3a","md":"#### [day2#debrief-2-2] الإعداد الأول قال 14 من 16 مكتملة، والإعداد المرجعي قال 7\n\n*بعد المختبر 2.2*\n\n- **7/16** أصول مكتملة، وأكبر نقص في مشرف الأعمال: 8 فقط\n- **11/16** حديثة بحد فترتين؛ ملفات الترخيص الخمسة قديمة\n- **3** أيام أحد متتالية فشل فيها استخلاص الملفات","notes":"الأعداد من الحل المرجعي (labs/solutions/D2_2_health.md). الأولوية الأولى المرجعية: إصلاح استخلاص الملفات، مالكها فارس الزاعق. اطلب فقرتين للمالك، واقرأ واحدة تنتهي بطلب.","minutes":null,"lo":["LO1","LO2"]},{"id":"s3","n":27,"title":"النشر والكتالوج سياقًا للمساعدين","kind":"section","session":3,"hash":"bfd1e1ec","md":"#### [day2#s3] النشر والكتالوج سياقًا للمساعدين\n\n*الجلسة 3*\n\n- تكتب سجل مجموعة بيانات بمفردات معيارية\n- تصلح سجلًا حتى يجتاز أداة تحقق الكتالوج المستهدف\n- تحدد ما يصلح من الكتالوج سياقًا لمساعد ذكاء اصطناعي","notes":"","minutes":null,"lo":["LO5"]},{"id":"why-publish","n":28,"title":"البيانات المفتوحة تُنشر بترخيص وبيانات وصفية، لا ملفًا وحده","kind":"content","session":3,"hash":"2c74d1c7","md":"#### [day2#why-publish] البيانات المفتوحة تُنشر بترخيص وبيانات وصفية، لا ملفًا وحده\n\n*النشر*\n\n- سياسة البيانات المفتوحة: البيانات الوصفية التي تعرّف البيانات وتشرحها تُنشر معها\n- والبيانات المفتوحة تخضع لترخيص يحدد شروط استعمالها\n- منصة البيانات المفتوحة الوطنية تجمع ما تنشره الجهات\n- الكتالوج الداخلي يغذي السجل المنشور، فلا يُكتب الوصف مرتين","notes":"تذكير بأن النشر المفتوح للبيانات المصنفة «عام» وحدها؛ التصنيف قرار يسبق السجل. اعرض الموقع open.data.gov.sa إن كان الاتصال متاحًا، ولا تبحث فيه عن بيانات الحالة: الهيئة في الحالة مختلقة.\n\nالمصدر: سياسة البيانات المفتوحة (المبدأ الرابع، الشمول، عن البيانات الوصفية التي تُنشر مع البيانات؛ والمبدأ السابع عن الترخيص).","minutes":null,"lo":["LO5"]},{"id":"dcat-vocab","n":29,"title":"DCAT يصف الكتالوج والمجموعة والتوزيع، ويستعير حقوله من Dublin Core","kind":"content","session":3,"hash":"150bd91c","md":"#### [day2#dcat-vocab] DCAT يصف الكتالوج والمجموعة والتوزيع، ويستعير حقوله من Dublin Core\n\n*المفردات*\n\n- **الكتالوج.** dcat:Catalog: قائمة المجموعات وناشرها.\n- **المجموعة.** dcat:Dataset: العنوان والوصف والترخيص والدورية وجهة الاتصال.\n- **التوزيع.** dcat:Distribution: ملف بعينه، برابط تنزيل ونوع ملف.\n\n> **الحقول المشتركة بادئتها dct:.** العنوان والوصف والترخيص والدورية من مصطلحات Dublin Core.","notes":"DCAT بإصداره الثالث توصية من W3C منذ أغسطس 2024. ذكّر بشريحة المفردات أمس: هذا هو المعيار الذي قلنا إنه للنشر. أغلب البوابات تبني ملف قواعد خاصًا بها فوق DCAT، يحدد الحقول المطلوبة وقوائمها.\n\nالمصادر: W3C Data Catalog Vocabulary (DCAT) Version 3؛ DCMI Metadata Terms.","minutes":null,"lo":["LO5"]},{"id":"dcat-record","n":30,"title":"نسب الاجتياز الشهرية، سجل DCAT مختصرًا","kind":"content","session":3,"hash":"b0e7758c","md":"#### [day2#dcat-record] نسب الاجتياز الشهرية، سجل DCAT مختصرًا\n\n*سجل واحد*\n\n```\n\u003c…/dataset/pass-rates> a dcat:Dataset ;\n  dct:identifier \"pass-rates\" ;\n  dct:title \"نسب اجتياز الاختبارات المهنية\"@ar, \"Professional exam pass rates\"@en ;\n  dct:license \u003chttps://creativecommons.org/licenses/by/4.0/> ;\n  dct:accrualPeriodicity \u003chttp://publications.europa.eu/resource/authority/frequency/MONTHLY> ;\n  dcat:contactPoint [ vcard:hasEmail \u003cmailto:opendata@example.com> ] ;\n  dcat:distribution [ dcat:downloadURL \u003chttps://data.example.org/pass-rates.csv> ;\n                      dcat:mediaType \u003chttps://www.iana.org/assignments/media-types/text/csv> ] .\n```","notes":"مثال من مجال الاختبارات، مختصر. لاحظ أن الترخيص والدورية ونوع الملف روابط لا نصوص: هذا ما يجعل الآلة تفهمها. العنوان بلغتين، كل منهما بوسم لغته.","minutes":null,"lo":["LO5"]},{"id":"licence-contact","n":31,"title":"الترخيص يقول ماذا يحق لك، وجهة الاتصال تقول لمن تكتب","kind":"content","session":3,"hash":"3077c2a4","md":"#### [day2#licence-contact] الترخيص يقول ماذا يحق لك، وجهة الاتصال تقول لمن تكتب\n\n*حقلان يُنسيان*\n\n- **الترخيص.** رابط لترخيص معروف من قائمة البوابة. «مجاني» أو «مفتوح للجميع» لا يقول هل يحق النسخ وإعادة النشر.\n- **جهة الاتصال.** بريد يصل إلى فريق يرد. من يجد خطأ في الأرقام يحتاج عنوانًا، لا اسم مكتب.","notes":"الترخيص المقبول في بوابة الحالة واحد: CC BY 4.0. البوابات الحقيقية تنشر قائمتها. اسأل القاعة: من يرد على بريد البيانات المفتوحة في جهاتكم؟ إن لم يعرف أحد، فهذا أول إصلاح.","minutes":null,"lo":["LO5"]},{"id":"validator","n":32,"title":"أداة التحقق تقرأ السجل بقواعد البوابة، وتسمي كل حقل يخالفها","kind":"content","session":3,"hash":"0145623a","md":"#### [day2#validator] أداة التحقق تقرأ السجل بقواعد البوابة، وتسمي كل حقل يخالفها\n\n*أداة التحقق*\n\n```\n[FIX] pass-rates: periodicity: one from the portal's list is required\n[FIX] pass-rates: keywords: at least two are required\n```\n\n- القواعد مكتوبة بلغة SHACL: لكل حقل عدده الأدنى، ونوعه، وقائمته\n- الرسالة تقول الحقل والقاعدة، ولا تقول القيمة الصحيحة\n- الاجتياز يعني أن السجل مقروء للبوابة، لا أنه صحيح","notes":"الرسالتان مثال من مجال الاختبارات بصيغة أداة المختبر. الأداة في المختبر تتحقق بملف قواعد كتبناه لبوابة الحالة؛ ليست قواعد أي بوابة حقيقية. القاعدة العامة صحيحة: كل بوابة جادة تتحقق قبل أن تقبل.","minutes":null,"lo":["LO5"]},{"id":"outside-reader","n":33,"title":"ما لا تسأله الأداة: هل يفهم الغريب ما يعدّه الرقم؟","kind":"content","session":3,"hash":"48296e92","md":"#### [day2#outside-reader] ما لا تسأله الأداة: هل يفهم الغريب ما يعدّه الرقم؟\n\n*بعين القارئ الخارجي*\n\n- «نسبة الاجتياز» من كل من تقدموا، أم ممن حضروا؟\n- الكلمات المفتاحية بكلمات الباحث، لا بأسماء الأعمدة\n- التعريف من القاموس يدخل الوصف بجملة واحدة\n\n> **القاموس يكتب الوصف المنشور.** المصطلح المعتمد أمس هو الجملة التي يحتاجها القارئ اليوم.","notes":"مثال الاختبارات: نسبة الاجتياز من المتقدمين تختلف عن نسبتها من الحاضرين بعدد الغائبين. الوصف الذي لا يقول أيهما يُقرأ بالمعنيين. اربط بخلاف «المرشح الناجح» في نقطة تحقق الأمس.","minutes":null,"lo":["LO5"]},{"id":"catalogue-ai-context","n":34,"title":"المساعد يجيب عن «ما البيانات المتاحة؟» بقدر ما يُعطى","kind":"content","session":3,"hash":"4e4ffc3f","md":"#### [day2#catalogue-ai-context] المساعد يجيب عن «ما البيانات المتاحة؟» بقدر ما يُعطى\n\n*الكتالوج سياقًا للمساعدين*\n\n- **يصلح سياقًا.** سجلات المجموعات المصنفة «عام»، وتعريفات القاموس المعتمدة، والملاك وجهات الاتصال.\n- **لا يدخل.** أي قيمة من البيانات، وأي مدخل مصنف «مقيد» أو أعلى، والمسودات التي لم تُراجع.\n\n> **القاعدة الحكومية.** لا بيانات مصنفة «مقيد» أو أعلى في أدوات الذكاء الاصطناعي التوليدي.","notes":"الكتالوج الجيد سياق ممتاز لمساعد يدل الموظفين على البيانات: ما الموجود، ومن يملكه، وبأي تعريف. والكتالوج السيئ يعلّم المساعد أخطاءه. لذلك المسودات غير المراجعة لا تدخل.\n\nالمصدر: سدايا، الإرشادات العامة لاستخدام الذكاء الاصطناعي التوليدي للجهات الحكومية.","minutes":null,"lo":["LO5","LO3"]},{"id":"check-records","n":35,"title":"السجل اجتاز أداة التحقق. هل يُنشر؟","kind":"quiz","session":3,"hash":"f137dcc3","md":"#### [day2#check-records] السجل اجتاز أداة التحقق. هل يُنشر؟\n\n*نقطة تحقق*\n\n**سؤال:** سجل «نسب الاجتياز الشهرية» اجتاز أداة التحقق. وصفه يقول «نسبة الناجحين» ولا يقول من أي عدد تُحسب، والمالك لم يقرأه بعد. ماذا تفعل؟\n\n- أ. تنشره، فاجتياز الأداة يعني أن السجل صحيح\n- ب. تضيف تعريف القاموس، وتنتظر تأكيد المالك\n- ج. تحذف الوصف حتى لا يُساء فهمه\n- د. تنشره الآن، وتترك الأسئلة لجهة الاتصال تجيب عنها بعد النشر","notes":"الإجابة: ب. هذا ما تفعله الخطوة الرابعة في المختبر.","minutes":null,"lo":["LO5"]},{"id":"lab-2-3","n":36,"title":"خمسة سجلات لبوابة البيانات المفتوحة","kind":"lab","session":3,"hash":"67bf84c4","md":"#### [day2#lab-2-3] خمسة سجلات لبوابة البيانات المفتوحة\n\nالمختبر 2.3 · 70 دقيقة\n\nتصلح خمسة سجلات لمجموعات بيانات منشورة من مجال الترخيص حتى تجتاز أداة التحقق في البوابة المستهدفة، بالترخيص وجهة الاتصال والدورية والتوزيع، ثم تقرأ السجل بصيغة DCAT.\n\n[D2_3_records.html](https://sdaiaacademy.github.io/lds-dmg-202/labs/D2_3_records.html)\n\n- [ ] اقرأ الحقول المطلوبة وورقة القوائم (8 د)\n- [ ] شغّل أداة السجلات على الملف كما وصل (7 د)\n- [ ] أصلح كل سجل حتى يجتاز التحقق (25 د)\n- [ ] راجع الوصف والكلمات المفتاحية بعين مستخدم خارجي (12 د)\n- [ ] افتح ملف السجلات واقرأ سجلًا كاملًا (8 د)\n- [ ] اكتب ما تحتاجه من المالك قبل النشر (10 د)\n- [ ] ✱ إضافي: اكتب سجلًا سادسًا لمجموعة لا تصلح للنشر المفتوح، وبيّن لماذا يرفضها قرار النشر قبل أداة التحقق","notes":"المشكلة المعتادة: إصلاح بند وإعادة التشغيل دون حفظ الملف. الثانية: كتابة الترخيص نصًا «CC BY» بدل القيمة من ورقة القوائم. لا تقبل اختراع رابط تنزيل: يُكتب مؤقتًا ويذهب إلى أسئلة المالك.","minutes":null,"lo":[]},{"id":"debrief-2-3","n":37,"title":"تسعة بنود رفضتها الأداة، وسؤال واحد لم تسأله","kind":"content","session":3,"hash":"88a86be1","md":"#### [day2#debrief-2-3] تسعة بنود رفضتها الأداة، وسؤال واحد لم تسأله\n\n*بعد المختبر 2.3*\n\n- **6** إصلاحات في خمسة سجلات، وخطأ التوزيع وحده في أربع رسائل\n- **5/5** سجلات تجتاز أداة التحقق بعد الإصلاح\n- **1** وصف للرخص السارية لا يقول بأي تعريف تُعد","notes":"الأعداد من الحل المرجعي (labs/solutions/D2_3_records.md). اربط الأيام الثلاثة: التعريف في القاموس (1.3)، والرقم المنشور في المسار (2.1)، والوصف الذي لا يقول التعريف هنا. سؤال واحد للمالك يحل الثلاثة.","minutes":null,"lo":["LO5"]},{"id":"wrap-up","n":38,"title":"ثلاثة أمور تبقى معك","kind":"content","session":3,"hash":"dd545f18","md":"#### [day2#wrap-up] ثلاثة أمور تبقى معك\n\n*خلاصة اليوم 2*\n\n- **اسأل المسار قبل التغيير.** الأحداث تسمي الأصول والملاك، والملاك يسمون ما لا تراه الأحداث.\n- **عرّف قبل أن تقيس.** كل نسبة بتعريفها ومقامها، وتُعاد كل شهر بالتعريفات نفسها.\n- **انشر ما يُفهم.** اجتياز أداة التحقق شرط، والتعريف الذي يفهمه الغريب هو الغاية.","notes":"اطلب من كل مشارك أن يكتب أي من الثلاثة سيبدأ به في جهته، وما الرقم الذي سيقيسه في الشهر الأول.","minutes":null,"lo":[]},{"id":"next","n":39,"title":"مهمة المتابعة: تقرير صحة لمجال الاعتماد","kind":"content","session":3,"hash":"0e8bc39d","md":"#### [day2#next] مهمة المتابعة: تقرير صحة لمجال الاعتماد\n\n*التالي*\n\nخلال أسبوعين: وصفتان مجدولتان، وقياسات الصحة، وخمسة سجلات تجتاز أداة التحقق، وخطة 90 يومًا، وصفحة للمالك. ثم مراجعة من خمس دقائق، وخمس لسؤال أثر في مسار مجال الاعتماد.","notes":"الموجز في labs/files/capstone/brief.txt. ذكّر بقاعدة الذكاء الاصطناعي التوليدي: لا قيم من بيانات الأشخاص في أي أداة، ولا في التقرير.","minutes":null,"lo":[]}],"activities":[{"id":"review-day1-q1","slide":"review-day1","type":"single","prompt":"في كتالوج جهة أخرى، ظهر في مدخل جدول المرشحين رقم جوال كامل في خانة القيم الشائعة. المشرف الفني حذف الرقم من المدخل يدويًا. ماذا سيحدث في الاستخلاص المجدول التالي؟","options":[{"key":"أ","text":"يعود الرقم، فالوصفة هي التي تقرر ما يظهر"},{"key":"ب","text":"لا يعود، لأن الكتالوج يحفظ التعديل اليدوي"},{"key":"ج","text":"لا يعود إن صُنّف الجدول «مقيدًا» في الكتالوج"},{"key":"د","text":"يعود ما لم يُحذف الرقم من قاعدة البيانات نفسها"}],"correct":[0],"explanation":"الاستخلاص يعيد كتابة ما تقرره الوصفة في كل تشغيل. الإصلاح سطر في الوصفة، والدليل هو الناتج بعدها.","misconceptions":["","الكتالوج لا يحفظ تعديلات المدخل في وجه القيم؛ الاستخلاص يكتب ما تقرره الوصفة","التصنيف يُعرض بجانب المدخل، لكنه لا يطفئ القيم النموذجية في الوصفة","الموصل يقرأ ولا يكتب في المصدر؛ المشكلة في الوصفة لا في قاعدة البيانات"],"lo":["LO1"]},{"id":"check-impact-q1","slide":"check-impact","type":"single","prompt":"في مجال الاختبارات، مهمة تبني «عدد الناجحين في كل جلسة» تصفّي الصفوف بشرط على عمود الدرجة، ولا تنسخه. الدرجة ستصبح من 1000. ماذا تكتب عنها في المذكرة؟","options":[{"key":"أ","text":"تتعطل المهمة حين تتغير القيم، فيظهر الخلل في يومه ويُصلح"},{"key":"ب","text":"لا أثر، لأن عمود الدرجة لا يظهر في ناتجها"},{"key":"ج","text":"أثرها على فريق التطوير وحده، فهو من يغيّر"},{"key":"د","text":"يتغير رقمها بصمت: سيُعد الجميع ناجحين ما لم يُعدّل الشرط"}],"correct":[3],"explanation":"الاعتماد غير المباشر لا يكسر شيئًا. يغيّر من يُعد، والرقم الخاطئ يبدو صحيحًا.","misconceptions":["لا يتعطل شيء في التصفية: العمود باقٍ باسمه، والشرط يعمل على القيم الجديدة","غياب العمود من ناتج المهمة لا يعني غياب الأثر؛ الشرط يقرر من يُعد","الأثر يقع على الرقم الذي تنتجه المهمة؛ فريق التطوير لا يملك هذا الرقم ولا يعرف قارئه",""],"lo":["LO4"]},{"id":"check-health-q1","slide":"check-health","type":"single","prompt":"مصدر نتائج الاختبارات يُستخلص كل ليلة. في إعداد القياس حد الحداثة 30 فترة، والقياس يقول 100٪ حديث. في سجل التشغيل فشل في الليالي الخمس الأخيرة. ماذا تفعل؟","options":[{"key":"أ","text":"تبقي الحد، لأن خمس ليال أقل بكثير من ثلاثين فترة"},{"key":"ب","text":"تقيس بالأيام بدل الفترات، فهي أوضح للمالك"},{"key":"ج","text":"تخفض الحد حتى يظهر الفشل، وتبلّغ المشرف الفني"},{"key":"د","text":"تحذف المدخل حتى ينجح الاستخلاص"}],"correct":[2],"explanation":"حد الحداثة يُختار ليكشف العطل في وقته: يتسع لفشل عابر، ولا يتسع لفشل متكرر.","misconceptions":["حد يتسع لشهر من الفشل يخفي العطل الذي وُضع القياس لكشفه","الأيام وحدها تتجاهل الإيقاع: يوم واحد صارم على مصدر ليلي وتساهل على مصدر شهري","","الحذف يخفي الأصل عن المستخدمين ولا يصلح الاستخلاص"],"lo":["LO1"]},{"id":"check-records-q1","slide":"check-records","type":"single","prompt":"سجل «نسب الاجتياز الشهرية» اجتاز أداة التحقق. وصفه يقول «نسبة الناجحين» ولا يقول من أي عدد تُحسب، والمالك لم يقرأه بعد. ماذا تفعل؟","options":[{"key":"أ","text":"تنشره، فاجتياز الأداة يعني أن السجل صحيح"},{"key":"ب","text":"تضيف تعريف القاموس، وتنتظر تأكيد المالك"},{"key":"ج","text":"تحذف الوصف حتى لا يُساء فهمه"},{"key":"د","text":"تنشره الآن، وتترك الأسئلة لجهة الاتصال تجيب عنها بعد النشر"}],"correct":[1],"explanation":"الاجتياز يعني أن البوابة تقرأ السجل. أما المعنى فيقرره المالك، ويحمله التعريف إلى القارئ.","misconceptions":["الأداة تفحص الشكل والقوائم، ولا تفحص هل يفهم القارئ ما يعدّه الرقم","","الوصف جزء من البيانات الوصفية التي تطلبها السياسة؛ حذفه يزيد اللبس","جهة الاتصال للأسئلة بعد النشر، لا بديلًا عن تعريف الرقم قبله"],"lo":["LO5"]}],"ai":{"context":{"course":"../context/course.md","courseJs":"../context/course.js","day":"day2.md","llms":"../llms.txt"},"tasks":[],"tools":[]},"bridge":{"allowedOrigins":[]},"features":{},"strings":{}}</script>
+<script src="../_engine/academy.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# Health measures for the licensing domain (kit/health.py)
+# Which attributes must a dataset have to count as complete? true or false. EDIT
+required:
+  description_reviewed: false
+  owner: true
+  business_steward: false
+  it_steward: false
+  classification: false
+  any_column_linked_to_term: false
+# Does a machine-drafted description count as described? EDIT
+count_machine_drafts_as_described: true
+# A harvest is fresh when the last successful run is no older than this many schedule intervals. EDIT
+fresh_within_intervals: 10
+as_of: "2026-10-31"

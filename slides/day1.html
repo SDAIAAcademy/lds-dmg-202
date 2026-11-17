@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-ax="deck" data-track="executives">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اليوم 1 · من المصدر إلى الكتالوج · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات</title>
+<meta name="generator" content="SDAIA Academy engine 1.0.0">
+<link rel="icon" href="../_engine/icon.svg">
+<link rel="alternate" type="text/markdown" href="day1.md">
+<link rel="describedby" href="../llms.txt">
+<link rel="stylesheet" href="../_engine/academy.css">
+</head>
+<body>
+<div class="deck" data-course="البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات" data-track="executives" data-day="اليوم 1">
+<section class="slide title" id="title" data-auto="title" data-label="الترحيب" data-n="1">
+  <div class="kicker">أكاديمية سدايا · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات</div>
+  <h1>من المصدر إلى الكتالوج</h1>
+  <p class="lead mt">اليوم 1: تستخلص البيانات الوصفية الفنية، وتراجع ما صاغته الآلة، وتكتب مصطلحات القاموس وتربطها</p>
+  <div class="meta"><span class="track">مسار التنفيذيين والقادة</span><span>يومان تدريبيان + يوم للمشروع الختامي</span><span>3 جلسات · 3 مختبرات</span><span>LDS-DMG-202</span></div>
+  <aside class="notes"><p>ابدأ بسؤال: من يعرف في جهته أين تُحفظ قائمة الجداول وما يعنيه كل عمود؟ غالبًا في ملف قديم أو في رأس شخص واحد. اليومان عن نقل هذه المعرفة إلى كتالوج يعمل وحده حيث تستطيع الآلة، ويطلب الإنسان حيث لا تستطيع.</p><p>الحالة: هيئة صِنوان للترخيص المهني، جهة افتراضية. الأمثلة على الشرائح من مجال الاختبارات المهنية، والمختبرات كلها على مجال الترخيص، فلا ترى القاعة شيئًا من المختبر قبل أن تبدأه.</p></aside>
+</section>
+
+<section class="slide" id="agenda" data-auto="agenda" data-label="جدول اليوم" data-n="2">
+  <div class="kicker">اليوم</div>
+  <h2>من المصدر إلى الكتالوج</h2>
+  <div class="agenda"><div class="item"><div><b>الجلسة 1 · البيانات الوصفية والاستخلاص المجدول</b><small>ثلاثة أنواع من البيانات الوصفية، وموصلات تستخلص الفني منها، ووصفة تقول ماذا يُفهرس ومتى</small></div></div><div class="item"><div><b>الجلسة 2 · مساعدة الآلة ومراجعتها</b><small>القيم النموذجية ومتى تُخفى، وانتشار الوسوم، والأوصاف التي تصوغها الآلة وطابور مراجعتها</small></div></div><div class="item"><div><b>الجلسة 3 · مصطلحات تحسم الخلاف</b><small>تعريف يحسم الخلاف، والاعتماد والإصدارات، وربط المصطلح بالأعمدة والملاك والتصنيف</small></div></div></div>
+  <aside class="notes"><p>ثلاث جلسات، في كل منها خمسون دقيقة للمفاهيم والعرض ثم مختبر من سبعين دقيقة. الاستراحات بزر B. المختبر 1.3 فيه خمسة تعريفات تُكتب دون أي أداة ذكاء اصطناعي.</p></aside>
+</section>
+
+<section class="slide" id="setup-check" data-label="قبل أن نبدأ" data-n="3">
+  <div class="kicker">قبل أن نبدأ</div>
+  <h2>طرفية، وأداة <span class="en">uv</span>، ومجلد المقرر: هذا كل التجهيز</h2>
+  <div class="cols cols-2">
+    <ul class="bullets">
+      <li>حاسوب محمول بلا معالج رسومي، أو <span class="en">Google Colab</span></li>
+      <li>أداة <span class="en">uv</span> لتشغيل بايثون، ومجلد <span class="ltr">labs</span> من المقرر</li>
+      <li>جدول بيانات لملفات المراجعة والقاموس والسجلات</li>
+      <li>لا خادم، ولا حساب، ولا نموذج يُنزَّل</li>
+    </ul>
+    <div class="card c-teal"><h4>اختبار دقيقتين</h4><p class="small">في مجلد <span class="ltr">labs</span> شغّل:</p><pre class="code"><code>uv sync
+uv run datahub version</code></pre><p class="small mb0">إن طبع رقم الإصدار، فأنت جاهز.</p></div>
+  </div>
+  <aside class="notes"><p>شغّل <span class="ltr">uv sync</span> قبل الجلسة الأولى بوقت: التثبيت الأول يحتاج دقيقتين واتصالًا بالإنترنت. من لا يستطيع التثبيت على جهازه يعمل في Colab بالخطوات في <span class="ltr">labs/README.md</span>.</p><p>أداة الاستخلاص هي سطر أوامر كتالوج DataHub المفتوح المصدر، بالإصدار المثبت في <span class="ltr">labs/pyproject.toml</span>. تكتب ما تستخلصه في ملف محلي، فلا نحتاج خادمًا. إن كانت لديك نسخة كتالوج تعمل، فاعرض فيها ما تستخلصه الوصفات؛ لم يُجرَّب ذلك في بناء المقرر.</p></aside>
+</section>
+
+<!-- الجلسة 1 -->
+
+<section class="slide section" id="s1" data-auto="section" data-session="1" data-n="4">
+  <div class="kicker">الجلسة 1</div>
+  <h1>البيانات الوصفية والاستخلاص المجدول</h1>
+  <ul class="bullets outcomes"><li>تفرّق بين البيانات الوصفية الوصفية والهيكلية والإدارية ومن يكتب كلًّا منها</li><li>تهيئ وصفة استخلاص بأنماط استبعاد وتنميط وجدولة</li><li>تتحقق من أن كل جدول وملف فُهرس بمخططه وإحصاءاته</li></ul>
+  <div class="sess-no">01</div>
+</section>
+
+<section class="slide" id="recap-101" data-lo="LO1" data-n="5" data-session="1">
+  <div class="kicker">من مقرر الأسس</div>
+  <h2>الأنواع الثلاثة التي عرفتها، بأسمائها في المعايير</h2>
+  <table class="t">
+    <tr><th>في LDS-DMG-101</th><th>هنا</th><th>يجيب عن</th><th>يكتبه غالبًا</th></tr>
+    <tr><td>فنية</td><td>هيكلية (<span class="en">structural</span>)</td><td>كيف بُنيت البيانات: الأعمدة وأنواعها وعلاقاتها</td><td>الآلة</td></tr>
+    <tr><td>أعمال</td><td>وصفية (<span class="en">descriptive</span>)</td><td>ما هذه البيانات: العنوان والوصف والكلمات</td><td>الإنسان، والآلة تقترح</td></tr>
+    <tr><td>تشغيلية، وجزء من الأعمال</td><td>إدارية (<span class="en">administrative</span>)</td><td>من يملكها، وبأي ترخيص، وما تصنيفها، ومتى تحدّثت</td><td>الاثنان</td></tr>
+  </table>
+  <div class="callout note mt small"><b>لا نعيد ما درسته.</b> حقول المدخل، ومن يكتب كلًّا منها، والسجل الذي يصير كتالوجًا: اليوم الثاني من مقرر الأسس. هنا نشغّل الكتالوج نفسه.</div>
+  <aside class="notes"><p>دقيقتان. اسأل: من بنى في مقرر الأسس مدخلات كتالوج من سجل الأصول؟ تلك الحقول الأربعة عشر نفسها، لكن الآلة الآن تملأ الفنية منها وحدها. التقسيم الثلاثي هنا هو الشائع في معايير البيانات الوصفية لمجموعات البيانات؛ ولا يتعارض مع تقسيم مقرر الأسس، بل يعيد تسميته.</p><p>من فاته مقرر الأسس: يكفيه هذا الجدول، والشريحة التالية تكمله.</p></aside>
+</section>
+
+<section class="slide" id="three-kinds-exams" data-lo="LO1" data-n="6" data-session="1">
+  <div class="kicker">مثال من مجال الاختبارات</div>
+  <h2>جدول نتائج الاختبارات بأنواعه الثلاثة</h2>
+  <div class="cols cols-3">
+    <div class="card c-teal"><h4>هيكلية</h4><p class="small mb0">خمسة أعمدة: <span class="ltr">result_id</span> و<span class="ltr">session_id</span> و<span class="ltr">candidate_id</span> و<span class="ltr">score</span> و<span class="ltr">passed</span>، بأنواعها، والمفتاح الأساسي <span class="ltr">result_id</span>.</p></div>
+    <div class="card c-cyan"><h4>وصفية</h4><p class="small mb0">«نتيجة كل مرشح في كل جلسة اختبار مهني، بالدرجة من 100 وهل اجتاز.» كلمات: اختبار، نتيجة، اجتياز.</p></div>
+    <div class="card c-coral"><h4>إدارية</h4><p class="small mb0">المالك: مدير الاختبارات. التصنيف: مقيد. آخر تحديث: كل ليلة. 1600 صف، والدرجة فارغة في 26 منها.</p></div>
+  </div>
+  <div class="callout tip mt"><b>الآلة تقرأ الهيكلية والأعداد.</b> لا تعرف المالك ولا التصنيف ولا ما يعنيه «اجتاز».</div>
+  <aside class="notes"><p>الأعداد من استخلاص تجريبي لقاعدة الاختبارات في ملفات المقرر (exams.db): 1600 صف في جدول النتائج، والدرجة فارغة في 26 صفًا، ومتوسطها 67.3. ارجع إلى هذه الشريحة في الجلسة الثانية حين نتحدث عما تقترحه الآلة للوصف.</p></aside>
+</section>
+
+<section class="slide" id="vocabularies" data-lo="LO1 LO5" data-n="7" data-session="1">
+  <div class="kicker">مفردات معيارية</div>
+  <h2>المفردات المعيارية تجعل وصفك مقروءًا خارج جهتك</h2>
+  <div class="cols cols-2">
+    <ul class="bullets">
+      <li><b><span class="en">DCAT</span>:</b> مفردات <span class="en">W3C</span> لوصف مجموعات البيانات والكتالوجات وتوزيعاتها، والإصدار 3 توصية منذ أغسطس 2024</li>
+      <li><b><span class="en">Dublin Core</span>:</b> مصطلحات وصفية عامة (العنوان، والوصف، والناشر، والترخيص) تستعملها <span class="en">DCAT</span> نفسها</li>
+      <li>داخل الجهة يكفي نموذج الكتالوج؛ خارجها تُطلب المفردات المعيارية</li>
+    </ul>
+    <pre class="code"><code>dct:title     "Exam pass rates"@en
+dct:publisher  &lt;…/sinwan/&gt;
+dct:license    &lt;…/by/4.0/&gt;
+dcat:contactPoint  [ vcard:hasEmail … ]</code></pre>
+  </div>
+  <div class="callout note mt small"><b>نعود إليها في الجلسة السادسة.</b> هناك تكتب سجلات كاملة وتتحقق منها.</div>
+  <aside class="notes"><p>الفكرة: داخل الجهة يتفق الناس على حقول الكتالوج؛ حين تخرج السجلات إلى بوابة بيانات مفتوحة أو كتالوج وطني يجب أن يفهمها نظام آخر، فتُكتب بمفردات معيارية. البادئة <span class="ltr">dct</span> هي مصطلحات <span class="en">Dublin Core</span>، و<span class="ltr">dcat</span> مفردات الكتالوج.</p><p>المصادر: W3C، Data Catalog Vocabulary (DCAT) Version 3، توصية 22 أغسطس 2024.</p></aside>
+</section>
+
+<section class="slide" id="national-mcm" data-lo="LO1" data-n="8" data-session="1">
+  <div class="kicker">الضوابط الوطنية</div>
+  <h2>للكتالوج مجال كامل في الضوابط الوطنية، بستة ضوابط</h2>
+  <table class="t small">
+    <tr><th>الضابط</th><th>ما يعنيه لعمل اليوم</th></tr>
+    <tr><td>التخطيط</td><td>ترتيب مصادر البيانات التي تدخل الكتالوج، ومعمارية البيانات الوصفية</td></tr>
+    <tr><td>السياسات والقواعد الاسترشادية</td><td>موافقة مسجلة قبل ربط الكتالوج بأي مصدر، ووصول إليه بحسب الدور</td></tr>
+    <tr><td>التدريب والتوعية</td><td>تدريب من يحتاج الكتالوج، ومستخدمون متقدمون يساعدون غيرهم</td></tr>
+    <tr><td>إدارة دورة حياة البيانات</td><td>مشرف أعمال ومشرف فني لكل ما في الكتالوج، وإجراء لجودة البيانات الوصفية</td></tr>
+    <tr><td>أتمتة دليل البيانات</td><td>أداة آلية، وتنبيهات بالتغيير، وسجل لنشاط المستخدمين</td></tr>
+    <tr><td>إدارة الأداء</td><td>مؤشرات للاستخدام، ومؤشرات لجودة البيانات الوصفية</td></tr>
+  </table>
+  <aside class="notes"><p>الاسم في النص العربي للضوابط: «مجال البيانات الوصفية ودليل البيانات»، ورمزه MCM، والضوابط في الجدول بترتيبها فيه من MCM.1 إلى MCM.6. نقول في المقرر «كتالوج البيانات» كما في عنوانه، وهو «دليل البيانات» نفسه. لا تحفّظ القاعة أرقام المواصفات. اربط كل ضابط بمختبر: الموافقة على الربط هي ملاحظات الاستخلاص في 1.1، والمشرفان هما سمتا الاكتمال في 2.2، ومؤشرات الجودة هي قياسات 2.2.</p><p>المصادر: مكتب إدارة البيانات الوطنية، ضوابط ومواصفات إدارة البيانات الوطنية وحوكمتها وحماية البيانات الشخصية، مجال البيانات الوصفية ودليل البيانات.</p></aside>
+</section>
+
+<section class="slide" id="harvest-flow" data-lo="LO1" data-n="9" data-session="1">
+  <div class="kicker">كيف يعمل الاستخلاص</div>
+  <h2>الموصل يقرأ المصدر، والوصفة تقول له ماذا يأخذ</h2>
+  <div class="flow">
+    <div class="step c-teal"><b>1 · المصدر</b>قاعدة بيانات، أو مجلد ملفات، أو أداة تقارير</div>
+    <div class="arrow frag" data-frag="b">←</div><div class="step c-cyan frag" data-frag="b"><b>2 · الموصل</b>يعرف لغة المصدر ويقرأ مخططه، ولا يغيّر فيه شيئًا</div>
+    <div class="arrow frag" data-frag="c">←</div><div class="step c-purple frag" data-frag="c"><b>3 · الوصفة</b>ما يُضم وما يُستبعد، والتنميط، والقيم، والوجهة</div>
+    <div class="arrow frag" data-frag="d">←</div><div class="step c-coral frag" data-frag="d"><b>4 · الكتالوج</b>مدخل لكل أصل، يتحدث مع كل تشغيل مجدول</div>
+  </div>
+  <div class="callout tip mt frag" data-frag="d"><b>الموصل يقرأ فقط.</b> لكنه يقرأ كل شيء: ما يأخذه الكتالوج قرار في الوصفة، لا في المصدر.</div>
+  <aside class="notes"><p>اضغط لكل خطوة. أدوات الكتالوج المفتوحة المصدر (DataHub وOpenMetadata مثالان) تسمي الوصفة بأسماء مختلفة، والفكرة واحدة: ملف إعداد يقرؤه الموصل. في المختبر وجهة الوصفة ملف محلي؛ في نسخة حقيقية تكون خادم الكتالوج.</p><p>سؤال للقاعة: من يملك قرار ما يدخل الكتالوج؟ ليس الفني الذي يكتب الوصفة؛ الموافقة على ربط المصدر مسجلة، وهي ضابط في المعيار الوطني.</p></aside>
+</section>
+
+<section class="slide" id="recipe-anatomy" data-lo="LO1" data-n="10" data-session="1">
+  <div class="kicker">وصفة الاستخلاص</div>
+  <h2>كل سطر في الوصفة جواب عن سؤال من الموافقة</h2>
+  <div class="cols cols-2">
+    <pre class="code"><code>source:
+  type: sqlalchemy
+  config:
+    connect_uri: "sqlite:///exams.db"
+    include_views: true
+    table_pattern:
+      deny: ['.*\.scratch_.*']
+    profiling:
+      enabled: true
+      include_field_sample_values: false
+sink:
+  type: file</code></pre>
+    <ul class="bullets">
+      <li><b>المصدر:</b> نوع الموصل وطريق الاتصال</li>
+      <li><b>الاستبعاد:</b> أنماط بأسماء ما ليس أصلًا</li>
+      <li><b>التنميط:</b> الأعداد والفراغات والقيم الدنيا والعليا</li>
+      <li><b>القيم النموذجية:</b> هل تظهر قيم من الصفوف في الكتالوج</li>
+      <li><b>الوجهة:</b> الكتالوج أو ملف</li>
+    </ul>
+  </div>
+  <aside class="notes"><p>الوصفة على الشريحة لقاعدة الاختبارات، والجدول المستبعد مثال مخترع (scratch_). في المختبر وصفتان لمجال الترخيص منسوختان من مثال المورد كما هو، وعليك أن تجعلهما تطابقان الموافقة.</p><p>نبّه: النمط تعبير نمطي على الاسم الكامل، ومنه اسم المخطط main في SQLite. خطأ شائع: كتابة اسم الجدول وحده فلا يطابق شيئًا.</p></aside>
+</section>
+
+<section class="slide" id="not-assets" data-lo="LO1" data-n="11" data-session="1">
+  <div class="kicker">ما لا يُفهرس</div>
+  <h2>كتالوج يعرض كل شيء يخفي ما يهم</h2>
+  <div class="cols cols-3">
+    <div class="card c-coral"><h4>جداول العمل</h4><p class="small mb0">نسخ مؤقتة يصنعها التحميل ثم ينساها. اسمها يشبه الأصل، ومحتواها جزء منه.</p></div>
+    <div class="card c-coral"><h4>النسخ الاحتياطية</h4><p class="small mb0">صورة قديمة من جدول حي. من يجدها في البحث قد يحسب منها رقمًا قديمًا.</p></div>
+    <div class="card c-coral"><h4>منطقة الاستقبال</h4><p class="small mb0">ملفات رُفعت ولم تُراجع. فهرستها تعطيها شرعية لم تكتسبها.</p></div>
+  </div>
+  <div class="callout warn mt"><b>أين يقع الخطأ.</b> الاستبعاد بالاسم يفترض أن الأسماء منضبطة. اتفق مع الفريق الفني على قاعدة تسمية قبل أن تكتب النمط.</div>
+  <aside class="notes"><p>كل واحدة من الثلاث تجعل البحث في الكتالوج أسوأ: نتيجتان لاسم واحد، ولا يعرف المستخدم أيهما الأصل. الضابط الوطني لجودة البيانات الوصفية يطلب إجراء لمعالجة مشكلاتها؛ أرخص المعالجة ألا تدخل.</p></aside>
+</section>
+
+<section class="slide" id="profile-numbers" data-lo="LO1" data-n="12" data-session="1">
+  <div class="kicker">التنميط</div>
+  <h2>التنميط يجيب قبل أن تسأل: هل تصلح هذه البيانات لما أريد؟</h2>
+  <div class="cols cols-3">
+    <div class="stat"><div class="big">1600</div><div class="lbl">صف في جدول نتائج الاختبارات</div></div>
+    <div class="stat"><div class="big">26</div><div class="lbl">نتيجة بلا درجة، أي 1.6٪</div></div>
+    <div class="stat"><div class="big">67.3</div><div class="lbl">متوسط الدرجة، وأدناها 24 وأعلاها 100</div></div>
+  </div>
+  <div class="callout note mt"><b>يتحدث مع كل تشغيل.</b> رقم ثابت في وثيقة يشيخ؛ رقم في الكتالوج يحسبه الاستخلاص في كل مرة.</div>
+  <aside class="notes"><p>الأرقام من الاستخلاص التجريبي لقاعدة الاختبارات بالتنميط مفعّلًا، في نحو اثنتي عشرة ثانية على حاسوب محمول. اسأل: محلل يريد معدل الاجتياز، ماذا يعرف من هذه الشريحة قبل أن يكتب استعلامًا؟ أن 26 نتيجة بلا درجة، فعليه أن يقرر هل تدخل المقام.</p></aside>
+</section>
+
+<section class="slide" id="schedule-timezone" data-lo="LO1" data-n="13" data-session="1">
+  <div class="kicker">الجدولة</div>
+  <h2>الاستخلاص يتبع التحميل، والمنطقة الزمنية جزء من الجدولة</h2>
+  <div class="cols cols-2">
+    <div>
+      <pre class="code"><code># minute hour day month weekday
+schedule: "30 4 * * *"
+timezone: Asia/Riyadh</code></pre>
+      <p class="small">خمسة حقول: الدقيقة، والساعة، ويوم الشهر، والشهر، ويوم الأسبوع (0 الأحد). النجمة تعني «كل».</p>
+    </div>
+    <ul class="bullets">
+      <li>استخلص بعد انتهاء التحميل، لا قبله ولا أثناءه</li>
+      <li>المصدر الذي يتغير أسبوعيًا يُستخلص أسبوعيًا</li>
+      <li>المنطقة الزمنية الافتراضية في أدوات كثيرة <span class="en">UTC</span>، وتوقيت الرياض متقدم عليها ثلاث ساعات</li>
+    </ul>
+  </div>
+  <div class="callout warn mt small"><b>خمس نجوم تعني كل دقيقة.</b> وصفة بهذه الجدولة تُتعب المصدر ولا تزيد الكتالوج دقة.</div>
+  <aside class="notes"><p>المثال لقاعدة الاختبارات: نصف ساعة بعد الرابعة صباحًا كل يوم، بتوقيت الرياض. توقيت الرياض متقدم ثلاث ساعات على UTC، فالجدولة نفسها بـ UTC تعمل بعد الظهر في الرياض، وقد تصادف ساعات العمل. أمر النشر في نسخة كتالوج حقيقية يأخذ الجدولة والمنطقة الزمنية معاملين؛ يطبعه لك الفحص في المختبر.</p></aside>
+</section>
+
+<section class="slide" id="harvest-demo" data-lo="LO1" data-n="14" data-session="1">
+  <div class="kicker">عرض حي</div>
+  <h2>استخلاص قاعدة الاختبارات في أقل من دقيقة</h2>
+  <pre class="code"><code>uv run datahub ingest -c exams.yml
+...
+Pipeline finished with at least 1 warnings; produced 38 events in 1.78 seconds.</code></pre>
+  <table class="t small mt">
+    <tr><th>الجدول</th><th>الصفوف</th><th>الأعمدة</th></tr>
+    <tr><td><span class="ltr">candidates</span></td><td>1200</td><td>4</td></tr>
+    <tr><td><span class="ltr">exam_results</span></td><td>1600</td><td>5</td></tr>
+    <tr><td><span class="ltr">exam_sessions</span></td><td>48</td><td>5</td></tr>
+  </table>
+  <aside class="notes"><p>إن عرضت حيًا: انسخ وصفة المختبر لقاعدة الترخيص إلى ملف خارج المجلد، وغيّر كلمة licensing إلى exams. لا تعرض وصفة الترخيص نفسها. التحذير الذي يظهر عن الانحراف المعياري طبيعي في SQLite.</p><p>الأرقام من التشغيل التجريبي في بناء المقرر: 38 سجلًا كتبها الاستخلاص، والزمن الكلي نحو اثنتي عشرة ثانية مع بدء البيئة.</p></aside>
+</section>
+
+<section class="slide" id="check-metadata-kinds" data-lo="LO1" data-n="15" data-session="1">
+  <div class="kicker">نقطة تحقق</div>
+  <h2>أي حقل لا تملؤه الآلة؟</h2>
+  <div class="quiz" data-type="single" data-lo="LO1" data-id="check-metadata-kinds-q1">
+    <p class="lead">بعد أول استخلاص لقاعدة الاختبارات، ظهر في مدخل جدول الجلسات عدد من الحقول. أي حقل يبقى فارغًا حتى يكتبه إنسان؟</p>
+    <div class="opts">
+      <div class="opt" data-why="يظن أن عدد الصفوف يحتاج إنسانًا، والتنميط يحسبه في كل تشغيل" data-k="أ">عدد الصفوف وآخر استخلاص</div>
+      <div class="opt" data-why="يخلط بين الهيكلية والوصفية: الأنواع يقرؤها الموصل من المخطط" data-k="ب">أنواع الأعمدة الخمسة في جدول الجلسات</div>
+      <div class="opt" data-ok data-k="ج">تصنيف جدول الجلسات ومالكه</div>
+      <div class="opt" data-why="يظن أن القيم الدنيا والعليا تحتاج من يحسبها، والتنميط يحسبها لكل عمود رقمي في كل تشغيل" data-k="د">أدنى عدد مقاعد وأعلاه بين الجلسات</div>
+    </div>
+    <div class="callout tip why"><b>لماذا.</b> التصنيف والملكية قراران من أشخاص لهم صلاحية، وليسا في المصدر. هذا ما يضيفه الإنسان.</div>
+  </div>
+  <aside class="notes"><p>الإجابة: ج. الخيارات الثلاثة الأخرى يكتبها الاستخلاص: الأعداد والتواريخ من التنميط، والأنواع من المخطط. في الاستخلاص التجريبي لقاعدة الاختبارات كانت المقاعد بين 30 و60.</p></aside>
+</section>
+
+<section class="slide lab top" id="lab-1-1" data-auto="lab" data-lab="1.1" data-label="المختبر 1.1" data-n="16" data-session="1">
+  <div class="cols cols-2 mid"><div><div class="lab-tag">المختبر 1.1 · 70 دقيقة</div><h2>استخلاص قاعدة بيانات ومخزن ملفات</h2><p class="lead small">تشغّل أداة الاستخلاص في كتالوج مفتوح المصدر على قاعدة بيانات الترخيص ومجلد الترخيص في مخزن الملفات، وتصلح الوصفتين حتى يُفهرس كل أصل بمخططه وإحصاءات تنميطه بلا قيم شخصية ظاهرة، وبجدولة بتوقيت الرياض.</p><a class="nb" href="../labs/D1_1_harvest.html">D1_1_harvest.html</a></div><ul class="checklist"><li>اقرأ ملاحظات الاستخلاص واستخرج منها خمسة شروط <span class="min">8 د</span></li><li>شغّل الوصفتين كما وصلتا، واقرأ ما فُهرس <span class="min">10 د</span></li><li>أضف أنماط الاستبعاد وشغّل التنميط <span class="min">14 د</span></li><li>أخفِ كل قيمة ظاهرة في الأعمدة الشخصية <span class="min">14 د</span></li><li>اكتب الجدولة بتوقيت الرياض <span class="min">10 د</span></li><li>شغّل الفحص حتى ينجح، وسجّل الأعداد <span class="min">14 د</span></li><li class="stretch">✱ إضافي: اكتب وصفة ثالثة للمجلدات العامة وحدها تُظهر القيم النموذجية، واكتب سطرًا يبرر ذلك</li></ul></div>
+  <aside class="notes"><p>سبعون دقيقة. أول عشر دقائق: تأكد أن الأوامر الثلاثة تعمل عند الجميع، فالباقي تعديل أسطر. الخطأ الأكثر شيوعًا: مسافات YAML؛ اطلب نسخ السطر الموسوم EDIT وتعديله في مكانه.</p><p>بعد الخطوة 4 سيجد معظمهم أن الجوال ما زال ظاهرًا في تذكيرات التجديد. لا تعطهم الخيار؛ صفحة المختبر تذكره. الذكاء الاصطناعي مرشد: يسأل ويشرح، ولا يُلصق فيه شيء من المصادر.</p></aside>
+</section>
+
+<section class="slide" id="debrief-1-1" data-label="بعد المختبر 1.1" data-lo="LO1" data-n="17" data-session="1">
+  <div class="kicker">بعد المختبر 1.1</div>
+  <h2>إطفاء القيم النموذجية لم يُخفِ الجوال</h2>
+  <div class="cols cols-3">
+    <div class="stat"><div class="big">17 ← 14</div><div class="lbl">أصلًا قبل الاستبعاد وبعده: ثمانية جداول، وعرض، وخمسة مجلدات</div></div>
+    <div class="stat"><div class="big">2268</div><div class="lbl">رخصة في جدول الرخص، و2400 ممارس</div></div>
+    <div class="stat"><div class="big">2.75٪</div><div class="lbl">من جوالات الممارسين فارغة</div></div>
+  </div>
+  <div class="callout warn mt"><b>بابان للقيم.</b> القيم النموذجية، وتكرار القيم الذي تحسبه أداة الملفات. الإعداد ليس الدليل؛ الناتج هو الدليل.</div>
+  <aside class="notes"><p>من تشغيل الحل المرجعي (labs/solutions/D1_1_harvest.md). اسأل من وجد الباب الثاني وحده. ثم اسأل: لماذا لا يظهر للعرض تنميط؟ أداة الاستخلاص لا تنمّط العروض في قواعد SQL، والفحص يقبل ذلك. وفي مدخل العرض مسار إلى جدول الرخص استخرجته الأداة من نص الاستعلام: هذا أول مسار نراه، ونعود إليه غدًا.</p></aside>
+</section>
+
+<!-- الجلسة 2 -->
+
+<section class="slide section" id="s2" data-auto="section" data-session="2" data-n="18">
+  <div class="kicker">الجلسة 2</div>
+  <h1>مساعدة الآلة ومراجعتها</h1>
+  <ul class="bullets outcomes"><li>تقرر متى تظهر القيم النموذجية في الكتالوج ومتى تُخفى</li><li>تراجع وصفًا صاغته الآلة بسلم مراجعة وتسمي نوع خطئه</li><li>تحسب معدل الخطأ وأكثر أنواعه شيوعًا</li></ul>
+  <div class="sess-no">02</div>
+</section>
+
+<section class="slide" id="who-reads-catalogue" data-lo="LO1" data-n="19" data-session="2">
+  <div class="kicker">القيم النموذجية</div>
+  <h2>قرّاء الكتالوج أكثر بكثير من قرّاء البيانات</h2>
+  <div class="cols cols-2">
+    <ul class="bullets">
+      <li>الكتالوج يُفتح لكل من يبحث عن بيانات، والبيانات لمن له صلاحية عليها</li>
+      <li>القيم النموذجية صفوف من البيانات نفسها تُعرض في الكتالوج</li>
+      <li>فإن ظهرت، صار كل قارئ للكتالوج قارئًا لتلك الصفوف</li>
+      <li>القاعدة: تظهر القيم حيث تكون البيانات نفسها «عامة» فقط</li>
+    </ul>
+    <div class="card c-navy"><h4>في الضوابط الوطنية</h4><p class="small mb0">الوصول إلى الكتالوج بحسب الدور: مجموعات للقراءة، وللقراءة والتحديث، وللإدارة، تُحدد بحسب حقوق الوصول إلى البيانات الوصفية ونطاقها.</p></div>
+  </div>
+  <aside class="notes"><p>المثال: محلل في قسم التدريب يبحث عن «اختبار»، فيفتح مدخل جدول المرشحين. إن كانت القيم النموذجية مفعّلة، رأى أسماء وأرقام هوية لم يكن له حق في رؤيتها، وهو لم يطلبها. التصنيف يتبع البيانات؛ ما يُعرض منها في الكتالوج يأخذ تصنيفها.</p><p>المصادر: الضوابط الوطنية، مجال البيانات الوصفية ودليل البيانات، ضابط السياسات والقواعد الاسترشادية؛ سياسة تصنيف البيانات.</p></aside>
+</section>
+
+<section class="slide" id="sample-values-demo" data-lo="LO1" data-n="20" data-session="2">
+  <div class="kicker">عرض: القيم مفعّلة</div>
+  <h2>استخلاص بالقيم النموذجية ينقل الأسماء والهويات إلى الكتالوج</h2>
+  <pre class="code"><code>exams.main.candidates   rows 1200
+  full_name    sampleValues: ["وفاء حسن القحطاني", …]
+  national_id  sampleValues: ["9628601936", …]
+  mobile       sampleValues: ["0599563433", …]</code></pre>
+  <div class="callout warn mt"><b>بيانات اصطناعية.</b> الأسماء والأرقام هنا من ملفات المقرر. في جهتك هي أسماء أشخاص حقيقيين.</div>
+  <aside class="notes"><p>ناتج الاستخلاص التجريبي لقاعدة الاختبارات بإعداد المورد الافتراضي: القيم النموذجية مفعّلة. كل الأسماء والهويات وهمية، تبدأ الهويات بالرقم 9 والجوالات بـ 0599. اسأل: من يقرأ هذا المدخل؟ كل من له قراءة الكتالوج.</p></aside>
+</section>
+
+<section class="slide" id="tag-propagation" data-lo="LO1 LO2" data-n="21" data-session="2">
+  <div class="kicker">انتشار الوسوم</div>
+  <h2>الوسم يُكتب مرة، وينتشر إلى ما اشتُق من العمود</h2>
+  <div class="flow">
+    <div class="step c-teal"><b>1 · الوسم</b>«بيانات شخصية» على <span class="ltr">candidates.national_id</span></div>
+    <div class="arrow frag" data-frag="b">←</div><div class="step c-cyan frag" data-frag="b"><b>2 · المسار</b>العمود يُنسخ إلى ملف تصدير لجهة التدقيق</div>
+    <div class="arrow frag" data-frag="c">←</div><div class="step c-coral frag" data-frag="c"><b>3 · الانتشار</b>يُقترح الوسم على العمود المنسوخ</div>
+  </div>
+  <ul class="bullets mt frag" data-frag="c">
+    <li>الانتشار عبر المسار، أو عبر مصطلح القاموس المرتبط بالعمودين</li>
+    <li>النسخ ينقل الوسم؛ العد المجمّع قد لا ينقله، والقرار للمشرف</li>
+  </ul>
+  <aside class="notes"><p>المثال مخترع على مجال الاختبارات. انتشار الوسوم يوفر عملًا، لكنه يخطئ في الاتجاهين: يضع «شخصي» على عدد مجمّع لا يكشف أحدًا، ولا يضعه على عمود حُوّل بطريقة لا يفهمها المسار. لهذا يكون الانتشار اقتراحًا يراجعه المشرف، لا قرارًا. غدًا نرى المسار نفسه على مستوى العمود.</p></aside>
+</section>
+
+<section class="slide" id="machine-drafts" data-lo="LO3" data-n="22" data-session="2">
+  <div class="kicker">الأوصاف التي تصوغها الآلة</div>
+  <h2>المسودة تُكتب في ثوانٍ، والمراجعة هي العمل</h2>
+  <div class="flow">
+    <div class="step c-teal"><b>1 · ما يُرسل</b>أسماء الأعمدة وأنواعها، وتعريف المصطلح المعتمد</div>
+    <div class="arrow">←</div><div class="step c-cyan"><b>2 · المسودة</b>النموذج يقترح وصفًا</div>
+    <div class="arrow">←</div><div class="step c-purple"><b>3 · طابور المراجعة</b>مشرف مسمّى: قبول أو تعديل أو رفض</div>
+    <div class="arrow">←</div><div class="step c-coral"><b>4 · النشر</b>الوصف في الكتالوج، ومعه «صاغته الآلة، راجعه فلان»</div>
+  </div>
+  <div class="callout warn mt"><b>لا يُنشر وصف بلا اسم مراجع.</b> والإفصاح بأن الآلة صاغته يبقى معه.</div>
+  <aside class="notes"><p>أدوات الكتالوج تضيف هذه الخاصية بأسماء مختلفة، وتتغير من إصدار إلى إصدار؛ الخطوات الأربع لا تتغير. سياسة المقرر للذكاء الاصطناعي: صياغة المسودات تحت المراجعة مسموحة بالكامل؛ الحكم عليها للإنسان.</p><p>اسأل: لماذا يبقى الإفصاح بعد المراجعة؟ لأن قارئ الوصف يحق له أن يعرف كيف كُتب، ومن يُسأل عنه.</p></aside>
+</section>
+
+<section class="slide" id="genai-rule" data-lo="LO3" data-n="23" data-session="2">
+  <div class="kicker">ما يدخل أداة الذكاء الاصطناعي</div>
+  <h2>لا يدخل الأداة إلا ما صُنّف «عامًا»</h2>
+  <div class="cols cols-2">
+    <div class="card c-navy"><h4>الإرشادات للجهات الحكومية</h4><p class="small mb0">لا يُدخل العاملون في أدوات الذكاء الاصطناعي التوليدي أي بيانات مصنفة «مقيد» فأعلى، ويُقصر استخدامها على البيانات المصنفة «عامة».</p></div>
+    <ul class="bullets">
+      <li><b>يُرسل:</b> أسماء الأعمدة وأنواعها، وتعريفات القاموس المعتمدة</li>
+      <li><b>لا يُرسل:</b> أي قيمة من الصفوف، ولا القيم النموذجية، ولا ملاحظات المقابلات</li>
+      <li><b>قبل الإرسال:</b> يقرر المالك أن البيانات الوصفية نفسها «عامة»</li>
+    </ul>
+  </div>
+  <aside class="notes"><p>اقرأ الحكم بصياغتك، لا تنسخه. القاعدة الثالثة قاعدة الحالة في هيئة صِنوان، مبنية على الإرشادات: اسم عمود قد يكشف شيئًا (مثل عمود يسمي مرضًا)، فلا تفترض أن البيانات الوصفية عامة دائمًا.</p><p>المصادر: سدايا، الإرشادات العامة لاستخدام الذكاء الاصطناعي التوليدي للجهات الحكومية، قسم الخصوصية والأمن.</p></aside>
+</section>
+
+<section class="slide" id="six-error-types" data-lo="LO3" data-n="24" data-session="2">
+  <div class="kicker">أنواع الخطأ</div>
+  <h2>ستة أنواع تكفي لتسمية كل ما تجده في مسودة</h2>
+  <table class="t small">
+    <tr><th>النوع</th><th>مثال من مجال الاختبارات</th></tr>
+    <tr><td>يكرر الاسم</td><td><span class="ltr">held_on</span>: «تاريخ الانعقاد.»</td></tr>
+    <tr><td>قاعدة مختلقة</td><td><span class="ltr">passed</span>: «1 إذا تجاوزت الدرجة 70.» والمصدر يقول 60</td></tr>
+    <tr><td>معنى خاطئ</td><td><span class="ltr">centre</span>: «مدينة المرشح.» وهو رمز مركز الاختبار</td></tr>
+    <tr><td>وحدة أو صيغة خاطئة</td><td><span class="ltr">score</span>: «الدرجة من 50.» وهي من 100</td></tr>
+    <tr><td>قيمة مسربة</td><td>وصف يذكر اسم مرشح بعينه</td></tr>
+    <tr><td>لا خطأ</td><td>يُقبل كما هو</td></tr>
+  </table>
+  <aside class="notes"><p>الأمثلة كُتبت لهذه الشريحة على قاعدة الاختبارات. الحد في الاجتياز 60 من بيانات الحالة: العمود passed يساوي 1 حين تبلغ الدرجة 60. اسأل: أي نوع أخطر؟ القاعدة المختلقة، لأنها تبدو معلومة، ومن يقرؤها يبني عليها. القيمة المسربة ترفض دائمًا ويُبلّغ عنها.</p></aside>
+</section>
+
+<section class="slide" id="error-rate" data-lo="LO3" data-n="25" data-session="2">
+  <div class="kicker">القياس</div>
+  <h2>معدل الخطأ يقول هل الصياغة الآلية توفر وقتًا أم تنقله</h2>
+  <div class="cols cols-2">
+    <div class="card c-teal"><h4>معدل الخطأ</h4><p class="mb0">(التعديل + الرفض) ÷ المسودات المراجعة</p></div>
+    <ul class="bullets">
+      <li>القياس بالأنواع، لا بالرقم وحده: لكل نوع علاج مختلف</li>
+      <li>«يكرر الاسم» يعالجه ما يُرسل؛ «قاعدة مختلقة» تعالجها المراجعة</li>
+      <li>أعد القياس بعد كل تغيير في الطلب أو النموذج</li>
+      <li>معدل مرتفع في مجال حساس قد يعني ألا تُستعمل الصياغة فيه</li>
+    </ul>
+  </div>
+  <aside class="notes"><p>لا رقم على هذه الشريحة ولا في ملاحظاتها: الرقم ستحسبه القاعة في المختبر. الفكرة لصاحب القرار: إن كانت أغلب المسودات تحتاج تعديلًا، فالمراجعة هي التكلفة الحقيقية، والقرار هو أين تُستعمل الصياغة وأين لا تُستعمل.</p></aside>
+</section>
+
+<section class="slide" id="check-draft-review" data-lo="LO3" data-n="26" data-session="2">
+  <div class="kicker">نقطة تحقق</div>
+  <h2>ما قرارك في هذه المسودة؟</h2>
+  <div class="quiz" data-type="single" data-lo="LO3" data-id="check-draft-review-q1">
+    <p class="lead">مسودة لعمود <span class="ltr">exam_results.passed</span>: «1 إذا تجاوز المرشح 70 درجة، ويبقى الاجتياز صالحًا سنتين.» المصدر: الاجتياز 1 حين تبلغ الدرجة 60، ولا مدة صلاحية في أي وثيقة.</p>
+    <div class="opts">
+      <div class="opt" data-why="يرى صياغة سليمة فيقبل، والصياغة السليمة ليست دليلًا على الصحة" data-k="أ">قبول، لأن الصياغة واضحة والمعنى العام صحيح</div>
+      <div class="opt" data-why="يعالج الحد ويترك المدة المختلقة، والمدة تغيّر قرارات من يقرأ" data-k="ب">تعديل الحد إلى 60 فقط، وإبقاء مدة الصلاحية</div>
+      <div class="opt" data-why="يسمي النوع بالأثر الظاهر: الحد رقم، لكن الخطأ أنه غير موجود في المصدر" data-k="ج">رفض، والنوع وحدة أو صيغة خاطئة</div>
+      <div class="opt" data-ok data-k="د">رفض، والنوع قاعدة مختلقة لا مصدر لها</div>
+    </div>
+    <div class="callout tip why"><b>لماذا.</b> قاعدتان لا مصدر لهما، وكلتاهما تغيّر من يُعد ناجحًا. يُكتب الوصف من جديد من المصدر.</div>
+  </div>
+  <aside class="notes"><p>الإجابة: د. اقبل «تعديل» إن حُذفت المدة وصُحح الحد معًا وكُتب النوع قاعدة مختلقة؛ السلّم يسمح بذلك حين لا يبقى من المسودة إلا جزء صحيح. لا تقبل «وحدة أو صيغة»: الرقم ليس بوحدة خاطئة، بل بلا مصدر.</p></aside>
+</section>
+
+<section class="slide lab top" id="lab-1-2" data-auto="lab" data-lab="1.2" data-label="المختبر 1.2" data-n="27" data-session="2">
+  <div class="cols cols-2 mid"><div><div class="lab-tag">المختبر 1.2 · 70 دقيقة</div><h2>مراجعة 40 وصفًا صاغته الآلة</h2><p class="lead small">تراجع 40 وصفًا لأصول مجال الترخيص صاغتها الآلة، فتقبل أو تعدّل أو ترفض، وتسمي نوع الخطأ، وتكتب اسمك مراجِعًا لكل سطر، ثم تحسب معدل الخطأ وأكثر أنواعه شيوعًا.</p><a class="nb" href="../labs/D1_2_drafts.html">D1_2_drafts.html</a></div><ul class="checklist"><li>اقرأ سلم المراجعة وملاحظات المشرفين <span class="min">8 د</span></li><li>راجع المسودات من 1 إلى 20 <span class="min">22 د</span></li><li>راجع المسودات من 21 إلى 40 <span class="min">22 د</span></li><li>شغّل التقرير وأكمل ما ينقص <span class="min">8 د</span></li><li>قارن أكثر نوعين شيوعًا مع زميل واقترح تعديلًا لطلب الصياغة <span class="min">10 د</span></li><li class="stretch">✱ إضافي: إن أتاح المدرب نموذجًا مستضافًا معتمدًا: صُغ أوصافًا لعشرة أعمدة عامة من أسمائها وأنواعها وحدها، وقِس معدل خطئها بالسلم نفسه</li></ul></div>
+  <aside class="notes"><p>سبعون دقيقة، وأطولها المراجعة نفسها. نبّه في البداية: المسودات مكتوبة لهذا المقرر بديلًا عن ناتج نموذج، فلا يُستدعى أي نموذج. إن طلب أحد قيمة من الملف ليتأكد، فليفتح الملف لا النموذج.</p><p>من وجد قيمة مسربة يرفع يده: أوقف القاعة دقيقة، واسأل من أين جاءت إن كان النموذج لم يرَ إلا الأسماء. هذا هو السجل الذي يحمي الجهة.</p></aside>
+</section>
+
+<section class="slide" id="debrief-1-2" data-label="بعد المختبر 1.2" data-lo="LO3" data-n="28" data-session="2">
+  <div class="kicker">بعد المختبر 1.2</div>
+  <h2>ستون في المئة من المسودات احتاجت إنسانًا</h2>
+  <div class="bars">
+    <div class="row"><span>يكرر الاسم</span><div class="bar c-coral" style="--w:100%"></div><span class="val">8</span></div>
+    <div class="row"><span>قاعدة مختلقة</span><div class="bar c-coral" style="--w:75%"></div><span class="val">6</span></div>
+    <div class="row"><span>معنى خاطئ</span><div class="bar c-amber" style="--w:50%"></div><span class="val">4</span></div>
+    <div class="row"><span>وحدة أو صيغة خاطئة</span><div class="bar c-amber" style="--w:50%"></div><span class="val">4</span></div>
+    <div class="row"><span>قيمة مسربة</span><div class="bar c-purple" style="--w:25%"></div><span class="val">2</span></div>
+  </div>
+  <p class="small muted">المرجع: 16 قبول، و15 تعديل، و9 رفض من 40.</p>
+  <aside class="notes"><p>من الحل المرجعي (labs/solutions/D1_2_drafts.md). قارن بأرقام القاعة: من كان معدله أقل من 50٪ قبل غالبًا مسودات تكرر الاسم. الاقتراح الأقوى للطلب: أرسل تعريف المصطلح المعتمد مع اسم العمود. القيمتان المسربتان كانتا في ملفين فيهما بيانات شخصية: سطر «ما أُرسل» يقول غير ذلك، وهذا ما يُبلّغ عنه.</p></aside>
+</section>
+
+<!-- الجلسة 3 -->
+
+<section class="slide section" id="s3" data-auto="section" data-session="3" data-n="29">
+  <div class="kicker">الجلسة 3</div>
+  <h1>مصطلحات تحسم الخلاف</h1>
+  <ul class="bullets outcomes"><li>تكتب تعريفًا يحسم خلافًا بين قسمين</li><li>تسجل المالك والحالة والإصدار لكل مصطلح</li><li>تربط الأعمدة بالمصطلحات وتميّز الأعمدة المتشابهة الأسماء</li></ul>
+  <div class="sess-no">03</div>
+</section>
+
+<section class="slide" id="recap-entry" data-lo="LO2" data-n="30" data-session="3">
+  <div class="kicker">من مقرر الأسس</div>
+  <h2>المدخل الجيد تعرفه؛ هنا نعتمده ونربطه</h2>
+  <div class="cols cols-2">
+    <ul class="bullets">
+      <li>تشريح المدخل، والتعريف بالنوع ثم ما يميزه، وقائمة البنود الثمانية: اليوم الثاني من مقرر الأسس</li>
+      <li>هنا ما بعد الكتابة: من يعتمد، وكيف يتغير، وبماذا يرتبط في الكتالوج</li>
+    </ul>
+    <div class="card c-teal"><h4>تذكير سريع</h4><p class="small mb0">نوع الشيء أولًا، ثم ما يميزه. لا يعيد المصطلح نفسه. فيه قاعدة العد حين يكون عددًا، وما لا يدخل فيه حين يلتبس.</p></div>
+  </div>
+  <aside class="notes"><p>دقيقة واحدة. من لم يحضر مقرر الأسس: البطاقة تكفيه للمختبر، وصفحة المختبر تذكر القاعدة نفسها.</p></aside>
+</section>
+
+<section class="slide" id="definition-settles" data-lo="LO2" data-n="31" data-session="3">
+  <div class="kicker">تعريف يحسم</div>
+  <h2>التعريف يحسم الخلاف حين يصير شرطًا تعدّ به</h2>
+  <div class="cols cols-2">
+    <div class="card c-coral"><h4>«مرشح ناجح» عند قسمين</h4><p class="small mb0">قسم الاختبارات: نجح في آخر محاولة له. قسم التقارير: نجح في أي محاولة خلال السنة. الرقمان مختلفان، وكلاهما يسمى «الناجحين».</p></div>
+    <div class="card c-teal"><h4>بعد القرار</h4><p class="small mb0">«مرشح ناجح: مرشح بلغت درجته 60 في آخر محاولة له في الاختبار المهني.» والرقم الآخر اسمه «مرشحون اجتازوا محاولة واحدة على الأقل».</p></div>
+  </div>
+  <div class="callout tip mt"><b>الرقم الآخر لا يُحذف.</b> يأخذ اسمًا آخر، فيبقى متاحًا ولا يختلط بالأول.</div>
+  <aside class="notes"><p>المثال مخترع على مجال الاختبارات. نقطة القوة: التعريف بعد القرار شرط على أعمدة (الدرجة، وآخر محاولة)، فيعدّ به أي محلل الرقم نفسه. وفي المختبر خلاف حقيقي في مجال الترخيص، قرر فيه المالك، وعليك أن تكتب قراره.</p></aside>
+</section>
+
+<section class="slide" id="approval-flow" data-lo="LO2" data-n="32" data-session="3">
+  <div class="kicker">الاعتماد</div>
+  <h2>المشرف يصوغ، والمالك يعتمد، والكتالوج يحفظ من فعل ماذا</h2>
+  <div class="flow">
+    <div class="step c-teal"><b>1 · مسودة</b>يكتبها مشرف الأعمال من الملاحظات</div>
+    <div class="arrow frag" data-frag="b">←</div><div class="step c-cyan frag" data-frag="b"><b>2 · قيد المراجعة</b>تُعرض على المالك ومن يعترض</div>
+    <div class="arrow frag" data-frag="c">←</div><div class="step c-purple frag" data-frag="c"><b>3 · معتمد</b>باسم المالك، والإصدار 1.0</div>
+    <div class="arrow frag" data-frag="d">←</div><div class="step c-coral frag" data-frag="d"><b>4 · تغيير</b>إصدار 1.1، وسببه، والاعتماد من جديد</div>
+  </div>
+  <div class="callout warn mt frag" data-frag="d"><b>أين يقع الخطأ.</b> «معتمد» بلا اسم من اعتمد، أو باسم من صاغ. كلاهما يجعل المصطلح رأيًا.</div>
+  <aside class="notes"><p>اضغط لكل حالة. أدوات الكتالوج تقدم سير عمل للاعتماد بأسماء مختلفة؛ في المختبر نسجل الحالة والمعتمد في ملف القاموس ثم نحمّله. الضابط الوطني يطلب إجراءً لإدخال البيانات الوصفية وتحديثها سير عمل في أداة الكتالوج.</p></aside>
+</section>
+
+<section class="slide" id="versions-matter" data-lo="LO2" data-n="33" data-session="3">
+  <div class="kicker">الإصدارات</div>
+  <h2>تقرير الشهر الماضي حُسب بتعريف قد تغيّر</h2>
+  <table class="t">
+    <tr><th>الإصدار</th><th>التعريف المختصر</th><th>السبب</th><th>اعتمده</th></tr>
+    <tr><td>1.0</td><td>نجح في آخر محاولة</td><td>قرار الخلاف بين القسمين</td><td>مدير الاختبارات</td></tr>
+    <tr><td>1.1</td><td>نجح في آخر محاولة خلال 24 شهرًا</td><td>اعتماد مدة صلاحية للنتيجة</td><td>مدير الاختبارات</td></tr>
+  </table>
+  <div class="callout note mt"><b>من يقرأ رقمًا قديمًا</b> يجب أن يعرف بأي إصدار حُسب. لهذا يحفظ الكتالوج كل إصدار، لا آخرها فقط.</div>
+  <aside class="notes"><p>مثال مخترع. السؤال للقاعة: لوحة تقارير بُنيت على الإصدار 1.0، من يُبلَّغ حين يُعتمد 1.1؟ مالك اللوحة. الكتالوج الذي يربط المصطلح بالأعمدة وبالتقارير يعرف من يُبلَّغ؛ هذا ما نراه غدًا في المسار.</p></aside>
+</section>
+
+<section class="slide" id="term-links" data-lo="LO2" data-n="34" data-session="3">
+  <div class="kicker">الربط</div>
+  <h2>المصطلح المربوط يجعل الكتالوج يجيب بلغة الأعمال</h2>
+  <div class="cols cols-3">
+    <div class="card c-teal"><h4>بالأعمدة</h4><p class="small mb0">مصطلح واحد قد يرتبط بأعمدة في جداول وملفات مختلفة. من يبحث بالمصطلح يجدها كلها.</p></div>
+    <div class="card c-cyan"><h4>بالمالك والمشرف</h4><p class="small mb0">من يعتمد التعريف، ومن يصوغه. سؤال عن المعنى له عنوان.</p></div>
+    <div class="card c-coral"><h4>بالتصنيف</h4><p class="small mb0">مستوى من أربعة: عام، ومقيد، وسري، وسري للغاية. يُقترح على كل عمود مرتبط.</p></div>
+  </div>
+  <aside class="notes"><p>المستويات الأربعة من سياسة تصنيف البيانات، وقد درستها في مقرر الأسس. ربط المصطلح بالتصنيف طريق آخر لانتشار الوسوم الذي رأيته في الجلسة السابقة. المختبر يطلب ربط ثلاثين عمودًا بخمسة عشر مصطلحًا، فبعض المصطلحات يرتبط بأكثر من عمود.</p></aside>
+</section>
+
+<section class="slide" id="same-name" data-lo="LO2" data-n="35" data-session="3">
+  <div class="kicker">أين يقع الخطأ</div>
+  <h2>عمودان بالاسم نفسه لا يعنيان الشيء نفسه</h2>
+  <div class="cols cols-2">
+    <div class="card c-amber"><h4><span class="ltr">exam_sessions.status</span></h4><p class="small mb0">حال الجلسة: مفتوحة للتسجيل، أو مغلقة، أو منعقدة.</p></div>
+    <div class="card c-amber"><h4><span class="ltr">exam_results.status</span></h4><p class="small mb0">حال النتيجة: قيد التدقيق، أو معتمدة، أو ملغاة.</p></div>
+  </div>
+  <div class="callout warn mt"><b>الربط بالاسم أسرع طريق للخطأ.</b> اقرأ الجدول وملاحظة المشرف، ثم اربط.</div>
+  <aside class="notes"><p>العمودان على الشريحة توضيح مخترع، وليسا في قاعدة الاختبارات المرفقة. أدوات تقترح ربط المصطلحات آليًا بالاسم المتشابه؛ هذا الاقتراح هو ما تراجعه، لا ما تقبله.</p></aside>
+</section>
+
+<section class="slide" id="ai-off-first" data-lo="LO2" data-n="36" data-session="3">
+  <div class="kicker">سياسة الذكاء الاصطناعي</div>
+  <h2>أول خمسة تعريفات بيدك، ثم المساعد مرشد</h2>
+  <ul class="bullets">
+    <li>من لم يكتب تعريفًا بيده لا يلتقط ما ينقص في تعريف غيره، ولا في تعريف الآلة</li>
+    <li>في العشرة الباقية: المساعد يسأل عن تعريفك ويقترح ما ينقصه، ولا يكتبه</li>
+    <li>لا تُلصق ملاحظات المشرفين في المساعد: فيها ما صُنّف «مقيدًا»</li>
+    <li>والاختبار العملي في التقييم دون ذكاء اصطناعي: ثلاثة تعريفات ومسار واحد</li>
+  </ul>
+  <aside class="notes"><p>هذه سياسة المقرر كما في الكتالوج: دون ذكاء اصطناعي للاختبار العملي وأول التعريفات، وصياغة كاملة للمسودات تحت المراجعة، ومرشد في غير ذلك. قل للقاعة صراحة إن الاختبار العملي يشبه هذه الخطوة، فهي تدريب عليه.</p></aside>
+</section>
+
+<section class="slide" id="glossary-file" data-lo="LO2" data-n="37" data-session="3">
+  <div class="kicker">ملف القاموس</div>
+  <h2>القاموس ملف يقرؤه الكتالوج، لا جدول في مجلد أحدهم</h2>
+  <pre class="code"><code>nodes:
+  - name: الاختبارات
+    terms:
+      - name: مرشح ناجح
+        description: مرشح بلغت درجته 60 في آخر محاولة …
+        owners: {users: [مدير الاختبارات]}
+        custom_properties:
+          classification: مقيد
+          status: معتمد
+          version: "1.0"</code></pre>
+  <aside class="notes"><p>هذه صيغة القاموس في أداة DataHub. في المختبر لا تكتب هذا الملف بيدك: تملأ جدول بيانات، وأداة المقرر تكتبه منه ثم تحمّله أداة الكتالوج لتثبت أنها تقبله. في OpenMetadata صيغة أخرى للفكرة نفسها.</p></aside>
+</section>
+
+<section class="slide" id="check-glossary-dispute" data-lo="LO2" data-n="38" data-session="3">
+  <div class="kicker">نقطة تحقق</div>
+  <h2>ماذا يُكتب في القاموس بعد قرار المالك؟</h2>
+  <div class="quiz" data-type="single" data-lo="LO2" data-id="check-glossary-dispute-q1">
+    <p class="lead">قرر مدير الاختبارات أن «المرشح الناجح» من نجح في آخر محاولة. قسم التقارير ما زال يحتاج عدد من نجح في أي محاولة. ما الذي يُسجّل في القاموس؟</p>
+    <div class="opts">
+      <div class="opt" data-why="يحذف حاجة قائمة فيعود كل قسم إلى حسابه الخاص" data-k="أ">التعريف المعتمد فقط، ويُطلب من التقارير ترك رقمها</div>
+      <div class="opt" data-ok data-k="ب">التعريف المعتمد، واسم آخر للرقم الثاني، والقرار وتاريخه</div>
+      <div class="opt" data-why="يترك الخلاف بلا حسم، فيختار كل قارئ ما يناسبه" data-k="ج">التعريفان معًا تحت المصطلح نفسه، ويختار القارئ ما يناسبه</div>
+      <div class="opt" data-why="يخلط بين المصطلح والعمود: القرار عن المعنى، لا عن الجدول" data-k="د">لا شيء في القاموس، ويُضاف عمود جديد للرقم الآخر في جدول النتائج</div>
+    </div>
+    <div class="callout tip why"><b>لماذا.</b> المصطلح الواحد معنى واحد. الرقم الآخر يبقى باسمه، والقرار يُسجّل ليعرف القارئ لماذا.</div>
+  </div>
+  <aside class="notes"><p>الإجابة: ب. اربطها بالمختبر: في ملاحظات الترخيص خلاف مثله على «رخصة سارية»، وقرار المالك مكتوب بتاريخه.</p></aside>
+</section>
+
+<section class="slide lab top" id="lab-1-3" data-auto="lab" data-lab="1.3" data-label="المختبر 1.3" data-n="39" data-session="3">
+  <div class="cols cols-2 mid"><div><div class="lab-tag">المختبر 1.3 · 70 دقيقة</div><h2>كتابة 15 مصطلحًا لمجال الترخيص وربطها</h2><p class="lead small">تكتب 15 مصطلحًا لمجال الترخيص من ملاحظات المشرفين، أولها خمسة دون أي أداة ذكاء اصطناعي، وتسجل لكل منها المالك والتصنيف والحالة والإصدار، وتربط بها 30 عمودًا، ثم يقبلها الكتالوج ملفًا للقاموس.</p><a class="nb" href="../labs/D1_3_glossary.html">D1_3_glossary.html</a></div><ul class="checklist"><li>اقرأ ملاحظات المشرفين والأعمدة الثلاثين <span class="min">8 د</span></li><li>اكتب التعريفات الخمسة الأولى دون أي أداة ذكاء اصطناعي <span class="min">15 د</span></li><li>اكتب التعريفات العشرة الباقية، والمساعد مرشد فقط <span class="min">15 د</span></li><li>املأ المالك والمشرف والتصنيف والحالة والإصدار <span class="min">10 د</span></li><li>اربط الأعمدة الثلاثين بمصطلحاتها <span class="min">12 د</span></li><li>شغّل فحص القاموس حتى ينجح <span class="min">10 د</span></li><li class="stretch">✱ إضافي: اكتب الإصدار 1.1 لمصطلح «رخصة سارية» لو أُضيفت فترة سماح بعد الانتهاء، وسبب التغيير</li></ul></div>
+  <aside class="notes"><p>أول خمس وعشرين دقيقة بلا أي أداة ذكاء اصطناعي: تجول وتأكد. أدِّ دور المالك في الخطوة الرابعة: ارفض اعتماد أي تعريف دائري، أو تعريف «رخصة سارية» الذي لا يذكر تاريخ الانتهاء.</p><p>الخطأ الأكثر شيوعًا: ربط عمودي status بمصطلح واحد. الثاني: كتابة اسم المشرف في approved_by. أداة الفحص تلتقط الثاني، لا الأول.</p></aside>
+</section>
+
+<section class="slide" id="debrief-1-3" data-label="بعد المختبر 1.3" data-lo="LO2" data-n="40" data-session="3">
+  <div class="kicker">بعد المختبر 1.3</div>
+  <h2>بتعريف المالك 1710 رخصة سارية، وبالحالة وحدها 1804</h2>
+  <div class="cols cols-3">
+    <div class="stat"><div class="big">15</div><div class="lbl">مصطلحًا معتمدًا، 7 عامة و8 مقيدة</div></div>
+    <div class="stat"><div class="big">30</div><div class="lbl">عمودًا مربوطًا، ولكل مصطلح عمود على الأقل</div></div>
+    <div class="stat"><div class="big">94</div><div class="lbl">رخصة انتهت ولم تُحدّث حالتها في نهاية أكتوبر</div></div>
+  </div>
+  <div class="callout note mt"><b>ومن يقرأ عمود الحالة؟</b> لو غيّره فريق التطوير غدًا، من يعرف أي رقم سيتغير؟ هذا سؤال الغد.</div>
+  <aside class="notes"><p>الأعداد من مفاتيح الحالة (labs/solutions/D1_3_glossary.md). الرسوم مصطلح مقيد يعتمده مدير الشؤون المالية، وهو المصطلح الوحيد بمالك آخر. اسأل من ربط applications.status بحالة الرخصة، وارجع إلى شريحة العمودين بالاسم نفسه.</p></aside>
+</section>
+
+<section class="slide" id="wrap-up" data-n="41" data-session="3">
+  <div class="kicker">خلاصة اليوم 1</div>
+  <h2>ثلاثة أمور تبقى معك</h2>
+  <div class="cols cols-3">
+    <div class="card c-teal"><h4>الوصفة قرار</h4><p class="small mb0">ما يدخل الكتالوج، وما يظهر منه، ومتى يتحدث: كلها أسطر في الوصفة، والناتج دليلها.</p></div>
+    <div class="card c-coral"><h4>الآلة تقترح</h4><p class="small mb0">المسودة سريعة، والمراجع المسمّى هو من يجعلها وصفًا. قس معدل الخطأ بالأنواع.</p></div>
+    <div class="card c-purple"><h4>المالك يحسم</h4><p class="small mb0">المصطلح المعتمد معنى واحد باسم من اعتمده، والرقم الآخر يأخذ اسمًا آخر.</p></div>
+  </div>
+  <aside class="notes"><p>اطلب من كل مشارك جملة واحدة: أي من الثلاثة سيغيّر شيئًا في جهته هذا الشهر؟</p></aside>
+</section>
+
+<section class="slide dark" id="next" data-label="التالي" data-n="42" data-session="3">
+  <div class="kicker">التالي</div>
+  <h2>اليوم 2: المسار والقياس والنشر</h2>
+  <p class="lead">طلب تغيير على عمود حالة الرخصة ينتظر قرارك. أبقِ مجلد <span class="ltr">labs</span> كما هو؛ مختبرات الغد تبدأ من ملفات جاهزة، لا من ناتج اليوم.</p>
+  <aside class="notes"><p>من لم يكمل مختبرًا يكمله في المنزل ويشغّل فحصه. لا يحتاج الغد أي ناتج من اليوم: كل مختبر يبدأ من ملفاته.</p></aside>
+</section>
+</div>
+<script type="application/json" id="academy-data">{"v":1,"engine":"1.0.0","build":{"at":"2026-11-17T23:56:31Z","version":"2027.1.0","commit":"2da61d2"},"course":{"id":"lds-dmg-202","code":"LDS-DMG-202","title":"البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات","track":"executives","lang":"ar","dir":"rtl","url":"https://sdaiaacademy.github.io/lds-dmg-202/","repo":"SDAIAAcademy/lds-dmg-202","home":"../index.html"},"deck":{"id":"day1","kind":"day","day":1,"label":"اليوم 1","title":"من المصدر إلى الكتالوج","prev":null,"next":"day2.html","md":"day1.md","alt":{}},"sessions":[{"n":1,"label":"الجلسة 1","title":"البيانات الوصفية والاستخلاص المجدول","slide":"s1","outcomes":["تفرّق بين البيانات الوصفية الوصفية والهيكلية والإدارية ومن يكتب كلًّا منها","تهيئ وصفة استخلاص بأنماط استبعاد وتنميط وجدولة","تتحقق من أن كل جدول وملف فُهرس بمخططه وإحصاءاته"],"minutes":120,"lab":{"id":"1.1","title":"استخلاص قاعدة بيانات ومخزن ملفات","minutes":70,"href":"../labs/D1_1_harvest.html"}},{"n":2,"label":"الجلسة 2","title":"مساعدة الآلة ومراجعتها","slide":"s2","outcomes":["تقرر متى تظهر القيم النموذجية في الكتالوج ومتى تُخفى","تراجع وصفًا صاغته الآلة بسلم مراجعة وتسمي نوع خطئه","تحسب معدل الخطأ وأكثر أنواعه شيوعًا"],"minutes":120,"lab":{"id":"1.2","title":"مراجعة 40 وصفًا صاغته الآلة","minutes":70,"href":"../labs/D1_2_drafts.html"}},{"n":3,"label":"الجلسة 3","title":"مصطلحات تحسم الخلاف","slide":"s3","outcomes":["تكتب تعريفًا يحسم خلافًا بين قسمين","تسجل المالك والحالة والإصدار لكل مصطلح","تربط الأعمدة بالمصطلحات وتميّز الأعمدة المتشابهة الأسماء"],"minutes":120,"lab":{"id":"1.3","title":"كتابة 15 مصطلحًا لمجال الترخيص وربطها","minutes":70,"href":"../labs/D1_3_glossary.html"}}],"slides":[{"id":"title","n":1,"title":"من المصدر إلى الكتالوج","kind":"title","session":0,"hash":"639cdb87","md":"#### [day1#title] من المصدر إلى الكتالوج\n\n*أكاديمية سدايا · البيانات الوصفية وكتالوجات البيانات وتتبع أصل البيانات*\n\nاليوم 1: تستخلص البيانات الوصفية الفنية، وتراجع ما صاغته الآلة، وتكتب مصطلحات القاموس وتربطها\n\nمسار التنفيذيين والقادة · يومان تدريبيان + يوم للمشروع الختامي · 3 جلسات · 3 مختبرات · LDS-DMG-202","notes":"ابدأ بسؤال: من يعرف في جهته أين تُحفظ قائمة الجداول وما يعنيه كل عمود؟ غالبًا في ملف قديم أو في رأس شخص واحد. اليومان عن نقل هذه المعرفة إلى كتالوج يعمل وحده حيث تستطيع الآلة، ويطلب الإنسان حيث لا تستطيع.\n\nالحالة: هيئة صِنوان للترخيص المهني، جهة افتراضية. الأمثلة على الشرائح من مجال الاختبارات المهنية، والمختبرات كلها على مجال الترخيص، فلا ترى القاعة شيئًا من المختبر قبل أن تبدأه.","minutes":null,"lo":[]},{"id":"agenda","n":2,"title":"من المصدر إلى الكتالوج","kind":"content","session":0,"hash":"8f224448","md":"#### [day1#agenda] من المصدر إلى الكتالوج\n\n*اليوم*\n\n- **الجلسة 1 · البيانات الوصفية والاستخلاص المجدول**: ثلاثة أنواع من البيانات الوصفية، وموصلات تستخلص الفني منها، ووصفة تقول ماذا يُفهرس ومتى\n- **الجلسة 2 · مساعدة الآلة ومراجعتها**: القيم النموذجية ومتى تُخفى، وانتشار الوسوم، والأوصاف التي تصوغها الآلة وطابور مراجعتها\n- **الجلسة 3 · مصطلحات تحسم الخلاف**: تعريف يحسم الخلاف، والاعتماد والإصدارات، وربط المصطلح بالأعمدة والملاك والتصنيف","notes":"ثلاث جلسات، في كل منها خمسون دقيقة للمفاهيم والعرض ثم مختبر من سبعين دقيقة. الاستراحات بزر B. المختبر 1.3 فيه خمسة تعريفات تُكتب دون أي أداة ذكاء اصطناعي.","minutes":null,"lo":[]},{"id":"setup-check","n":3,"title":"طرفية، وأداة uv، ومجلد المقرر: هذا كل التجهيز","kind":"content","session":0,"hash":"7ef2e80f","md":"#### [day1#setup-check] طرفية، وأداة uv، ومجلد المقرر: هذا كل التجهيز\n\n*قبل أن نبدأ*\n\n- حاسوب محمول بلا معالج رسومي، أو Google Colab\n- أداة uv لتشغيل بايثون، ومجلد labs من المقرر\n- جدول بيانات لملفات المراجعة والقاموس والسجلات\n- لا خادم، ولا حساب، ولا نموذج يُنزَّل\n\n- **اختبار دقيقتين.** في مجلد labs شغّل:\n  ```\n  uv sync\n  uv run datahub version\n  ```\n  إن طبع رقم الإصدار، فأنت جاهز.","notes":"شغّل uv sync قبل الجلسة الأولى بوقت: التثبيت الأول يحتاج دقيقتين واتصالًا بالإنترنت. من لا يستطيع التثبيت على جهازه يعمل في Colab بالخطوات في labs/README.md.\n\nأداة الاستخلاص هي سطر أوامر كتالوج DataHub المفتوح المصدر، بالإصدار المثبت في labs/pyproject.toml. تكتب ما تستخلصه في ملف محلي، فلا نحتاج خادمًا. إن كانت لديك نسخة كتالوج تعمل، فاعرض فيها ما تستخلصه الوصفات؛ لم يُجرَّب ذلك في بناء المقرر.","minutes":null,"lo":[]},{"id":"s1","n":4,"title":"البيانات الوصفية والاستخلاص المجدول","kind":"section","session":1,"hash":"c1e472a6","md":"#### [day1#s1] البيانات الوصفية والاستخلاص المجدول\n\n*الجلسة 1*\n\n- تفرّق بين البيانات الوصفية الوصفية والهيكلية والإدارية ومن يكتب كلًّا منها\n- تهيئ وصفة استخلاص بأنماط استبعاد وتنميط وجدولة\n- تتحقق من أن كل جدول وملف فُهرس بمخططه وإحصاءاته","notes":"","minutes":null,"lo":["LO1"]},{"id":"recap-101","n":5,"title":"الأنواع الثلاثة التي عرفتها، بأسمائها في المعايير","kind":"content","session":1,"hash":"58aa1813","md":"#### [day1#recap-101] الأنواع الثلاثة التي عرفتها، بأسمائها في المعايير\n\n*من مقرر الأسس*\n\n| في LDS-DMG-101 | هنا | يجيب عن | يكتبه غالبًا |\n| --- | --- | --- | --- |\n| فنية | هيكلية (structural) | كيف بُنيت البيانات: الأعمدة وأنواعها وعلاقاتها | الآلة |\n| أعمال | وصفية (descriptive) | ما هذه البيانات: العنوان والوصف والكلمات | الإنسان، والآلة تقترح |\n| تشغيلية، وجزء من الأعمال | إدارية (administrative) | من يملكها، وبأي ترخيص، وما تصنيفها، ومتى تحدّثت | الاثنان |\n\n> **لا نعيد ما درسته.** حقول المدخل، ومن يكتب كلًّا منها، والسجل الذي يصير كتالوجًا: اليوم الثاني من مقرر الأسس. هنا نشغّل الكتالوج نفسه.","notes":"دقيقتان. اسأل: من بنى في مقرر الأسس مدخلات كتالوج من سجل الأصول؟ تلك الحقول الأربعة عشر نفسها، لكن الآلة الآن تملأ الفنية منها وحدها. التقسيم الثلاثي هنا هو الشائع في معايير البيانات الوصفية لمجموعات البيانات؛ ولا يتعارض مع تقسيم مقرر الأسس، بل يعيد تسميته.\n\nمن فاته مقرر الأسس: يكفيه هذا الجدول، والشريحة التالية تكمله.","minutes":null,"lo":["LO1"]},{"id":"three-kinds-exams","n":6,"title":"جدول نتائج الاختبارات بأنواعه الثلاثة","kind":"content","session":1,"hash":"d546116e","md":"#### [day1#three-kinds-exams] جدول نتائج الاختبارات بأنواعه الثلاثة\n\n*مثال من مجال الاختبارات*\n\n- **هيكلية.** خمسة أعمدة: result_id وsession_id وcandidate_id وscore وpassed، بأنواعها، والمفتاح الأساسي result_id.\n- **وصفية.** «نتيجة كل مرشح في كل جلسة اختبار مهني، بالدرجة من 100 وهل اجتاز.» كلمات: اختبار، نتيجة، اجتياز.\n- **إدارية.** المالك: مدير الاختبارات. التصنيف: مقيد. آخر تحديث: كل ليلة. 1600 صف، والدرجة فارغة في 26 منها.\n\n> **الآلة تقرأ الهيكلية والأعداد.** لا تعرف المالك ولا التصنيف ولا ما يعنيه «اجتاز».","notes":"الأعداد من استخلاص تجريبي لقاعدة الاختبارات في ملفات المقرر (exams.db): 1600 صف في جدول النتائج، والدرجة فارغة في 26 صفًا، ومتوسطها 67.3. ارجع إلى هذه الشريحة في الجلسة الثانية حين نتحدث عما تقترحه الآلة للوصف.","minutes":null,"lo":["LO1"]},{"id":"vocabularies","n":7,"title":"المفردات المعيارية تجعل وصفك مقروءًا خارج جهتك","kind":"content","session":1,"hash":"0e530c11","md":"#### [day1#vocabularies] المفردات المعيارية تجعل وصفك مقروءًا خارج جهتك\n\n*مفردات معيارية*\n\n- **DCAT:** مفردات W3C لوصف مجموعات البيانات والكتالوجات وتوزيعاتها، والإصدار 3 توصية منذ أغسطس 2024\n- **Dublin Core:** مصطلحات وصفية عامة (العنوان، والوصف، والناشر، والترخيص) تستعملها DCAT نفسها\n- داخل الجهة يكفي نموذج الكتالوج؛ خارجها تُطلب المفردات المعيارية\n\n```\ndct:title     \"Exam pass rates\"@en\ndct:publisher  \u003c…/sinwan/>\ndct:license    \u003c…/by/4.0/>\ndcat:contactPoint  [ vcard:hasEmail … ]\n```\n\n> **نعود إليها في الجلسة السادسة.** هناك تكتب سجلات كاملة وتتحقق منها.","notes":"الفكرة: داخل الجهة يتفق الناس على حقول الكتالوج؛ حين تخرج السجلات إلى بوابة بيانات مفتوحة أو كتالوج وطني يجب أن يفهمها نظام آخر، فتُكتب بمفردات معيارية. البادئة dct هي مصطلحات Dublin Core، وdcat مفردات الكتالوج.\n\nالمصادر: W3C، Data Catalog Vocabulary (DCAT) Version 3، توصية 22 أغسطس 2024.","minutes":null,"lo":["LO1","LO5"]},{"id":"national-mcm","n":8,"title":"للكتالوج مجال كامل في الضوابط الوطنية، بستة ضوابط","kind":"content","session":1,"hash":"c4dcdd0e","md":"#### [day1#national-mcm] للكتالوج مجال كامل في الضوابط الوطنية، بستة ضوابط\n\n*الضوابط الوطنية*\n\n| الضابط | ما يعنيه لعمل اليوم |\n| --- | --- |\n| التخطيط | ترتيب مصادر البيانات التي تدخل الكتالوج، ومعمارية البيانات الوصفية |\n| السياسات والقواعد الاسترشادية | موافقة مسجلة قبل ربط الكتالوج بأي مصدر، ووصول إليه بحسب الدور |\n| التدريب والتوعية | تدريب من يحتاج الكتالوج، ومستخدمون متقدمون يساعدون غيرهم |\n| إدارة دورة حياة البيانات | مشرف أعمال ومشرف فني لكل ما في الكتالوج، وإجراء لجودة البيانات الوصفية |\n| أتمتة دليل البيانات | أداة آلية، وتنبيهات بالتغيير، وسجل لنشاط المستخدمين |\n| إدارة الأداء | مؤشرات للاستخدام، ومؤشرات لجودة البيانات الوصفية |","notes":"الاسم في النص العربي للضوابط: «مجال البيانات الوصفية ودليل البيانات»، ورمزه MCM، والضوابط في الجدول بترتيبها فيه من MCM.1 إلى MCM.6. نقول في المقرر «كتالوج البيانات» كما في عنوانه، وهو «دليل البيانات» نفسه. لا تحفّظ القاعة أرقام المواصفات. اربط كل ضابط بمختبر: الموافقة على الربط هي ملاحظات الاستخلاص في 1.1، والمشرفان هما سمتا الاكتمال في 2.2، ومؤشرات الجودة هي قياسات 2.2.\n\nالمصادر: مكتب إدارة البيانات الوطنية، ضوابط ومواصفات إدارة البيانات الوطنية وحوكمتها وحماية البيانات الشخصية، مجال البيانات الوصفية ودليل البيانات.","minutes":null,"lo":["LO1"]},{"id":"harvest-flow","n":9,"title":"الموصل يقرأ المصدر، والوصفة تقول له ماذا يأخذ","kind":"content","session":1,"hash":"91cd3256","md":"#### [day1#harvest-flow] الموصل يقرأ المصدر، والوصفة تقول له ماذا يأخذ\n\n*كيف يعمل الاستخلاص*\n\n1. **1 · المصدر** قاعدة بيانات، أو مجلد ملفات، أو أداة تقارير\n2. **2 · الموصل** يعرف لغة المصدر ويقرأ مخططه، ولا يغيّر فيه شيئًا\n3. **3 · الوصفة** ما يُضم وما يُستبعد، والتنميط، والقيم، والوجهة\n4. **4 · الكتالوج** مدخل لكل أصل، يتحدث مع كل تشغيل مجدول\n\n> **الموصل يقرأ فقط.** لكنه يقرأ كل شيء: ما يأخذه الكتالوج قرار في الوصفة، لا في المصدر.","notes":"اضغط لكل خطوة. أدوات الكتالوج المفتوحة المصدر (DataHub وOpenMetadata مثالان) تسمي الوصفة بأسماء مختلفة، والفكرة واحدة: ملف إعداد يقرؤه الموصل. في المختبر وجهة الوصفة ملف محلي؛ في نسخة حقيقية تكون خادم الكتالوج.\n\nسؤال للقاعة: من يملك قرار ما يدخل الكتالوج؟ ليس الفني الذي يكتب الوصفة؛ الموافقة على ربط المصدر مسجلة، وهي ضابط في المعيار الوطني.","minutes":null,"lo":["LO1"]},{"id":"recipe-anatomy","n":10,"title":"كل سطر في الوصفة جواب عن سؤال من الموافقة","kind":"content","session":1,"hash":"7f80b459","md":"#### [day1#recipe-anatomy] كل سطر في الوصفة جواب عن سؤال من الموافقة\n\n*وصفة الاستخلاص*\n\n```\nsource:\n  type: sqlalchemy\n  config:\n    connect_uri: \"sqlite:///exams.db\"\n    include_views: true\n    table_pattern:\n      deny: ['.*\\.scratch_.*']\n    profiling:\n      enabled: true\n      include_field_sample_values: false\nsink:\n  type: file\n```\n\n- **المصدر:** نوع الموصل وطريق الاتصال\n- **الاستبعاد:** أنماط بأسماء ما ليس أصلًا\n- **التنميط:** الأعداد والفراغات والقيم الدنيا والعليا\n- **القيم النموذجية:** هل تظهر قيم من الصفوف في الكتالوج\n- **الوجهة:** الكتالوج أو ملف","notes":"الوصفة على الشريحة لقاعدة الاختبارات، والجدول المستبعد مثال مخترع (scratch_). في المختبر وصفتان لمجال الترخيص منسوختان من مثال المورد كما هو، وعليك أن تجعلهما تطابقان الموافقة.\n\nنبّه: النمط تعبير نمطي على الاسم الكامل، ومنه اسم المخطط main في SQLite. خطأ شائع: كتابة اسم الجدول وحده فلا يطابق شيئًا.","minutes":null,"lo":["LO1"]},{"id":"not-assets","n":11,"title":"كتالوج يعرض كل شيء يخفي ما يهم","kind":"content","session":1,"hash":"4bb7d5f2","md":"#### [day1#not-assets] كتالوج يعرض كل شيء يخفي ما يهم\n\n*ما لا يُفهرس*\n\n- **جداول العمل.** نسخ مؤقتة يصنعها التحميل ثم ينساها. اسمها يشبه الأصل، ومحتواها جزء منه.\n- **النسخ الاحتياطية.** صورة قديمة من جدول حي. من يجدها في البحث قد يحسب منها رقمًا قديمًا.\n- **منطقة الاستقبال.** ملفات رُفعت ولم تُراجع. فهرستها تعطيها شرعية لم تكتسبها.\n\n> **أين يقع الخطأ.** الاستبعاد بالاسم يفترض أن الأسماء منضبطة. اتفق مع الفريق الفني على قاعدة تسمية قبل أن تكتب النمط.","notes":"كل واحدة من الثلاث تجعل البحث في الكتالوج أسوأ: نتيجتان لاسم واحد، ولا يعرف المستخدم أيهما الأصل. الضابط الوطني لجودة البيانات الوصفية يطلب إجراء لمعالجة مشكلاتها؛ أرخص المعالجة ألا تدخل.","minutes":null,"lo":["LO1"]},{"id":"profile-numbers","n":12,"title":"التنميط يجيب قبل أن تسأل: هل تصلح هذه البيانات لما أريد؟","kind":"content","session":1,"hash":"eee882dd","md":"#### [day1#profile-numbers] التنميط يجيب قبل أن تسأل: هل تصلح هذه البيانات لما أريد؟\n\n*التنميط*\n\n- **1600** صف في جدول نتائج الاختبارات\n- **26** نتيجة بلا درجة، أي 1.6٪\n- **67.3** متوسط الدرجة، وأدناها 24 وأعلاها 100\n\n> **يتحدث مع كل تشغيل.** رقم ثابت في وثيقة يشيخ؛ رقم في الكتالوج يحسبه الاستخلاص في كل مرة.","notes":"الأرقام من الاستخلاص التجريبي لقاعدة الاختبارات بالتنميط مفعّلًا، في نحو اثنتي عشرة ثانية على حاسوب محمول. اسأل: محلل يريد معدل الاجتياز، ماذا يعرف من هذه الشريحة قبل أن يكتب استعلامًا؟ أن 26 نتيجة بلا درجة، فعليه أن يقرر هل تدخل المقام.","minutes":null,"lo":["LO1"]},{"id":"schedule-timezone","n":13,"title":"الاستخلاص يتبع التحميل، والمنطقة الزمنية جزء من الجدولة","kind":"content","session":1,"hash":"89d34ea3","md":"#### [day1#schedule-timezone] الاستخلاص يتبع التحميل، والمنطقة الزمنية جزء من الجدولة\n\n*الجدولة*\n\n```\n# minute hour day month weekday\nschedule: \"30 4 * * *\"\ntimezone: Asia/Riyadh\n```\n\nخمسة حقول: الدقيقة، والساعة، ويوم الشهر، والشهر، ويوم الأسبوع (0 الأحد). النجمة تعني «كل».\n\n- استخلص بعد انتهاء التحميل، لا قبله ولا أثناءه\n- المصدر الذي يتغير أسبوعيًا يُستخلص أسبوعيًا\n- المنطقة الزمنية الافتراضية في أدوات كثيرة UTC، وتوقيت الرياض متقدم عليها ثلاث ساعات\n\n> **خمس نجوم تعني كل دقيقة.** وصفة بهذه الجدولة تُتعب المصدر ولا تزيد الكتالوج دقة.","notes":"المثال لقاعدة الاختبارات: نصف ساعة بعد الرابعة صباحًا كل يوم، بتوقيت الرياض. توقيت الرياض متقدم ثلاث ساعات على UTC، فالجدولة نفسها بـ UTC تعمل بعد الظهر في الرياض، وقد تصادف ساعات العمل. أمر النشر في نسخة كتالوج حقيقية يأخذ الجدولة والمنطقة الزمنية معاملين؛ يطبعه لك الفحص في المختبر.","minutes":null,"lo":["LO1"]},{"id":"harvest-demo","n":14,"title":"استخلاص قاعدة الاختبارات في أقل من دقيقة","kind":"content","session":1,"hash":"3c05f097","md":"#### [day1#harvest-demo] استخلاص قاعدة الاختبارات في أقل من دقيقة\n\n*عرض حي*\n\n```\nuv run datahub ingest -c exams.yml\n...\nPipeline finished with at least 1 warnings; produced 38 events in 1.78 seconds.\n```\n\n| الجدول | الصفوف | الأعمدة |\n| --- | --- | --- |\n| candidates | 1200 | 4 |\n| exam_results | 1600 | 5 |\n| exam_sessions | 48 | 5 |","notes":"إن عرضت حيًا: انسخ وصفة المختبر لقاعدة الترخيص إلى ملف خارج المجلد، وغيّر كلمة licensing إلى exams. لا تعرض وصفة الترخيص نفسها. التحذير الذي يظهر عن الانحراف المعياري طبيعي في SQLite.\n\nالأرقام من التشغيل التجريبي في بناء المقرر: 38 سجلًا كتبها الاستخلاص، والزمن الكلي نحو اثنتي عشرة ثانية مع بدء البيئة.","minutes":null,"lo":["LO1"]},{"id":"check-metadata-kinds","n":15,"title":"أي حقل لا تملؤه الآلة؟","kind":"quiz","session":1,"hash":"d708d6a6","md":"#### [day1#check-metadata-kinds] أي حقل لا تملؤه الآلة؟\n\n*نقطة تحقق*\n\n**سؤال:** بعد أول استخلاص لقاعدة الاختبارات، ظهر في مدخل جدول الجلسات عدد من الحقول. أي حقل يبقى فارغًا حتى يكتبه إنسان؟\n\n- أ. عدد الصفوف وآخر استخلاص\n- ب. أنواع الأعمدة الخمسة في جدول الجلسات\n- ج. تصنيف جدول الجلسات ومالكه\n- د. أدنى عدد مقاعد وأعلاه بين الجلسات","notes":"الإجابة: ج. الخيارات الثلاثة الأخرى يكتبها الاستخلاص: الأعداد والتواريخ من التنميط، والأنواع من المخطط. في الاستخلاص التجريبي لقاعدة الاختبارات كانت المقاعد بين 30 و60.","minutes":null,"lo":["LO1"]},{"id":"lab-1-1","n":16,"title":"استخلاص قاعدة بيانات ومخزن ملفات","kind":"lab","session":1,"hash":"5952f0d5","md":"#### [day1#lab-1-1] استخلاص قاعدة بيانات ومخزن ملفات\n\nالمختبر 1.1 · 70 دقيقة\n\nتشغّل أداة الاستخلاص في كتالوج مفتوح المصدر على قاعدة بيانات الترخيص ومجلد الترخيص في مخزن الملفات، وتصلح الوصفتين حتى يُفهرس كل أصل بمخططه وإحصاءات تنميطه بلا قيم شخصية ظاهرة، وبجدولة بتوقيت الرياض.\n\n[D1_1_harvest.html](https://sdaiaacademy.github.io/lds-dmg-202/labs/D1_1_harvest.html)\n\n- [ ] اقرأ ملاحظات الاستخلاص واستخرج منها خمسة شروط (8 د)\n- [ ] شغّل الوصفتين كما وصلتا، واقرأ ما فُهرس (10 د)\n- [ ] أضف أنماط الاستبعاد وشغّل التنميط (14 د)\n- [ ] أخفِ كل قيمة ظاهرة في الأعمدة الشخصية (14 د)\n- [ ] اكتب الجدولة بتوقيت الرياض (10 د)\n- [ ] شغّل الفحص حتى ينجح، وسجّل الأعداد (14 د)\n- [ ] ✱ إضافي: اكتب وصفة ثالثة للمجلدات العامة وحدها تُظهر القيم النموذجية، واكتب سطرًا يبرر ذلك","notes":"سبعون دقيقة. أول عشر دقائق: تأكد أن الأوامر الثلاثة تعمل عند الجميع، فالباقي تعديل أسطر. الخطأ الأكثر شيوعًا: مسافات YAML؛ اطلب نسخ السطر الموسوم EDIT وتعديله في مكانه.\n\nبعد الخطوة 4 سيجد معظمهم أن الجوال ما زال ظاهرًا في تذكيرات التجديد. لا تعطهم الخيار؛ صفحة المختبر تذكره. الذكاء الاصطناعي مرشد: يسأل ويشرح، ولا يُلصق فيه شيء من المصادر.","minutes":null,"lo":[]},{"id":"debrief-1-1","n":17,"title":"إطفاء القيم النموذجية لم يُخفِ الجوال","kind":"content","session":1,"hash":"546d1906","md":"#### [day1#debrief-1-1] إطفاء القيم النموذجية لم يُخفِ الجوال\n\n*بعد المختبر 1.1*\n\n- **17 ← 14** أصلًا قبل الاستبعاد وبعده: ثمانية جداول، وعرض، وخمسة مجلدات\n- **2268** رخصة في جدول الرخص، و2400 ممارس\n- **2.75٪** من جوالات الممارسين فارغة\n\n> **بابان للقيم.** القيم النموذجية، وتكرار القيم الذي تحسبه أداة الملفات. الإعداد ليس الدليل؛ الناتج هو الدليل.","notes":"من تشغيل الحل المرجعي (labs/solutions/D1_1_harvest.md). اسأل من وجد الباب الثاني وحده. ثم اسأل: لماذا لا يظهر للعرض تنميط؟ أداة الاستخلاص لا تنمّط العروض في قواعد SQL، والفحص يقبل ذلك. وفي مدخل العرض مسار إلى جدول الرخص استخرجته الأداة من نص الاستعلام: هذا أول مسار نراه، ونعود إليه غدًا.","minutes":null,"lo":["LO1"]},{"id":"s2","n":18,"title":"مساعدة الآلة ومراجعتها","kind":"section","session":2,"hash":"b4984d75","md":"#### [day1#s2] مساعدة الآلة ومراجعتها\n\n*الجلسة 2*\n\n- تقرر متى تظهر القيم النموذجية في الكتالوج ومتى تُخفى\n- تراجع وصفًا صاغته الآلة بسلم مراجعة وتسمي نوع خطئه\n- تحسب معدل الخطأ وأكثر أنواعه شيوعًا","notes":"","minutes":null,"lo":["LO3","LO1"]},{"id":"who-reads-catalogue","n":19,"title":"قرّاء الكتالوج أكثر بكثير من قرّاء البيانات","kind":"content","session":2,"hash":"b8a422c0","md":"#### [day1#who-reads-catalogue] قرّاء الكتالوج أكثر بكثير من قرّاء البيانات\n\n*القيم النموذجية*\n\n- الكتالوج يُفتح لكل من يبحث عن بيانات، والبيانات لمن له صلاحية عليها\n- القيم النموذجية صفوف من البيانات نفسها تُعرض في الكتالوج\n- فإن ظهرت، صار كل قارئ للكتالوج قارئًا لتلك الصفوف\n- القاعدة: تظهر القيم حيث تكون البيانات نفسها «عامة» فقط\n\n- **في الضوابط الوطنية.** الوصول إلى الكتالوج بحسب الدور: مجموعات للقراءة، وللقراءة والتحديث، وللإدارة، تُحدد بحسب حقوق الوصول إلى البيانات الوصفية ونطاقها.","notes":"المثال: محلل في قسم التدريب يبحث عن «اختبار»، فيفتح مدخل جدول المرشحين. إن كانت القيم النموذجية مفعّلة، رأى أسماء وأرقام هوية لم يكن له حق في رؤيتها، وهو لم يطلبها. التصنيف يتبع البيانات؛ ما يُعرض منها في الكتالوج يأخذ تصنيفها.\n\nالمصادر: الضوابط الوطنية، مجال البيانات الوصفية ودليل البيانات، ضابط السياسات والقواعد الاسترشادية؛ سياسة تصنيف البيانات.","minutes":null,"lo":["LO1"]},{"id":"sample-values-demo","n":20,"title":"استخلاص بالقيم النموذجية ينقل الأسماء والهويات إلى الكتالوج","kind":"content","session":2,"hash":"a84df42f","md":"#### [day1#sample-values-demo] استخلاص بالقيم النموذجية ينقل الأسماء والهويات إلى الكتالوج\n\n*عرض: القيم مفعّلة*\n\n```\nexams.main.candidates   rows 1200\n  full_name    sampleValues: [\"وفاء حسن القحطاني\", …]\n  national_id  sampleValues: [\"9628601936\", …]\n  mobile       sampleValues: [\"0599563433\", …]\n```\n\n> **بيانات اصطناعية.** الأسماء والأرقام هنا من ملفات المقرر. في جهتك هي أسماء أشخاص حقيقيين.","notes":"ناتج الاستخلاص التجريبي لقاعدة الاختبارات بإعداد المورد الافتراضي: القيم النموذجية مفعّلة. كل الأسماء والهويات وهمية، تبدأ الهويات بالرقم 9 والجوالات بـ 0599. اسأل: من يقرأ هذا المدخل؟ كل من له قراءة الكتالوج.","minutes":null,"lo":["LO1"]},{"id":"tag-propagation","n":21,"title":"الوسم يُكتب مرة، وينتشر إلى ما اشتُق من العمود","kind":"content","session":2,"hash":"74b5d832","md":"#### [day1#tag-propagation] الوسم يُكتب مرة، وينتشر إلى ما اشتُق من العمود\n\n*انتشار الوسوم*\n\n1. **1 · الوسم** «بيانات شخصية» على candidates.national_id\n2. **2 · المسار** العمود يُنسخ إلى ملف تصدير لجهة التدقيق\n3. **3 · الانتشار** يُقترح الوسم على العمود المنسوخ\n\n- الانتشار عبر المسار، أو عبر مصطلح القاموس المرتبط بالعمودين\n- النسخ ينقل الوسم؛ العد المجمّع قد لا ينقله، والقرار للمشرف","notes":"المثال مخترع على مجال الاختبارات. انتشار الوسوم يوفر عملًا، لكنه يخطئ في الاتجاهين: يضع «شخصي» على عدد مجمّع لا يكشف أحدًا، ولا يضعه على عمود حُوّل بطريقة لا يفهمها المسار. لهذا يكون الانتشار اقتراحًا يراجعه المشرف، لا قرارًا. غدًا نرى المسار نفسه على مستوى العمود.","minutes":null,"lo":["LO1","LO2"]},{"id":"machine-drafts","n":22,"title":"المسودة تُكتب في ثوانٍ، والمراجعة هي العمل","kind":"content","session":2,"hash":"c78eb015","md":"#### [day1#machine-drafts] المسودة تُكتب في ثوانٍ، والمراجعة هي العمل\n\n*الأوصاف التي تصوغها الآلة*\n\n1. **1 · ما يُرسل** أسماء الأعمدة وأنواعها، وتعريف المصطلح المعتمد\n2. **2 · المسودة** النموذج يقترح وصفًا\n3. **3 · طابور المراجعة** مشرف مسمّى: قبول أو تعديل أو رفض\n4. **4 · النشر** الوصف في الكتالوج، ومعه «صاغته الآلة، راجعه فلان»\n\n> **لا يُنشر وصف بلا اسم مراجع.** والإفصاح بأن الآلة صاغته يبقى معه.","notes":"أدوات الكتالوج تضيف هذه الخاصية بأسماء مختلفة، وتتغير من إصدار إلى إصدار؛ الخطوات الأربع لا تتغير. سياسة المقرر للذكاء الاصطناعي: صياغة المسودات تحت المراجعة مسموحة بالكامل؛ الحكم عليها للإنسان.\n\nاسأل: لماذا يبقى الإفصاح بعد المراجعة؟ لأن قارئ الوصف يحق له أن يعرف كيف كُتب، ومن يُسأل عنه.","minutes":null,"lo":["LO3"]},{"id":"genai-rule","n":23,"title":"لا يدخل الأداة إلا ما صُنّف «عامًا»","kind":"content","session":2,"hash":"5b4ca3fc","md":"#### [day1#genai-rule] لا يدخل الأداة إلا ما صُنّف «عامًا»\n\n*ما يدخل أداة الذكاء الاصطناعي*\n\n- **الإرشادات للجهات الحكومية.** لا يُدخل العاملون في أدوات الذكاء الاصطناعي التوليدي أي بيانات مصنفة «مقيد» فأعلى، ويُقصر استخدامها على البيانات المصنفة «عامة».\n\n- **يُرسل:** أسماء الأعمدة وأنواعها، وتعريفات القاموس المعتمدة\n- **لا يُرسل:** أي قيمة من الصفوف، ولا القيم النموذجية، ولا ملاحظات المقابلات\n- **قبل الإرسال:** يقرر المالك أن البيانات الوصفية نفسها «عامة»","notes":"اقرأ الحكم بصياغتك، لا تنسخه. القاعدة الثالثة قاعدة الحالة في هيئة صِنوان، مبنية على الإرشادات: اسم عمود قد يكشف شيئًا (مثل عمود يسمي مرضًا)، فلا تفترض أن البيانات الوصفية عامة دائمًا.\n\nالمصادر: سدايا، الإرشادات العامة لاستخدام الذكاء الاصطناعي التوليدي للجهات الحكومية، قسم الخصوصية والأمن.","minutes":null,"lo":["LO3"]},{"id":"six-error-types","n":24,"title":"ستة أنواع تكفي لتسمية كل ما تجده في مسودة","kind":"content","session":2,"hash":"9bad1fec","md":"#### [day1#six-error-types] ستة أنواع تكفي لتسمية كل ما تجده في مسودة\n\n*أنواع الخطأ*\n\n| النوع | مثال من مجال الاختبارات |\n| --- | --- |\n| يكرر الاسم | held_on: «تاريخ الانعقاد.» |\n| قاعدة مختلقة | passed: «1 إذا تجاوزت الدرجة 70.» والمصدر يقول 60 |\n| معنى خاطئ | centre: «مدينة المرشح.» وهو رمز مركز الاختبار |\n| وحدة أو صيغة خاطئة | score: «الدرجة من 50.» وهي من 100 |\n| قيمة مسربة | وصف يذكر اسم مرشح بعينه |\n| لا خطأ | يُقبل كما هو |","notes":"الأمثلة كُتبت لهذه الشريحة على قاعدة الاختبارات. الحد في الاجتياز 60 من بيانات الحالة: العمود passed يساوي 1 حين تبلغ الدرجة 60. اسأل: أي نوع أخطر؟ القاعدة المختلقة، لأنها تبدو معلومة، ومن يقرؤها يبني عليها. القيمة المسربة ترفض دائمًا ويُبلّغ عنها.","minutes":null,"lo":["LO3"]},{"id":"error-rate","n":25,"title":"معدل الخطأ يقول هل الصياغة الآلية توفر وقتًا أم تنقله","kind":"content","session":2,"hash":"043c980c","md":"#### [day1#error-rate] معدل الخطأ يقول هل الصياغة الآلية توفر وقتًا أم تنقله\n\n*القياس*\n\n- **معدل الخطأ.** (التعديل + الرفض) ÷ المسودات المراجعة\n\n- القياس بالأنواع، لا بالرقم وحده: لكل نوع علاج مختلف\n- «يكرر الاسم» يعالجه ما يُرسل؛ «قاعدة مختلقة» تعالجها المراجعة\n- أعد القياس بعد كل تغيير في الطلب أو النموذج\n- معدل مرتفع في مجال حساس قد يعني ألا تُستعمل الصياغة فيه","notes":"لا رقم على هذه الشريحة ولا في ملاحظاتها: الرقم ستحسبه القاعة في المختبر. الفكرة لصاحب القرار: إن كانت أغلب المسودات تحتاج تعديلًا، فالمراجعة هي التكلفة الحقيقية، والقرار هو أين تُستعمل الصياغة وأين لا تُستعمل.","minutes":null,"lo":["LO3"]},{"id":"check-draft-review","n":26,"title":"ما قرارك في هذه المسودة؟","kind":"quiz","session":2,"hash":"0c9a384d","md":"#### [day1#check-draft-review] ما قرارك في هذه المسودة؟\n\n*نقطة تحقق*\n\n**سؤال:** مسودة لعمود exam_results.passed: «1 إذا تجاوز المرشح 70 درجة، ويبقى الاجتياز صالحًا سنتين.» المصدر: الاجتياز 1 حين تبلغ الدرجة 60، ولا مدة صلاحية في أي وثيقة.\n\n- أ. قبول، لأن الصياغة واضحة والمعنى العام صحيح\n- ب. تعديل الحد إلى 60 فقط، وإبقاء مدة الصلاحية\n- ج. رفض، والنوع وحدة أو صيغة خاطئة\n- د. رفض، والنوع قاعدة مختلقة لا مصدر لها","notes":"الإجابة: د. اقبل «تعديل» إن حُذفت المدة وصُحح الحد معًا وكُتب النوع قاعدة مختلقة؛ السلّم يسمح بذلك حين لا يبقى من المسودة إلا جزء صحيح. لا تقبل «وحدة أو صيغة»: الرقم ليس بوحدة خاطئة، بل بلا مصدر.","minutes":null,"lo":["LO3"]},{"id":"lab-1-2","n":27,"title":"مراجعة 40 وصفًا صاغته الآلة","kind":"lab","session":2,"hash":"4f854595","md":"#### [day1#lab-1-2] مراجعة 40 وصفًا صاغته الآلة\n\nالمختبر 1.2 · 70 دقيقة\n\nتراجع 40 وصفًا لأصول مجال الترخيص صاغتها الآلة، فتقبل أو تعدّل أو ترفض، وتسمي نوع الخطأ، وتكتب اسمك مراجِعًا لكل سطر، ثم تحسب معدل الخطأ وأكثر أنواعه شيوعًا.\n\n[D1_2_drafts.html](https://sdaiaacademy.github.io/lds-dmg-202/labs/D1_2_drafts.html)\n\n- [ ] اقرأ سلم المراجعة وملاحظات المشرفين (8 د)\n- [ ] راجع المسودات من 1 إلى 20 (22 د)\n- [ ] راجع المسودات من 21 إلى 40 (22 د)\n- [ ] شغّل التقرير وأكمل ما ينقص (8 د)\n- [ ] قارن أكثر نوعين شيوعًا مع زميل واقترح تعديلًا لطلب الصياغة (10 د)\n- [ ] ✱ إضافي: إن أتاح المدرب نموذجًا مستضافًا معتمدًا: صُغ أوصافًا لعشرة أعمدة عامة من أسمائها وأنواعها وحدها، وقِس معدل خطئها بالسلم نفسه","notes":"سبعون دقيقة، وأطولها المراجعة نفسها. نبّه في البداية: المسودات مكتوبة لهذا المقرر بديلًا عن ناتج نموذج، فلا يُستدعى أي نموذج. إن طلب أحد قيمة من الملف ليتأكد، فليفتح الملف لا النموذج.\n\nمن وجد قيمة مسربة يرفع يده: أوقف القاعة دقيقة، واسأل من أين جاءت إن كان النموذج لم يرَ إلا الأسماء. هذا هو السجل الذي يحمي الجهة.","minutes":null,"lo":[]},{"id":"debrief-1-2","n":28,"title":"ستون في المئة من المسودات احتاجت إنسانًا","kind":"content","session":2,"hash":"5a35b22a","md":"#### [day1#debrief-1-2] ستون في المئة من المسودات احتاجت إنسانًا\n\n*بعد المختبر 1.2*\n\n| البند | القيمة |\n| --- | --- |\n| يكرر الاسم | 8 |\n| قاعدة مختلقة | 6 |\n| معنى خاطئ | 4 |\n| وحدة أو صيغة خاطئة | 4 |\n| قيمة مسربة | 2 |\n\nالمرجع: 16 قبول، و15 تعديل، و9 رفض من 40.","notes":"من الحل المرجعي (labs/solutions/D1_2_drafts.md). قارن بأرقام القاعة: من كان معدله أقل من 50٪ قبل غالبًا مسودات تكرر الاسم. الاقتراح الأقوى للطلب: أرسل تعريف المصطلح المعتمد مع اسم العمود. القيمتان المسربتان كانتا في ملفين فيهما بيانات شخصية: سطر «ما أُرسل» يقول غير ذلك، وهذا ما يُبلّغ عنه.","minutes":null,"lo":["LO3"]},{"id":"s3","n":29,"title":"مصطلحات تحسم الخلاف","kind":"section","session":3,"hash":"1010316f","md":"#### [day1#s3] مصطلحات تحسم الخلاف\n\n*الجلسة 3*\n\n- تكتب تعريفًا يحسم خلافًا بين قسمين\n- تسجل المالك والحالة والإصدار لكل مصطلح\n- تربط الأعمدة بالمصطلحات وتميّز الأعمدة المتشابهة الأسماء","notes":"","minutes":null,"lo":["LO2"]},{"id":"recap-entry","n":30,"title":"المدخل الجيد تعرفه؛ هنا نعتمده ونربطه","kind":"content","session":3,"hash":"4f8c104e","md":"#### [day1#recap-entry] المدخل الجيد تعرفه؛ هنا نعتمده ونربطه\n\n*من مقرر الأسس*\n\n- تشريح المدخل، والتعريف بالنوع ثم ما يميزه، وقائمة البنود الثمانية: اليوم الثاني من مقرر الأسس\n- هنا ما بعد الكتابة: من يعتمد، وكيف يتغير، وبماذا يرتبط في الكتالوج\n\n- **تذكير سريع.** نوع الشيء أولًا، ثم ما يميزه. لا يعيد المصطلح نفسه. فيه قاعدة العد حين يكون عددًا، وما لا يدخل فيه حين يلتبس.","notes":"دقيقة واحدة. من لم يحضر مقرر الأسس: البطاقة تكفيه للمختبر، وصفحة المختبر تذكر القاعدة نفسها.","minutes":null,"lo":["LO2"]},{"id":"definition-settles","n":31,"title":"التعريف يحسم الخلاف حين يصير شرطًا تعدّ به","kind":"content","session":3,"hash":"dcd4586d","md":"#### [day1#definition-settles] التعريف يحسم الخلاف حين يصير شرطًا تعدّ به\n\n*تعريف يحسم*\n\n- **«مرشح ناجح» عند قسمين.** قسم الاختبارات: نجح في آخر محاولة له. قسم التقارير: نجح في أي محاولة خلال السنة. الرقمان مختلفان، وكلاهما يسمى «الناجحين».\n- **بعد القرار.** «مرشح ناجح: مرشح بلغت درجته 60 في آخر محاولة له في الاختبار المهني.» والرقم الآخر اسمه «مرشحون اجتازوا محاولة واحدة على الأقل».\n\n> **الرقم الآخر لا يُحذف.** يأخذ اسمًا آخر، فيبقى متاحًا ولا يختلط بالأول.","notes":"المثال مخترع على مجال الاختبارات. نقطة القوة: التعريف بعد القرار شرط على أعمدة (الدرجة، وآخر محاولة)، فيعدّ به أي محلل الرقم نفسه. وفي المختبر خلاف حقيقي في مجال الترخيص، قرر فيه المالك، وعليك أن تكتب قراره.","minutes":null,"lo":["LO2"]},{"id":"approval-flow","n":32,"title":"المشرف يصوغ، والمالك يعتمد، والكتالوج يحفظ من فعل ماذا","kind":"content","session":3,"hash":"cc2a224f","md":"#### [day1#approval-flow] المشرف يصوغ، والمالك يعتمد، والكتالوج يحفظ من فعل ماذا\n\n*الاعتماد*\n\n1. **1 · مسودة** يكتبها مشرف الأعمال من الملاحظات\n2. **2 · قيد المراجعة** تُعرض على المالك ومن يعترض\n3. **3 · معتمد** باسم المالك، والإصدار 1.0\n4. **4 · تغيير** إصدار 1.1، وسببه، والاعتماد من جديد\n\n> **أين يقع الخطأ.** «معتمد» بلا اسم من اعتمد، أو باسم من صاغ. كلاهما يجعل المصطلح رأيًا.","notes":"اضغط لكل حالة. أدوات الكتالوج تقدم سير عمل للاعتماد بأسماء مختلفة؛ في المختبر نسجل الحالة والمعتمد في ملف القاموس ثم نحمّله. الضابط الوطني يطلب إجراءً لإدخال البيانات الوصفية وتحديثها سير عمل في أداة الكتالوج.","minutes":null,"lo":["LO2"]},{"id":"versions-matter","n":33,"title":"تقرير الشهر الماضي حُسب بتعريف قد تغيّر","kind":"content","session":3,"hash":"b5152969","md":"#### [day1#versions-matter] تقرير الشهر الماضي حُسب بتعريف قد تغيّر\n\n*الإصدارات*\n\n| الإصدار | التعريف المختصر | السبب | اعتمده |\n| --- | --- | --- | --- |\n| 1.0 | نجح في آخر محاولة | قرار الخلاف بين القسمين | مدير الاختبارات |\n| 1.1 | نجح في آخر محاولة خلال 24 شهرًا | اعتماد مدة صلاحية للنتيجة | مدير الاختبارات |\n\n> **من يقرأ رقمًا قديمًا** يجب أن يعرف بأي إصدار حُسب. لهذا يحفظ الكتالوج كل إصدار، لا آخرها فقط.","notes":"مثال مخترع. السؤال للقاعة: لوحة تقارير بُنيت على الإصدار 1.0، من يُبلَّغ حين يُعتمد 1.1؟ مالك اللوحة. الكتالوج الذي يربط المصطلح بالأعمدة وبالتقارير يعرف من يُبلَّغ؛ هذا ما نراه غدًا في المسار.","minutes":null,"lo":["LO2"]},{"id":"term-links","n":34,"title":"المصطلح المربوط يجعل الكتالوج يجيب بلغة الأعمال","kind":"content","session":3,"hash":"1bbabb0a","md":"#### [day1#term-links] المصطلح المربوط يجعل الكتالوج يجيب بلغة الأعمال\n\n*الربط*\n\n- **بالأعمدة.** مصطلح واحد قد يرتبط بأعمدة في جداول وملفات مختلفة. من يبحث بالمصطلح يجدها كلها.\n- **بالمالك والمشرف.** من يعتمد التعريف، ومن يصوغه. سؤال عن المعنى له عنوان.\n- **بالتصنيف.** مستوى من أربعة: عام، ومقيد، وسري، وسري للغاية. يُقترح على كل عمود مرتبط.","notes":"المستويات الأربعة من سياسة تصنيف البيانات، وقد درستها في مقرر الأسس. ربط المصطلح بالتصنيف طريق آخر لانتشار الوسوم الذي رأيته في الجلسة السابقة. المختبر يطلب ربط ثلاثين عمودًا بخمسة عشر مصطلحًا، فبعض المصطلحات يرتبط بأكثر من عمود.","minutes":null,"lo":["LO2"]},{"id":"same-name","n":35,"title":"عمودان بالاسم نفسه لا يعنيان الشيء نفسه","kind":"content","session":3,"hash":"50acde86","md":"#### [day1#same-name] عمودان بالاسم نفسه لا يعنيان الشيء نفسه\n\n*أين يقع الخطأ*\n\n- **exam_sessions.status.** حال الجلسة: مفتوحة للتسجيل، أو مغلقة، أو منعقدة.\n- **exam_results.status.** حال النتيجة: قيد التدقيق، أو معتمدة، أو ملغاة.\n\n> **الربط بالاسم أسرع طريق للخطأ.** اقرأ الجدول وملاحظة المشرف، ثم اربط.","notes":"العمودان على الشريحة توضيح مخترع، وليسا في قاعدة الاختبارات المرفقة. أدوات تقترح ربط المصطلحات آليًا بالاسم المتشابه؛ هذا الاقتراح هو ما تراجعه، لا ما تقبله.","minutes":null,"lo":["LO2"]},{"id":"ai-off-first","n":36,"title":"أول خمسة تعريفات بيدك، ثم المساعد مرشد","kind":"content","session":3,"hash":"b28845e1","md":"#### [day1#ai-off-first] أول خمسة تعريفات بيدك، ثم المساعد مرشد\n\n*سياسة الذكاء الاصطناعي*\n\n- من لم يكتب تعريفًا بيده لا يلتقط ما ينقص في تعريف غيره، ولا في تعريف الآلة\n- في العشرة الباقية: المساعد يسأل عن تعريفك ويقترح ما ينقصه، ولا يكتبه\n- لا تُلصق ملاحظات المشرفين في المساعد: فيها ما صُنّف «مقيدًا»\n- والاختبار العملي في التقييم دون ذكاء اصطناعي: ثلاثة تعريفات ومسار واحد","notes":"هذه سياسة المقرر كما في الكتالوج: دون ذكاء اصطناعي للاختبار العملي وأول التعريفات، وصياغة كاملة للمسودات تحت المراجعة، ومرشد في غير ذلك. قل للقاعة صراحة إن الاختبار العملي يشبه هذه الخطوة، فهي تدريب عليه.","minutes":null,"lo":["LO2"]},{"id":"glossary-file","n":37,"title":"القاموس ملف يقرؤه الكتالوج، لا جدول في مجلد أحدهم","kind":"content","session":3,"hash":"38793d82","md":"#### [day1#glossary-file] القاموس ملف يقرؤه الكتالوج، لا جدول في مجلد أحدهم\n\n*ملف القاموس*\n\n```\nnodes:\n  - name: الاختبارات\n    terms:\n      - name: مرشح ناجح\n        description: مرشح بلغت درجته 60 في آخر محاولة …\n        owners: {users: [مدير الاختبارات]}\n        custom_properties:\n          classification: مقيد\n          status: معتمد\n          version: \"1.0\"\n```","notes":"هذه صيغة القاموس في أداة DataHub. في المختبر لا تكتب هذا الملف بيدك: تملأ جدول بيانات، وأداة المقرر تكتبه منه ثم تحمّله أداة الكتالوج لتثبت أنها تقبله. في OpenMetadata صيغة أخرى للفكرة نفسها.","minutes":null,"lo":["LO2"]},{"id":"check-glossary-dispute","n":38,"title":"ماذا يُكتب في القاموس بعد قرار المالك؟","kind":"quiz","session":3,"hash":"4c42dd2e","md":"#### [day1#check-glossary-dispute] ماذا يُكتب في القاموس بعد قرار المالك؟\n\n*نقطة تحقق*\n\n**سؤال:** قرر مدير الاختبارات أن «المرشح الناجح» من نجح في آخر محاولة. قسم التقارير ما زال يحتاج عدد من نجح في أي محاولة. ما الذي يُسجّل في القاموس؟\n\n- أ. التعريف المعتمد فقط، ويُطلب من التقارير ترك رقمها\n- ب. التعريف المعتمد، واسم آخر للرقم الثاني، والقرار وتاريخه\n- ج. التعريفان معًا تحت المصطلح نفسه، ويختار القارئ ما يناسبه\n- د. لا شيء في القاموس، ويُضاف عمود جديد للرقم الآخر في جدول النتائج","notes":"الإجابة: ب. اربطها بالمختبر: في ملاحظات الترخيص خلاف مثله على «رخصة سارية»، وقرار المالك مكتوب بتاريخه.","minutes":null,"lo":["LO2"]},{"id":"lab-1-3","n":39,"title":"كتابة 15 مصطلحًا لمجال الترخيص وربطها","kind":"lab","session":3,"hash":"1d13fdb1","md":"#### [day1#lab-1-3] كتابة 15 مصطلحًا لمجال الترخيص وربطها\n\nالمختبر 1.3 · 70 دقيقة\n\nتكتب 15 مصطلحًا لمجال الترخيص من ملاحظات المشرفين، أولها خمسة دون أي أداة ذكاء اصطناعي، وتسجل لكل منها المالك والتصنيف والحالة والإصدار، وتربط بها 30 عمودًا، ثم يقبلها الكتالوج ملفًا للقاموس.\n\n[D1_3_glossary.html](https://sdaiaacademy.github.io/lds-dmg-202/labs/D1_3_glossary.html)\n\n- [ ] اقرأ ملاحظات المشرفين والأعمدة الثلاثين (8 د)\n- [ ] اكتب التعريفات الخمسة الأولى دون أي أداة ذكاء اصطناعي (15 د)\n- [ ] اكتب التعريفات العشرة الباقية، والمساعد مرشد فقط (15 د)\n- [ ] املأ المالك والمشرف والتصنيف والحالة والإصدار (10 د)\n- [ ] اربط الأعمدة الثلاثين بمصطلحاتها (12 د)\n- [ ] شغّل فحص القاموس حتى ينجح (10 د)\n- [ ] ✱ إضافي: اكتب الإصدار 1.1 لمصطلح «رخصة سارية» لو أُضيفت فترة سماح بعد الانتهاء، وسبب التغيير","notes":"أول خمس وعشرين دقيقة بلا أي أداة ذكاء اصطناعي: تجول وتأكد. أدِّ دور المالك في الخطوة الرابعة: ارفض اعتماد أي تعريف دائري، أو تعريف «رخصة سارية» الذي لا يذكر تاريخ الانتهاء.\n\nالخطأ الأكثر شيوعًا: ربط عمودي status بمصطلح واحد. الثاني: كتابة اسم المشرف في approved_by. أداة الفحص تلتقط الثاني، لا الأول.","minutes":null,"lo":[]},{"id":"debrief-1-3","n":40,"title":"بتعريف المالك 1710 رخصة سارية، وبالحالة وحدها 1804","kind":"content","session":3,"hash":"81039836","md":"#### [day1#debrief-1-3] بتعريف المالك 1710 رخصة سارية، وبالحالة وحدها 1804\n\n*بعد المختبر 1.3*\n\n- **15** مصطلحًا معتمدًا، 7 عامة و8 مقيدة\n- **30** عمودًا مربوطًا، ولكل مصطلح عمود على الأقل\n- **94** رخصة انتهت ولم تُحدّث حالتها في نهاية أكتوبر\n\n> **ومن يقرأ عمود الحالة؟** لو غيّره فريق التطوير غدًا، من يعرف أي رقم سيتغير؟ هذا سؤال الغد.","notes":"الأعداد من مفاتيح الحالة (labs/solutions/D1_3_glossary.md). الرسوم مصطلح مقيد يعتمده مدير الشؤون المالية، وهو المصطلح الوحيد بمالك آخر. اسأل من ربط applications.status بحالة الرخصة، وارجع إلى شريحة العمودين بالاسم نفسه.","minutes":null,"lo":["LO2"]},{"id":"wrap-up","n":41,"title":"ثلاثة أمور تبقى معك","kind":"content","session":3,"hash":"1290427d","md":"#### [day1#wrap-up] ثلاثة أمور تبقى معك\n\n*خلاصة اليوم 1*\n\n- **الوصفة قرار.** ما يدخل الكتالوج، وما يظهر منه، ومتى يتحدث: كلها أسطر في الوصفة، والناتج دليلها.\n- **الآلة تقترح.** المسودة سريعة، والمراجع المسمّى هو من يجعلها وصفًا. قس معدل الخطأ بالأنواع.\n- **المالك يحسم.** المصطلح المعتمد معنى واحد باسم من اعتمده، والرقم الآخر يأخذ اسمًا آخر.","notes":"اطلب من كل مشارك جملة واحدة: أي من الثلاثة سيغيّر شيئًا في جهته هذا الشهر؟","minutes":null,"lo":[]},{"id":"next","n":42,"title":"اليوم 2: المسار والقياس والنشر","kind":"content","session":3,"hash":"aee07f2d","md":"#### [day1#next] اليوم 2: المسار والقياس والنشر\n\n*التالي*\n\nطلب تغيير على عمود حالة الرخصة ينتظر قرارك. أبقِ مجلد labs كما هو؛ مختبرات الغد تبدأ من ملفات جاهزة، لا من ناتج اليوم.","notes":"من لم يكمل مختبرًا يكمله في المنزل ويشغّل فحصه. لا يحتاج الغد أي ناتج من اليوم: كل مختبر يبدأ من ملفاته.","minutes":null,"lo":[]}],"activities":[{"id":"check-metadata-kinds-q1","slide":"check-metadata-kinds","type":"single","prompt":"بعد أول استخلاص لقاعدة الاختبارات، ظهر في مدخل جدول الجلسات عدد من الحقول. أي حقل يبقى فارغًا حتى يكتبه إنسان؟","options":[{"key":"أ","text":"عدد الصفوف وآخر استخلاص"},{"key":"ب","text":"أنواع الأعمدة الخمسة في جدول الجلسات"},{"key":"ج","text":"تصنيف جدول الجلسات ومالكه"},{"key":"د","text":"أدنى عدد مقاعد وأعلاه بين الجلسات"}],"correct":[2],"explanation":"التصنيف والملكية قراران من أشخاص لهم صلاحية، وليسا في المصدر. هذا ما يضيفه الإنسان.","misconceptions":["يظن أن عدد الصفوف يحتاج إنسانًا، والتنميط يحسبه في كل تشغيل","يخلط بين الهيكلية والوصفية: الأنواع يقرؤها الموصل من المخطط","","يظن أن القيم الدنيا والعليا تحتاج من يحسبها، والتنميط يحسبها لكل عمود رقمي في كل تشغيل"],"lo":["LO1"]},{"id":"check-draft-review-q1","slide":"check-draft-review","type":"single","prompt":"مسودة لعمود exam_results.passed: «1 إذا تجاوز المرشح 70 درجة، ويبقى الاجتياز صالحًا سنتين.» المصدر: الاجتياز 1 حين تبلغ الدرجة 60، ولا مدة صلاحية في أي وثيقة.","options":[{"key":"أ","text":"قبول، لأن الصياغة واضحة والمعنى العام صحيح"},{"key":"ب","text":"تعديل الحد إلى 60 فقط، وإبقاء مدة الصلاحية"},{"key":"ج","text":"رفض، والنوع وحدة أو صيغة خاطئة"},{"key":"د","text":"رفض، والنوع قاعدة مختلقة لا مصدر لها"}],"correct":[3],"explanation":"قاعدتان لا مصدر لهما، وكلتاهما تغيّر من يُعد ناجحًا. يُكتب الوصف من جديد من المصدر.","misconceptions":["يرى صياغة سليمة فيقبل، والصياغة السليمة ليست دليلًا على الصحة","يعالج الحد ويترك المدة المختلقة، والمدة تغيّر قرارات من يقرأ","يسمي النوع بالأثر الظاهر: الحد رقم، لكن الخطأ أنه غير موجود في المصدر",""],"lo":["LO3"]},{"id":"check-glossary-dispute-q1","slide":"check-glossary-dispute","type":"single","prompt":"قرر مدير الاختبارات أن «المرشح الناجح» من نجح في آخر محاولة. قسم التقارير ما زال يحتاج عدد من نجح في أي محاولة. ما الذي يُسجّل في القاموس؟","options":[{"key":"أ","text":"التعريف المعتمد فقط، ويُطلب من التقارير ترك رقمها"},{"key":"ب","text":"التعريف المعتمد، واسم آخر للرقم الثاني، والقرار وتاريخه"},{"key":"ج","text":"التعريفان معًا تحت المصطلح نفسه، ويختار القارئ ما يناسبه"},{"key":"د","text":"لا شيء في القاموس، ويُضاف عمود جديد للرقم الآخر في جدول النتائج"}],"correct":[1],"explanation":"المصطلح الواحد معنى واحد. الرقم الآخر يبقى باسمه، والقرار يُسجّل ليعرف القارئ لماذا.","misconceptions":["يحذف حاجة قائمة فيعود كل قسم إلى حسابه الخاص","","يترك الخلاف بلا حسم، فيختار كل قارئ ما يناسبه","يخلط بين المصطلح والعمود: القرار عن المعنى، لا عن الجدول"],"lo":["LO2"]}],"ai":{"context":{"course":"../context/course.md","courseJs":"../context/course.js","day":"day1.md","llms":"../llms.txt"},"tasks":[],"tools":[]},"bridge":{"allowedOrigins":[]},"features":{},"strings":{}}</script>
+<script src="../_engine/academy.js"></script>
+</body>
+</html>
